@@ -4,17 +4,18 @@ import { Input, Button } from "@/shared";
 import { useNavigate } from "react-router-dom";
 import { AxiosError } from "axios";
 
-export const LoginForm = () => {
+export const RegisterForm = () => {
   const navigate = useNavigate();
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  const [loginData, setLoginData] = useState({
+  const [regData, setRegData] = useState({
     email: "",
     password: "",
+    name: "",
   });
 
-  const loginUser = useSessionStore((state) => state.loginUser);
+  const registerUser = useSessionStore((state) => state.registerUser);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -22,18 +23,18 @@ export const LoginForm = () => {
     setIsLoading(true);
 
     try {
-      await loginUser(loginData);
+      await registerUser(regData);
       navigate("/");
-    } catch (error: any) {
-      if (error instanceof AxiosError) {
-        const detail = error.response?.data?.detail;
+    } catch (err) {
+      if (err instanceof AxiosError) {
+        const detail = err.response?.data?.detail;
         setError(
           Array.isArray(detail)
             ? "Не правильно введен Email или Password"
-            : detail || "Ошибка входа",
+            : detail || "Ошибка регистрации",
         );
       } else {
-        setError("Не удалось связаться с сервером");
+        setError("Ошибка сети");
       }
     } finally {
       setIsLoading(false);
@@ -42,33 +43,42 @@ export const LoginForm = () => {
 
   const handleInpChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setLoginData((prev) => ({ ...prev, [name]: value }));
+    setRegData((prev) => ({ ...prev, [name]: value }));
   };
 
   return (
     <div className="flex flex-col gap-4">
-      <h1 className="text-xl font-bold">Войти в аккаунт</h1>
-
+      <h1 className="text-xl font-bold">Создать аккаунт</h1>
       <form onSubmit={handleSubmit} className="space-y-4">
         {error && <div className="text-red-600">{error}</div>}
 
         <Input
           label="Email"
           name="email"
-          value={loginData.email}
+          value={regData.email}
           onChange={handleInpChange}
           placeholder="example@mail.com"
+        />
+        <Input
+          label="Name"
+          name="name"
+          value={regData.name}
+          onChange={handleInpChange}
+          placeholder="Любое имя"
         />
         <Input
           label="Password"
           type="password"
           name="password"
-          value={loginData.password}
+          value={regData.password}
           onChange={handleInpChange}
-          placeholder="Введите пароль"
+          placeholder="Минимум 6 символов"
         />
 
-        <Button value={isLoading ? "Загрузка..." : "Войти"} type="submit" />
+        <Button
+          value={isLoading ? "Регистрация..." : "Зарегистрироваться"}
+          type="submit"
+        />
       </form>
     </div>
   );

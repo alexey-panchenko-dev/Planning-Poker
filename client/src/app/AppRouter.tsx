@@ -1,13 +1,20 @@
-import { createBrowserRouter } from "react-router";
+import { createBrowserRouter, Link } from "react-router";
 import { LoginPage } from "@/pages/LoginPage";
 
 export const AppRouter = createBrowserRouter([
   {
     path: "/",
-    element: <div>homeScreen</div>,
+    element: (
+      <div>
+        <Link className="bg-blue-500" to="auth">
+          go to auth
+        </Link>
+        <div>homeScreen</div>
+      </div>
+    ),
   },
   {
-    path: "/register",
+    path: "/auth",
     element: <LoginPage />,
   },
   {

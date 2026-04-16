@@ -29,6 +29,7 @@ export const useSessionStore = create<sessionStore>((set) => ({
       });
     } catch (error) {
       console.error(`Ошибка ${error}`);
+      throw error;
     }
   },
 
@@ -44,6 +45,7 @@ export const useSessionStore = create<sessionStore>((set) => ({
       });
     } catch (error) {
       console.error(`Ошибка ${error}`);
+      throw error;
     }
   },
 
@@ -67,6 +69,7 @@ export const useSessionStore = create<sessionStore>((set) => ({
 
       localStorage.removeItem("accessToken");
       set({ user: null, isAuth: false });
+      throw error;
     }
   },
 }));
