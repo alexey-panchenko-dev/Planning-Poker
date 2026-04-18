@@ -6,20 +6,20 @@ interface ButtonI {
 }
 
 const BtnVariants: Record<string, string> = {
-  primary: "bg-[#00c38b] hover:bg-[#00a375] text-black font-semibold",
-  outline:
-    "bg-transparent border border-gray-600 text-white hover:border-gray-400",
+  accent: "bg-accent/70 hover:bg-accent text-font-main font-semibold",
+  danger: "bg-danger/70 hover:bg-danger text-font-main font-semibold",
+  ghost: "bg-danger/70 hover:bg-danger text-font-main font-semibold",
 };
 
 export const Button = ({
   value,
-  variant = "primary",
+  variant = "accent",
   type = "button",
   onClick,
 }: ButtonI) => {
   return (
     <button
-      className={`py-2 px-6 rounded-xl transition-all active:scale-95 ${BtnVariants[variant]}`}
+      className={`py-2 px-6 rounded-xl transition-all duration-200 active:scale-95 ${BtnVariants[variant] || ""}`}
       type={type}
       onClick={onClick}
     >

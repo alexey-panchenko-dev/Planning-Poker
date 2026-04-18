@@ -3,14 +3,14 @@
 @theme {
   /* ACCENTS */
   --color-accent: #10b981;
-  --color-danger: #be123c;
-  --color-ghost: #788994;
+  --color-danger: #b9103a;
+  --color-ghost: #7c919d;
 
   /* BACCKGROUND */
-  --color-main-bg: #121212;
-  --color-default: #262c31;
+  --color-main-bg: #171716;
+  --color-card-bg: #272b2f;
 
   /* FORNT */
-  --color-font-main: #f1f5f9;
-  --color-font-muted: #64748b;
+  --color-font-main: #f1f5f6;
+  --color-font-muted: #718590;
 }

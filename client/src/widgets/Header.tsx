@@ -1,25 +1,32 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/shared";
+import { NavLink } from "react-router-dom";
 
 export const Header = () => {
+  const navigation = [
+    { id: 1, title: "Главная", path: "/" },
+    { id: 2, title: "Комнаты", path: "/rooms" },
+  ];
+
   return (
-    <header className="flex items-center justify-between px-10 py-6 bg-transparent absolute top-0 w-full z-10">
-      <div className="flex items-center gap-12">
-        <img src="/Logo.svg" alt="IHP Logo" className="h-8" />
-        <nav className="flex gap-8 text-gray-400 font-medium">
-          <Link
-            to="/"
-            className="text-[#00c38b] border-b-2 border-[#00c38b] pb-1"
+    <header className="flex items-center justify-between px-15 py-4 bg-main-bg shadow-xl absolute top-0 w-full z-10">
+      <img src="/Logo.svg" alt="IHP Logo" className="h-8" />
+      <nav className="flex gap-8 text-gray-400 font-medium">
+        {navigation.map((link) => (
+          <NavLink
+            key={link.id}
+            to={link.path}
+            className={({ isActive }) =>
+              `pb-1 transition-all ${isActive ? "text-accent border-b-2 border-accent" : "text-font-muted"}`
+            }
           >
-            Главная
-          </Link>
-          <Link to="/rooms" className="hover:text-white transition-colors">
-            Комнаты
-          </Link>
-        </nav>
-      </div>
+            {link.title}
+          </NavLink>
+        ))}
+      </nav>
+
       <Link to="/auth">
-        <Button value="Войти" variant="primary" />
+        <Button value="Войти" />
       </Link>
     </header>
   );

@@ -6,14 +6,12 @@ export const HomePage = () => {
     <div className="relative min-h-screen bg-[#121212] text-white overflow-hidden flex flex-col items-center justify-center">
       <div className="absolute top-[-10%] right-[-10%] w-[600px] h-[600px] bg-[#00c38b] opacity-20 blur-[150px] rounded-full" />
 
-      <Header />
-
       <main className="relative z-10 flex flex-col items-center text-center max-w-3xl px-4">
         <h1 className="text-6xl font-bold mb-4">
-          <span className="text-[#00c38b]">IHP</span> - I Have a Plan
+          <span className="text-accent">IHP</span> - I Have a Plan
         </h1>
 
-        <p className="text-xl text-gray-400 leading-relaxed mb-12">
+        <p className="text-xl text-font-main leading-relaxed mb-12">
           Повысьте качество планирования спринтов. <br />
           Премиальный инструмент для принятия решений в <br />
           атмосфере спокойствия и фокуса.
@@ -24,13 +22,9 @@ export const HomePage = () => {
 
           <div className="flex gap-3">
             <div className="flex-1">
-              <Input
-                placeholder="Введите код"
-                // Можно добавить кастомные стили для этого конкретного инпута,
-                // если bg-gray-600 слишком светлый
-              />
+              <Input placeholder="Введите код" />
             </div>
-            <Button value="Присоединиться" variant="primary" />
+            <Button value="Присоединиться" variant="accent" />
           </div>
         </div>
       </main>
