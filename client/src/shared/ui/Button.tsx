@@ -5,22 +5,21 @@ interface ButtonI {
   onClick?: () => void;
 }
 
-const BtnVariants = {
-  accent: "asldfka;sldf",
-  danger: "asldfka;sldf",
-  success: "asldfka;sldf",
+const BtnVariants: Record<string, string> = {
+  primary: "bg-[#00c38b] hover:bg-[#00a375] text-black font-semibold",
+  outline:
+    "bg-transparent border border-gray-600 text-white hover:border-gray-400",
 };
 
 export const Button = ({
   value,
-  variant,
+  variant = "primary",
   type = "button",
   onClick,
 }: ButtonI) => {
   return (
     <button
-      className={`bg-blue-400 text-white
-      py-2 px-4 rounded-xl ${variant}`}
+      className={`py-2 px-6 rounded-xl transition-all active:scale-95 ${BtnVariants[variant]}`}
       type={type}
       onClick={onClick}
     >

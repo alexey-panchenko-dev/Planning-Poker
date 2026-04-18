@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { login, getMe, register } from "@/shared/api/auth";
+import { login, getMe, register } from "@/features/auth/model/auth";
 import { type UserI } from "./types";
 
 interface sessionStore {
@@ -60,6 +60,7 @@ export const useSessionStore = create<sessionStore>((set) => ({
   checkAuth: async () => {
     try {
       const response = await getMe();
+
       set({
         user: response.data,
         isAuth: true,

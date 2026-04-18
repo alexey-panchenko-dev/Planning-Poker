@@ -1,49 +1,41 @@
 import { useSessionStore } from "@/entities/session/model/store";
-import { useState } from "react";
+import { useAuthForm } from "../model/useAuthForm";
 import { Input, Button } from "@/shared";
-import { useNavigate } from "react-router-dom";
-import { AxiosError } from "axios";
 
 export const LoginForm = () => {
-  const navigate = useNavigate();
-  const [error, setError] = useState<string | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
-
-  const [loginData, setLoginData] = useState({
-    email: "",
-    password: "",
-  });
-
   const loginUser = useSessionStore((state) => state.loginUser);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError(null);
-    setIsLoading(true);
+  const validate = (data: any) => {
+    const errors: Record<string, string> = {};
 
-    try {
-      await loginUser(loginData);
-      navigate("/");
-    } catch (error: any) {
-      if (error instanceof AxiosError) {
-        const detail = error.response?.data?.detail;
-        setError(
-          Array.isArray(detail)
-            ? "Не правильно введен Email или Password"
-            : detail || "Ошибка входа",
-        );
-      } else {
-        setError("Не удалось связаться с сервером");
-      }
-    } finally {
-      setIsLoading(false);
+    if (!data.email.includes("@")) {
+      errors.email = "Email должен содержать @";
     }
-  };
+    if (!data.email.includes(".")) {
+      errors.email = "Email должен содержать .";
+    }
+    if (data.password.length < 8) {
+      errors.password = "Пароль должен быть от 8 символов";
+    }
 
-  const handleInpChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setLoginData((prev) => ({ ...prev, [name]: value }));
+    return errors;
   };
+  const {
+    formData,
+    error,
+    fieldErrors,
+    isLoading,
+    handleSubmit,
+    handleInpChange,
+  } = useAuthForm(
+    {
+      email: "",
+      password: "",
+    },
+    loginUser,
+    "Ошибка входа",
+    validate,
+  );
 
   return (
     <div className="flex flex-col gap-4">
@@ -55,17 +47,19 @@ export const LoginForm = () => {
         <Input
           label="Email"
           name="email"
-          value={loginData.email}
+          value={formData.email}
           onChange={handleInpChange}
           placeholder="example@mail.com"
+          error={fieldErrors.email}
         />
         <Input
           label="Password"
           type="password"
           name="password"
-          value={loginData.password}
+          value={formData.password}
           onChange={handleInpChange}
           placeholder="Введите пароль"
+          error={fieldErrors.password}
         />
 
         <Button value={isLoading ? "Загрузка..." : "Войти"} type="submit" />

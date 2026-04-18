@@ -1,4 +1,4 @@
-import { apiInstance } from "./base";
+import { apiInstance } from "../../../shared/api/base";
 
 export const login = (data: any) => {
   return apiInstance.post("/auth/login", data);

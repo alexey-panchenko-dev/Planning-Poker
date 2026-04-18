@@ -1,1 +1,16 @@
 @import "tailwindcss";
+
+@theme {
+  /* ACCENTS */
+  --color-accent: #10b981;
+  --color-danger: #be123c;
+  --color-ghost: #788994;
+
+  /* BACCKGROUND */
+  --color-main-bg: #121212;
+  --color-default: #262c31;
+
+  /* FORNT */
+  --color-font-main: #f1f5f9;
+  --color-font-muted: #64748b;
+}

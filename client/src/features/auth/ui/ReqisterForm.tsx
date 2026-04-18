@@ -1,50 +1,42 @@
-import { useSessionStore } from "@/entities/session/model/store";
-import { useState } from "react";
 import { Input, Button } from "@/shared";
-import { useNavigate } from "react-router-dom";
-import { AxiosError } from "axios";
+import { useAuthForm } from "../model/useAuthForm";
+import { useSessionStore } from "@/entities/session/model/store";
 
 export const RegisterForm = () => {
-  const navigate = useNavigate();
-  const [error, setError] = useState<string | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
-
-  const [regData, setRegData] = useState({
-    email: "",
-    password: "",
-    name: "",
-  });
-
   const registerUser = useSessionStore((state) => state.registerUser);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError(null);
-    setIsLoading(true);
+  const validateRegister = (data: any) => {
+    const errors: Record<string, string> = {};
 
-    try {
-      await registerUser(regData);
-      navigate("/");
-    } catch (err) {
-      if (err instanceof AxiosError) {
-        const detail = err.response?.data?.detail;
-        setError(
-          Array.isArray(detail)
-            ? "Не правильно введен Email или Password"
-            : detail || "Ошибка регистрации",
-        );
-      } else {
-        setError("Ошибка сети");
-      }
-    } finally {
-      setIsLoading(false);
+    if (!data.email.includes("@")) {
+      errors.email = "Email должен содержать @";
     }
+    if (!data.email.includes(".")) {
+      errors.email = "Email должен содержать .";
+    }
+    if (!data.name.trim()) {
+      errors.name = "Имя обязательно";
+    }
+    if (data.password.length < 8) {
+      errors.password = "Пароль должен быть от 8 символов";
+    }
+
+    return errors;
   };
 
-  const handleInpChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setRegData((prev) => ({ ...prev, [name]: value }));
-  };
+  const {
+    formData,
+    error,
+    fieldErrors,
+    isLoading,
+    handleSubmit,
+    handleInpChange,
+  } = useAuthForm(
+    { email: "", name: "", password: "" },
+    registerUser,
+    "Ошибка регистрации",
+    validateRegister,
+  );
 
   return (
     <div className="flex flex-col gap-4">
@@ -55,24 +47,29 @@ export const RegisterForm = () => {
         <Input
           label="Email"
           name="email"
-          value={regData.email}
+          value={formData.email}
           onChange={handleInpChange}
+          error={fieldErrors.email}
           placeholder="example@mail.com"
         />
+
         <Input
           label="Name"
           name="name"
-          value={regData.name}
+          value={formData.name}
           onChange={handleInpChange}
+          error={fieldErrors.name}
           placeholder="Любое имя"
         />
+
         <Input
           label="Password"
           type="password"
           name="password"
-          value={regData.password}
+          value={formData.password}
           onChange={handleInpChange}
-          placeholder="Минимум 6 символов"
+          error={fieldErrors.password}
+          placeholder="Минимум 8 символов"
         />
 
         <Button
