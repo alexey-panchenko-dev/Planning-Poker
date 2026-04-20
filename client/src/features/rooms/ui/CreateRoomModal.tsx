@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useCreateRoom } from "@/features/rooms/model/useCreateRoom";
+import { Button, Input } from "@/shared";
 
 export const CreateRoomModal = ({
   onClose,
@@ -12,7 +13,6 @@ export const CreateRoomModal = ({
   const [description, setDescription] = useState("");
   const { mutate, isPending } = useCreateRoom();
 
-  // Сбрасываем поля после успешного создания
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     mutate(
@@ -32,45 +32,44 @@ export const CreateRoomModal = ({
   return (
     <div
       onClick={onClose}
-      className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4"
+      className="fixed inset-0 bg-main-bg/40 backdrop-blur-md flex items-center justify-center z-[100] p-4"
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="bg-[#0f1117] border border-white/10 rounded-2xl p-6 w-full max-w-md shadow-2xl"
+        className="bg-card-bg p-8 rounded-2xl w-full max-w-md"
       >
-        <h2 className="text-xl font-bold text-white mb-6">Создать комнату</h2>
+        <h2 className="text-2xl font-bold text-font-main mb-6">
+          Создать комнату
+        </h2>
 
-        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-          <input
+        <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+          <Input
+            label="Название"
             value={name}
-            onChange={(e) => setName(e.target.value)}
-            placeholder="Название комнаты"
-            required
-            className="bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-gray-500 outline-none focus:border-[#00c38b]/50 transition-colors"
+            onChange={(e) => setName(e.target.value.toUpperCase())}
+            placeholder="Введите название комнаты..."
           />
-          <textarea
+
+          <Input
+            label="Описание"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-            placeholder="Описание (необязательно)"
-            rows={3}
-            className="bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-gray-500 outline-none focus:border-[#00c38b]/50 transition-colors resize-none"
+            placeholder="О чем эта комната?"
           />
 
           <div className="flex gap-3 mt-2">
-            <button
-              type="button"
+            <Button
+              value="Отмена"
+              variant="ghost"
               onClick={onClose}
-              className="flex-1 py-3 border border-white/10 text-gray-400 rounded-xl hover:bg-white/5 transition-colors"
-            >
-              Отмена
-            </button>
-            <button
+              className="flex-1"
+            />
+            <Button
               type="submit"
-              disabled={isPending || !name.trim()}
-              className="flex-1 py-3 bg-accent text-black font-bold rounded-xl disabled:opacity-50 hover:shadow-[0_0_15px_rgba(0,195,139,0.4)] transition-all"
-            >
-              {isPending ? "Создание..." : "Создать"}
-            </button>
+              value={isPending ? "Создание..." : "Создать комнату"}
+              variant="accent"
+              className="flex-1"
+            />
           </div>
         </form>
       </div>

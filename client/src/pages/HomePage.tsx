@@ -1,5 +1,4 @@
 import { Input, Button } from "@/shared";
-import { Header } from "@/widgets/Header";
 
 export const HomePage = () => {
   return (
@@ -14,9 +13,9 @@ export const HomePage = () => {
         </h1>
 
         <p className="text-xl text-font-main leading-relaxed mb-12">
-          Повысьте качество планирования спринтов. <br />
+          Повысьте качество планирования спринтов <br />
           Премиальный инструмент для принятия решений в <br />
-          атмосфере спокойствия и фокуса.
+          атмосфере спокойствия и фокуса
         </p>
 
         <div className="w-full max-w-md">
@@ -24,7 +23,7 @@ export const HomePage = () => {
 
           <div className="flex gap-3">
             <div className="flex-1">
-              <Input placeholder="Введите код" />
+              <Input placeholder="Введите код" variant="default2" />
             </div>
             <Button value="Присоединиться" />
           </div>

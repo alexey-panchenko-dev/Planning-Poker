@@ -1,10 +1,17 @@
-import { Link } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import { Button } from "@/shared";
-import { NavLink } from "react-router-dom";
 import { useSessionStore } from "@/entities/session/model/useSessionStore";
+import { useShallow } from "zustand/react/shallow";
 
 export const Header = () => {
-  const logout = useSessionStore((state) => state.logout);
+  const { isAuth, logout } = useSessionStore(
+    useShallow((state) => ({
+      isAuth: state.isAuth,
+      logout: state.logout,
+    })),
+  );
+
+  const location = useLocation();
 
   const navigation = [
     { id: 1, title: "Главная", path: "/" },
@@ -12,9 +19,14 @@ export const Header = () => {
   ];
 
   return (
-    <header className="flex items-center justify-between px-15 py-4 bg-main-bg shadow-xl absolute top-0 w-full z-10">
-      <img src="/Logo.svg" alt="IHP Logo" className="h-8" />
-      <nav className="flex gap-8 text-gray-400 font-medium">
+    <header className="grid grid-cols-3 items-center px-15 py-5 bg-main-bg shadow-xl absolute top-0 w-full z-10">
+      <div className="flex justify-start">
+        <Link to="/">
+          <img src="/Logo.svg" alt="IHP Logo" className="h-10" />
+        </Link>
+      </div>
+
+      <nav className="flex justify-center gap-8 text-gray-400 font-medium">
         {navigation.map((link) => (
           <NavLink
             key={link.id}
@@ -28,10 +40,15 @@ export const Header = () => {
         ))}
       </nav>
 
-      <Link to="/auth" state={{ form: location }}>
-        <Button value="Войти" />
-      </Link>
-      <Button value="Выйти из аккаунта" variant="danger" onClick={logout} />
+      <div className="flex justify-end gap-2">
+        {!isAuth ? (
+          <Link to="/auth" state={{ from: location }}>
+            <Button value="Войти" />
+          </Link>
+        ) : (
+          <Button value="Выйти из аккаунта" variant="danger" onClick={logout} />
+        )}
+      </div>
     </header>
   );
 };

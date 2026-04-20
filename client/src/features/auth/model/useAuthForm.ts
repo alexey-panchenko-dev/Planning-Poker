@@ -33,7 +33,11 @@ export const useAuthForm = <T extends object>(
       await submitAction(formData);
 
       const state = location.state as { from?: { pathname: string } };
-      const targetPath = state?.from?.pathname || "/";
+      let targetPath = state?.from?.pathname || "/";
+
+      if (targetPath.startsWith("/auth")) {
+        targetPath = "/";
+      }
 
       navigate(targetPath, { replace: true });
     } catch (err) {
@@ -46,6 +50,7 @@ export const useAuthForm = <T extends object>(
   const handleInpChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
+
     if (fieldErrors[name]) {
       setFieldErrors((prev) => {
         const newErrs = { ...prev };
