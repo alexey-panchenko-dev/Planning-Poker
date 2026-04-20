@@ -1,7 +1,7 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { RouterProvider } from "react-router";
 import { AppRouter } from "./AppRouter";
-import { useSessionStore } from "@/entities/session/model/store";
+import { useSessionStore } from "@/entities/session/model/useSessionStore";
 import { useEffect } from "react";
 
 const queryClient = new QueryClient();

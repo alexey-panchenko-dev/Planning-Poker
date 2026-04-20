@@ -1,8 +1,9 @@
-import { createBrowserRouter, Outlet } from "react-router"; // Добавили Outlet
+import { createBrowserRouter, Outlet } from "react-router";
 
 import { LoginPage } from "@/pages/LoginPage";
 import { HomePage } from "@/pages/HomePage";
 import { Header } from "@/widgets/Header";
+import { RoomsPage } from "@/pages/RoomsPage";
 
 const Layout = () => (
   <>
@@ -17,26 +18,10 @@ export const AppRouter = createBrowserRouter([
   {
     element: <Layout />,
     children: [
-      {
-        path: "/",
-        element: <HomePage />,
-      },
-      {
-        path: "/auth",
-        element: <LoginPage />,
-      },
-      {
-        path: "/dashboard",
-        element: <div>dashboard</div>,
-      },
-      {
-        path: "/room/:id",
-        element: <div>room</div>,
-      },
-      {
-        path: "/rooms",
-        element: <div>rooms</div>,
-      },
+      { path: "/", element: <HomePage /> },
+      { path: "/auth", element: <LoginPage /> },
+      { path: "/rooms", element: <RoomsPage /> },
+      { path: "/room/:id", element: <div>room</div> },
     ],
   },
 ]);

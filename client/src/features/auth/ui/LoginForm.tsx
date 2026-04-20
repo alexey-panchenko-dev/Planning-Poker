@@ -1,4 +1,4 @@
-import { useSessionStore } from "@/entities/session/model/store";
+import { useSessionStore } from "@/entities/session/model/useSessionStore";
 import { useAuthForm } from "../model/useAuthForm";
 import { Input, Button } from "@/shared";
 

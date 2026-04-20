@@ -14,3 +14,7 @@
   --color-font-main: #f1f5f6;
   --color-font-muted: #718590;
 }
+
+body {
+  background-color: #171716;
+}

@@ -4,7 +4,9 @@ import { Header } from "@/widgets/Header";
 export const HomePage = () => {
   return (
     <div className="relative min-h-screen bg-[#121212] text-white overflow-hidden flex flex-col items-center justify-center">
-      <div className="absolute top-[-10%] right-[-10%] w-[600px] h-[600px] bg-[#00c38b] opacity-20 blur-[150px] rounded-full" />
+      <div className="absolute top-[200px] right-[300px] w-[300px] h-[300px] bg-accent opacity-10 blur-[150px] rounded-full" />
+      <div className="absolute top-[-10%] left-[-10%] w-[600px] h-[600px] bg-accent opacity-20 blur-[150px] rounded-full" />
+      <div className="absolute top-[60%] left-[16%] w-[500px] h-[500px] bg-ghost opacity-10 blur-[150px] rounded-full" />
 
       <main className="relative z-10 flex flex-col items-center text-center max-w-3xl px-4">
         <h1 className="text-6xl font-bold mb-4">
@@ -18,13 +20,13 @@ export const HomePage = () => {
         </p>
 
         <div className="w-full max-w-md">
-          <h2 className="text-2xl text-gray-300 mb-6">Найти сессию</h2>
+          <h2 className="text-2xl text-font-main mb-6">Найти сессию</h2>
 
           <div className="flex gap-3">
             <div className="flex-1">
               <Input placeholder="Введите код" />
             </div>
-            <Button value="Присоединиться" variant="accent" />
+            <Button value="Присоединиться" />
           </div>
         </div>
       </main>

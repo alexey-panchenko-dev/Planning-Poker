@@ -1,6 +1,6 @@
 import { Input, Button } from "@/shared";
 import { useAuthForm } from "../model/useAuthForm";
-import { useSessionStore } from "@/entities/session/model/store";
+import { useSessionStore } from "@/entities/session/model/useSessionStore";
 
 export const RegisterForm = () => {
   const registerUser = useSessionStore((state) => state.registerUser);
