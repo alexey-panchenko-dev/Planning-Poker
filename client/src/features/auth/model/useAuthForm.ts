@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 export const useAuthForm = <T extends object>(
   initialState: T,
@@ -8,6 +8,8 @@ export const useAuthForm = <T extends object>(
   validate?: (data: T) => Record<string, string>,
 ) => {
   const navigate = useNavigate();
+  const location = useLocation();
+
   const [error, setError] = useState<string | null>(null);
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
   const [isLoading, setIsLoading] = useState(false);
@@ -29,7 +31,11 @@ export const useAuthForm = <T extends object>(
     setIsLoading(true);
     try {
       await submitAction(formData);
-      navigate("/");
+
+      const state = location.state as { from?: { pathname: string } };
+      const targetPath = state?.from?.pathname || "/";
+
+      navigate(targetPath, { replace: true });
     } catch (err) {
       setError(errorPrefix);
     } finally {
@@ -40,7 +46,6 @@ export const useAuthForm = <T extends object>(
   const handleInpChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-
     if (fieldErrors[name]) {
       setFieldErrors((prev) => {
         const newErrs = { ...prev };

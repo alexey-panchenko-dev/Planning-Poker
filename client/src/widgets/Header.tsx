@@ -1,8 +1,11 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/shared";
 import { NavLink } from "react-router-dom";
+import { useSessionStore } from "@/entities/session/model/useSessionStore";
 
 export const Header = () => {
+  const logout = useSessionStore((state) => state.logout);
+
   const navigation = [
     { id: 1, title: "Главная", path: "/" },
     { id: 2, title: "Комнаты", path: "/rooms" },
@@ -25,9 +28,10 @@ export const Header = () => {
         ))}
       </nav>
 
-      <Link to="/auth">
+      <Link to="/auth" state={{ form: location }}>
         <Button value="Войти" />
       </Link>
+      <Button value="Выйти из аккаунта" variant="danger" onClick={logout} />
     </header>
   );
 };

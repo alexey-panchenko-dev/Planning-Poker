@@ -19,7 +19,7 @@ export const Button = ({
 }: ButtonI) => {
   return (
     <button
-      className={`py-2 px-6 rounded-xl transition-all duration-200 active:scale-95 ${BtnVariants[variant] || ""}`}
+      className={`py-2 px-6 rounded-xl transition-all duration-200 active:scale-95 cursor-pointer ${BtnVariants[variant] || ""}`}
       type={type}
       onClick={onClick}
     >
