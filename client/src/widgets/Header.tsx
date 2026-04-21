@@ -13,7 +13,7 @@ export const Header = () => {
   ];
 
   return (
-    <header className="fixed top-0 w-full z-50 bg-main-bg/80 backdrop-blur-md border-b border-font-muted/10">
+    <header className="fixed top-0 w-full z-50 bg-main-bg/15 backdrop-blur-md border-b border-font-muted/10">
       <div className="max-w-[1440px] mx-auto grid grid-cols-3 items-center px-6 py-3">
         <div className="flex justify-start">
           <Link to="/" className="hover:opacity-80 transition-opacity">
@@ -43,7 +43,7 @@ export const Header = () => {
         <div className="flex justify-end items-center gap-4">
           {!isAuth ? (
             <Link to="/auth" state={{ from: location }}>
-              <Button value="Войти" className="rounded-full px-8" />
+              <Button value="Войти" variant="accentLiner" />
             </Link>
           ) : (
             <AccountCard />
