@@ -1,8 +1,17 @@
 import { LoginForm, RegisterForm } from "@/features/auth";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
 export const LoginPage = () => {
-  const [isLogin, setIsLogin] = useState(true);
+  const location = useLocation();
+  const initialAuthType = location.state?.authType === "register" ? false : true;
+  const [isLogin, setIsLogin] = useState(initialAuthType);
+
+  useEffect(() => {
+    if (location.state?.authType) {
+      setIsLogin(location.state.authType === "login");
+    }
+  }, [location.state?.authType]);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-main-bg p-4 font-sans">
