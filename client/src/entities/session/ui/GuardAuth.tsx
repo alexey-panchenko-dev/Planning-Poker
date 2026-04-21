@@ -19,7 +19,7 @@ export const GuardAuth = ({ children }: AuthGuardProps) => {
             <h1 className="text-3xl font-bold text-font-main">
               Упс! Кажется, вы не авторизованы
             </h1>
-            <p className="text-xl text-font-muted max-w-md">
+            <p className="text-xl text-font-muted">
               Пройдите авторизацию, чтобы пользоваться всеми возможностями
               нашего сервиса
             </p>
