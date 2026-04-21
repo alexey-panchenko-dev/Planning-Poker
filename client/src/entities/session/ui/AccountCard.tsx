@@ -7,6 +7,7 @@ import {
   Link as LinkIcon,
   Check,
   Copy,
+  LayoutGrid,
 } from "lucide-react";
 import { useSessionStore } from "../model/useSessionStore";
 import { useShallow } from "zustand/react/shallow";
@@ -46,7 +47,7 @@ export const AccountCard = () => {
     <div className="relative" ref={menuRef}>
       <button
         onClick={() => setIsOpen((prev) => !prev)}
-        className={`flex items-center gap-3 px-4 py-2 border rounded-full transition-all duration-200 
+        className={`flex items-center gap-3 px-4 py-2 border rounded-full transition-all duration-200 cursor-pointer
           ${isOpen ? "border-accent bg-accent/10" : "border-font-muted/30 hover:border-accent"}`}
       >
         <div className="w-6 h-6 rounded-full bg-accent flex items-center justify-center text-[10px] text-white font-bold">
@@ -96,6 +97,15 @@ export const AccountCard = () => {
           )}
 
           <div className="py-1">
+            <Link
+              to="/rooms"
+              onClick={() => setIsOpen(false)}
+              className="flex items-center gap-3 px-4 py-2 text-sm text-font-main hover:bg-accent/10 hover:text-accent transition-colors"
+            >
+              <LayoutGrid size={14} />
+              Мои комнаты
+            </Link>
+
             <Link
               to="/profile"
               onClick={() => setIsOpen(false)}
