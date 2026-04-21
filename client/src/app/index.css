@@ -1,28 +1,40 @@
 @import "tailwindcss";
 
 @theme {
-  /* ACCENTS */
-  --color-accent: #10b981;
-  --color-danger: #b9103a;
-  --color-ghost: #7c919d;
+  --color-accent: var(--accent);
+  --color-danger: var(--danger);
+  --color-ghost: var(--ghost);
+  --color-main-bg: var(--main-bg);
+  --color-card-bg: var(--card-bg);
+  --color-font-main: var(--font-main);
+  --color-font-muted: var(--font-muted);
+}
 
-  /* BACCKGROUND */
-  --color-main-bg: #171716;
-  --color-card-bg: #272b2f;
+:root {
+  --accent: #10b981;
+  --danger: #b9103a;
+  --ghost: #7c919d;
+  --main-bg: #171716;
+  --card-bg: #272b2f;
+  --font-main: #f1f5f6;
+  --font-muted: #718590;
+}
 
-  /* FORNT */
-  --color-font-main: #f1f5f6;
-  --color-font-muted: #718590;
+.light {
+  --main-bg: #f4fffb;
+  --card-bg: #e1f3ee;
+  --font-main: #272b2f;
+  --font-muted: #718590;
+  --ghost: #94a3b8;
 }
 
 body {
-  background-color: #171716;
+  background-color: var(--main-bg);
+  color: var(--font-main);
+  transition: background-color 0.3s ease;
 }
 
-input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus {
-  -webkit-box-shadow: 0 0 0px 1000px #171716 inset !important;
-  -webkit-text-fill-color: #f1f5f6 !important;
-  transition: background-color 5000s ease-in-out 0s;
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px var(--main-bg) inset !important;
+  -webkit-text-fill-color: var(--font-main) !important;
 }

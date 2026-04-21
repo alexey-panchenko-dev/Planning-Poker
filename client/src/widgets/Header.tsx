@@ -2,6 +2,7 @@ import { Link, NavLink, useLocation } from "react-router-dom";
 import { Button } from "@/shared";
 import { useSessionStore } from "@/entities/session/model/useSessionStore";
 import { AccountCard } from "@/entities/session/ui/AccountCard";
+import { ThemeToggle } from "@/features/theme/ui/ToggleTheme";
 
 export const Header = () => {
   const isAuth = useSessionStore((state) => state.isAuth);
@@ -40,10 +41,16 @@ export const Header = () => {
           ))}
         </nav>
 
-        <div className="flex justify-end items-center gap-4">
+        <div className="flex justify-end items-center gap-3">
+          <ThemeToggle />
+
           {!isAuth ? (
             <Link to="/auth" state={{ from: location }}>
-              <Button value="Войти" variant="accentLiner" />
+              <Button
+                value="Войти"
+                variant="accentLiner"
+                className="text-sm px-5"
+              />
             </Link>
           ) : (
             <AccountCard />

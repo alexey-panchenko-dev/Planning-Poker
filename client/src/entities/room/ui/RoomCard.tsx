@@ -12,7 +12,6 @@ export const RoomCard = ({
 }: RoomProps) => {
   return (
     <div className="group relative flex flex-col bg-card-bg border border-font-muted/10 p-6 rounded-[24px] transition-all duration-300 hover:border-accent/40 hover:shadow-2xl hover:shadow-accent/5 hover:-translate-y-1">
-      {/* Статус задачи сверху */}
       <div className="flex justify-between items-start mb-4">
         <div className="flex flex-col gap-1.5">
           <h3 className="text-xl font-bold text-font-main group-hover:text-accent transition-colors tracking-tight">
@@ -37,14 +36,12 @@ export const RoomCard = ({
         )}
       </div>
 
-      {/* Описание с фиксированной высотой для ровной сетки */}
       <div className="flex-1">
         <p className="text-font-muted text-sm leading-relaxed line-clamp-3 mb-6">
           {description || "Для этой комнаты еще не задано описание сессии..."}
         </p>
       </div>
 
-      {/* Футер карточки */}
       <div className="flex items-center justify-between pt-4 border-t border-font-muted/5">
         <div className="flex flex-col">
           <span className="text-[10px] text-font-muted uppercase font-semibold">
@@ -67,7 +64,6 @@ export const RoomCard = ({
         </Link>
       </div>
 
-      {/* Декоративное свечение при наведении */}
       <div className="absolute inset-0 rounded-[24px] bg-accent/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
     </div>
   );
