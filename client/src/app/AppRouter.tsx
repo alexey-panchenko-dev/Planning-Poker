@@ -7,6 +7,7 @@ import { LoginPage } from "@/pages/LoginPage";
 import { HomePage } from "@/pages/HomePage";
 import { RoomsPage } from "@/pages/RoomsPage";
 import { RoomPage } from "@/pages/RoomPage";
+import { ProfilePage } from "@/pages/ProfilePage";
 
 import { GuardAuth } from "@/entities/session/ui/GuardAuth";
 
@@ -26,6 +27,14 @@ export const AppRouter = createBrowserRouter([
     children: [
       { path: "/", element: <HomePage /> },
       { path: "/auth", element: <LoginPage /> },
+      {
+        path: "/profile",
+        element: (
+          <GuardAuth>
+            <ProfilePage />
+          </GuardAuth>
+        ),
+      },
       {
         path: "/rooms",
         element: (

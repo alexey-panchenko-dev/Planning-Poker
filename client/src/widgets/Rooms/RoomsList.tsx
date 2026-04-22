@@ -2,8 +2,16 @@ import { useRooms } from "@/entities/room/api/useRooms";
 import { RoomCard } from "@/entities/room/ui/RoomCard";
 import { type RoomProps } from "@/entities/room/model/type";
 
-export const RoomList = () => {
+export const RoomList = ({ searchQuery = "" }: { searchQuery?: string }) => {
   const { data: rooms, isLoading, isError } = useRooms();
+
+  const filteredRooms = rooms?.filter((room: RoomProps) => {
+    const query = searchQuery.toLowerCase();
+    return (
+      room.name.toLowerCase().includes(query) ||
+      (room.description && room.description.toLowerCase().includes(query))
+    );
+  });
 
   if (isLoading) {
     return (
@@ -23,17 +31,19 @@ export const RoomList = () => {
     );
   }
 
-  if (!rooms?.length) {
+  if (!filteredRooms?.length) {
     return (
-      <div className="text-center p-10 text-gray-500 border border-dashed border-white/10 rounded-2xl ">
-        Список пуст. Станьте первым, кто создаст комнату!
+      <div className="text-center p-20 text-font-muted border border-dashed border-white/5 rounded-[32px] bg-white/[0.01]">
+        {searchQuery
+          ? `По запросу "${searchQuery}" ничего не найдено`
+          : "Список пуст. Станьте первым, кто создаст комнату!"}
       </div>
     );
   }
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      {rooms.map((room: RoomProps) => (
+      {filteredRooms.map((room: RoomProps) => (
         <RoomCard key={room.id} {...room} />
       ))}
     </div>
