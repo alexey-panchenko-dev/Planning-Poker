@@ -1,24 +1,26 @@
 import { useParams } from "react-router-dom";
-import { useRooms } from "@/entities/room/api/useRooms";
+import { useRoom } from "@/entities/room/api/useRoom";
 import { Cards } from "@/widgets/Rooms/Cards";
 
 export const RoomPage = () => {
   const { id } = useParams<{ id: string }>();
-  const { data: rooms, isLoading } = useRooms();
-  const currentRoom = rooms?.find((room) => String(room.id) === String(id));
+  const { data: snapshot, isLoading } = useRoom(id);
+  const currentRoom = snapshot?.room;
 
-  if (isLoading) return <div className="mt-20 text-font-main">Загрузка...</div>;
+  if (isLoading) return <div className="mt-20 text-font-main text-center">Загрузка...</div>;
 
   if (!currentRoom)
-    return <div className="mt-20 text-danger">Комната не найдена</div>;
+    return <div className="mt-20 text-danger text-center">Комната не найдена</div>;
 
   return (
     <div className="mt-20 px-16 text-font-main h-screen">
-      <div>
+      <div className="mb-8">
         <h1 className="text-2xl font-bold">{currentRoom.name}</h1>
-        <p className="text-font-muted">{currentRoom.description}</p>
+        {currentRoom.description && (
+          <p className="text-font-muted">{currentRoom.description}</p>
+        )}
       </div>
-      <Cards />
+      <Cards cards={currentRoom.deck.cards} />
     </div>
   );
 };

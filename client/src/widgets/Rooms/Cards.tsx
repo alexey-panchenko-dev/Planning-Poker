@@ -1,8 +1,11 @@
 import { useState } from "react";
-import { FIBONACCI } from "@/entities/room/model/constants";
 import { Card } from "./Card";
 
-export const Cards = () => {
+interface CardsProps {
+  cards: string[];
+}
+
+export const Cards = ({ cards }: CardsProps) => {
   const [activeValue, setActiveValue] = useState<number | string | null>(null);
 
   const handleCardClick = (value: number | string) => {
@@ -12,12 +15,12 @@ export const Cards = () => {
   return (
     <div className="w-full py-10 overflow-x-auto">
       <div className="flex gap-4 justify-center items-end min-w-max px-6">
-        {FIBONACCI.map((card) => (
+        {cards.map((cardValue) => (
           <Card
-            key={card.value}
-            value={card.value}
-            isActive={activeValue === card.value}
-            onClick={() => handleCardClick(card.value)}
+            key={cardValue}
+            value={cardValue}
+            isActive={activeValue === cardValue}
+            onClick={() => handleCardClick(cardValue)}
           />
         ))}
       </div>

@@ -70,5 +70,22 @@ class RoomConnectionManager:
                 for socket in participant_sockets:
                     await self.send_event(socket, event_type, payload)
 
+    async def broadcast_event(self, room_id: UUID, event_type: str, payload: dict) -> None:
+        async with self._lock:
+            for participant_sockets in self._connections.get(room_id, {}).values():
+                for socket in participant_sockets:
+                    await self.send_event(socket, event_type, payload)
+
+    async def disconnect_all(self, room_id: UUID) -> None:
+        async with self._lock:
+            room_conns = self._connections.get(room_id, {})
+            for participant_sockets in room_conns.values():
+                for socket in list(participant_sockets):
+                    try:
+                        await socket.close()
+                    except Exception:
+                        pass
+            self._connections.pop(room_id, None)
+
 
 room_connection_manager = RoomConnectionManager()

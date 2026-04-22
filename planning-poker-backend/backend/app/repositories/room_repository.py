@@ -140,3 +140,7 @@ class RoomRepository:
             self.db.add(task)
         room.current_task_id = selected_task_id
         self.touch_room(room)
+
+    def delete_room(self, room: Room) -> None:
+        self.db.delete(room)
+        self.db.flush()

@@ -14,3 +14,15 @@ export const FIBONACCI: IFib[] = [
   { value: "?" },
   { value: "relax" },
 ];
+
+export const EVEN_DECK: IFib[] = [
+  { value: 0 },
+  { value: 2 },
+  { value: 4 },
+  { value: 8 },
+  { value: 16 },
+  { value: 32 },
+  { value: 64 },
+  { value: "?" },
+  { value: "relax" },
+];

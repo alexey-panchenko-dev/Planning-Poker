@@ -220,6 +220,11 @@ class RoomService:
         self.rooms.reset_active_task_flags(room, task_id)
         self.db.commit()
 
+    def delete_room(self, room_id: UUID, user: User) -> None:
+        room, _ = self.require_owner(room_id, user)
+        self.rooms.delete_room(room)
+        self.db.commit()
+
     def touch_presence(self, room_id: UUID, user_id: UUID) -> RoomParticipant:
         participant = self.rooms.get_participant(room_id, user_id)
         if participant is None:

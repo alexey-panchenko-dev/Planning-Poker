@@ -55,6 +55,17 @@ def get_room(room_id: UUID, db: Session = Depends(get_db), current_user: User = 
     )
 
 
+@router.delete("/{room_id}", status_code=status.HTTP_204_NO_CONTENT)
+async def delete_room(
+    room_id: UUID,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+) -> None:
+    RoomService(db).delete_room(room_id, current_user)
+    await room_connection_manager.broadcast_event(room_id, "room.deleted", {})
+    await room_connection_manager.disconnect_all(room_id)
+
+
 @router.post("/{room_id}/invite-links", response_model=InvitationLinkResponse, status_code=status.HTTP_201_CREATED)
 def create_invite_link(
     room_id: UUID,
