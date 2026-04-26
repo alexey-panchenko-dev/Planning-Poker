@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { getRoom } from "@/features/rooms/model/roomsApi";
+import { getRoom } from "../api/room.api";
 
 export const useRoom = (id?: string) => {
   return useQuery({

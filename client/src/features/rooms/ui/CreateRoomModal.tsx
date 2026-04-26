@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useCreateRoom } from "@/features/rooms/model/useCreateRoom";
 import { Button, Input, Modal } from "@/shared";
 import { useQuery } from "@tanstack/react-query";
-import { getDeckPresets } from "@/features/rooms/model/roomsApi";
+import { getDeckPresets } from "@/entities/room/api/room.api";
 import { Layers, Check } from "lucide-react";
 
 export const CreateRoomModal = ({

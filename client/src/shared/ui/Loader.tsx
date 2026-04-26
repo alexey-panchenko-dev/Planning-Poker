@@ -14,23 +14,25 @@ export const Loader = () => {
 
   return (
     <div className="h-screen w-full flex justify-center items-cetner">
-      <h1 className="animation-pulse">Загрузка</h1>
+      <div className="flex flex-col justify-center items-cetner">
+        <h1 className="animation-pulse">Загрузка</h1>
 
-      <div className="flex justify-center items-center h-20 w-40 relative">
-        <div
-          className={`
+        <div className="flex justify-center items-center h-20 w-40 relative">
+          <div
+            className={`
           absolute h-6 w-6 bg-accent shadow-accent shadow-xl rounded-full 
           transition-transform duration-500 ease-in-out
           ${isFirstState ? "translate-x-10" : "-translate-x-10"}
         `}
-        />
-        <div
-          className={`
+          />
+          <div
+            className={`
           absolute h-6 w-6 bg-ghost shadow-ghost shadow-xl rounded-full 
           transition-transform duration-500 ease-in-out
           ${isFirstState ? "-translate-x-10" : "translate-x-10"}
         `}
-        />
+          />
+        </div>
       </div>
     </div>
   );

@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { createRoom } from "@/features/rooms/model/roomsApi";
+import { createRoom } from "../api/rooms.api";
 
 export const useCreateRoom = () => {
   const queryClient = useQueryClient();

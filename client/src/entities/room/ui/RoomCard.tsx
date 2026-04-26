@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { type RoomProps } from "../model/type";
+import { type RoomProps } from "../model/types";
 import { Button, Modal } from "@/shared";
 import { Link } from "react-router-dom";
 import { Users, ArrowRight, Trash2, AlertTriangle } from "lucide-react";

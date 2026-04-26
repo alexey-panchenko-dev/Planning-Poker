@@ -1,6 +1,6 @@
 import React from "react";
 
-interface InputI {
+export interface InputI {
   label?: string;
   type?: string;
   name?: string;

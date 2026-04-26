@@ -11,7 +11,7 @@ import {
 } from "lucide-react";
 import { useSessionStore } from "../model/useSessionStore";
 import { useShallow } from "zustand/react/shallow";
-import { useRooms } from "@/entities/room/api/useRooms";
+import { useRooms } from "@/entities/room/model/useRooms";
 
 export const AccountCard = () => {
   const { user, logout } = useSessionStore(

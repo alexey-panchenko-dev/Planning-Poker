@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
-import { createTask } from "./taskApi";
+import { createTask } from "../../api/task.api";
 
 export const useCreateTask = (roomId: string) => {
   const queryClient = useQueryClient();

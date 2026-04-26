@@ -1,7 +1,8 @@
 import { useParams } from "react-router-dom";
-import { useRoom } from "@/entities/room/api/useRoom";
+import { useRoom } from "@/entities/room/model/useRoom";
+import { CreateTaskForm } from "@/features/task";
+import { TasksList } from "@/features/room";
 import { Cards } from "@/widgets/Room/Cards";
-import { CreateTaskForm, TasksList } from "@/features/room";
 import { GuardQuery } from "@/app/Guard/GuardQuery";
 
 export const RoomPage = () => {
@@ -10,9 +11,9 @@ export const RoomPage = () => {
 
   return (
     <GuardQuery isLoading={isLoading} error={error}>
-      <div className="flex flex-col min-h-screen bg-main-bg text-font-main">
+      <div className="flex flex-col min-h-screen text-font-main">
         <main className="flex-1 mt-10 px-6 md:px-16 pb-52">
-          <header className="mb-10">
+          <header className="mb-10 max-w-2xl">
             <h1 className="text-3xl font-extrabold tracking-tight text-font-main">
               {snapshot?.room.name}
             </h1>
@@ -32,7 +33,7 @@ export const RoomPage = () => {
             </div>
 
             <div className="mt-12">
-              <h2 className="text-sm uppercase tracking-[0.2em] text-font-muted mb-4 font-bold">
+              <h2 className="text-sm uppercase tracking-[0.2em] text-font-muted mb-4 font-bold text-accent">
                 Бэклог комнаты
               </h2>
               <TasksList tasks={snapshot?.tasks || []} />
@@ -40,9 +41,7 @@ export const RoomPage = () => {
           </section>
         </main>
 
-        <footer>
-          <Cards cards={snapshot?.room.deck.cards || []} />
-        </footer>
+        <Cards cards={snapshot?.room.deck.cards || []} />
       </div>
     </GuardQuery>
   );

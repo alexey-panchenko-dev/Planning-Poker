@@ -1,6 +1,6 @@
-import { useRooms } from "@/entities/room/api/useRooms";
+import { useRooms } from "@/entities/room/model/useRooms";
 import { RoomCard } from "@/entities/room/ui/RoomCard";
-import { type RoomProps } from "@/entities/room/model/type";
+import { type RoomProps } from "@/entities/room/model/types";
 
 export const RoomList = ({ searchQuery = "" }: { searchQuery?: string }) => {
   const { data: rooms, isLoading, isError } = useRooms();

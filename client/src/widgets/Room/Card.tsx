@@ -16,7 +16,7 @@ export const Card = ({ value, isActive, onClick }: CardProps) => {
       onClick={onClick}
       className={`
         relative flex items-center justify-center
-        h-36 w-24 rounded-2xl border-2
+        h-30 w-20 rounded-2xl border-2
         font-bold text-2xl transition-all duration-200
         active:scale-95 cursor-pointer
         ${isActive ? variants.active : variants.notActive}
