@@ -9,12 +9,12 @@ import { RoomsPage } from "@/pages/RoomsPage";
 import { RoomPage } from "@/pages/RoomPage";
 import { ProfilePage } from "@/pages/ProfilePage";
 
-import { GuardAuth } from "@/entities/session/ui/GuardAuth";
+import { GuardAuth } from "@/app/Guard/GuardAuth";
 
 const Layout = () => (
   <>
     <Header />
-    <main>
+    <main className="mt-15">
       <Outlet />
     </main>
     <Footer />

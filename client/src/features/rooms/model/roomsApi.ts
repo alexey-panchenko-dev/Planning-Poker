@@ -1,5 +1,6 @@
 import { apiInstance } from "@/shared/api/base";
 import { RoomProps } from "@/entities/room/model/type";
+import { Task } from "@/entities/task/model/type";
 
 export interface DeckPreset {
   id: string;
@@ -16,7 +17,7 @@ export interface RoomSnapshot {
     description: string;
     deck: DeckPreset;
   };
-  // Мы можем добавить остальные поля позже при необходимости
+  tasks: Task[];
 }
 
 export const getRooms = async () => {

@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/shared";
-import { useSessionStore } from "../model/useSessionStore";
+import { useSessionStore } from "../../entities/session/model/useSessionStore";
 import { ReactNode } from "react";
 
 interface AuthGuardProps {

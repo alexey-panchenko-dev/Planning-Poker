@@ -13,7 +13,7 @@ export const Cards = ({ cards }: CardsProps) => {
   };
 
   return (
-    <div className="w-full py-10 overflow-x-auto">
+    <div>
       <div className="flex gap-4 justify-center items-end min-w-max px-6">
         {cards.map((cardValue) => (
           <Card
@@ -28,7 +28,7 @@ export const Cards = ({ cards }: CardsProps) => {
       <div className="mt-10 text-center">
         {activeValue !== null && (
           <p className="text-font-muted">
-            Выбрано:{" "}
+            Выбрано:
             <span className="text-accent font-bold">{activeValue}</span>
           </p>
         )}
