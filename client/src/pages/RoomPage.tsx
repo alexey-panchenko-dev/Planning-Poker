@@ -4,10 +4,12 @@ import { CreateTaskForm } from "@/features/task";
 import { TasksList } from "@/features/room";
 import { Cards } from "@/widgets/Room/Cards";
 import { GuardQuery } from "@/app/Guard/GuardQuery";
+import { useState } from "react";
 
 export const RoomPage = () => {
   const { id } = useParams<{ id: string }>();
   const { data: snapshot, isLoading, error } = useRoom(id);
+  const [editingTaskId, setEditingTaskId] = useState<string | null>(null);
 
   return (
     <GuardQuery isLoading={isLoading} error={error}>
@@ -36,7 +38,12 @@ export const RoomPage = () => {
               <h2 className="text-sm uppercase tracking-[0.2em] text-font-muted mb-4 font-bold text-accent">
                 Бэклог комнаты
               </h2>
-              <TasksList tasks={snapshot?.tasks || []} />
+              <TasksList
+                tasks={snapshot?.tasks || []}
+                editingTaskId={editingTaskId}
+                onEditStart={setEditingTaskId}
+                onEditEnd={() => setEditingTaskId(null)}
+              />
             </div>
           </section>
         </main>

@@ -1,1 +1,2 @@
-export { CreateTaskForm } from "./create/ui/CreateTaskForm";
+export { CreateTaskForm } from "./ui/CreateTaskForm";
+export { DeleteTaskBtn } from "./ui/DeleteTaskBtn";
