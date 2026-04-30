@@ -21,12 +21,8 @@ export const SelectedCard = ({ tasks, availableCards }: SelectedCardProps) => {
 
   if (!task) {
     return (
-      <div className="flex flex-col items-center justify-center h-full p-12 border-2 border-dashed border-white/5 rounded-[40px] text-white/10 transition-all duration-500">
-        <SquareDashed
-          size={64}
-          strokeWidth={1}
-          className="mb-6 opacity-20 animate-pulse"
-        />
+      <div className="border-l border-font-muted/20 flex flex-col items-center justify-center h-full p-12 text-font-main/50 transition-all duration-500">
+        <SquareDashed size={64} strokeWidth={1} className="mb-6 opacity-50" />
         <p className="text-lg font-light tracking-wide text-center max-w-[280px]">
           Выберите задачу для обсуждения
         </p>
@@ -35,7 +31,7 @@ export const SelectedCard = ({ tasks, availableCards }: SelectedCardProps) => {
   }
 
   return (
-    <div className="relative overflow-hidden card-bg border border-font-muted/20 rounded-[40px] h-full shadow-2xl transition-all duration-500 flex flex-col p-12 text-center items-center">
+    <div className="relative overflow-hidden card-bg border-l border-font-muted/20 h-full transition-all duration-500 flex flex-col p-12 text-center items-center">
       <div className="flex justify-between items-center w-full mb-8 z-20">
         <div className="flex items-center gap-3">
           <span className="text-[10px] uppercase tracking-[0.3em] font-black text-font-muted">
@@ -61,16 +57,15 @@ export const SelectedCard = ({ tasks, availableCards }: SelectedCardProps) => {
               <Layers
                 size={14}
                 className="group-hover:rotate-12 transition-transform"
-              />{" "}
+              />
               Выбрать оценку
             </>
           )}
         </button>
       </div>
 
-      {/* КОНТЕНТ ЗАДАЧИ: Всегда читабелен */}
       <div
-        className={`flex-1 flex flex-col items-center justify-center transition-all duration-300 ${isVotingMode ? "translate-y-[-60px]" : "translate-y-0"}`}
+        className={`flex-1 flex flex-col items-center justify-center transition-all duration-300 ${isVotingMode ? "translate-y-[-100px]" : "translate-y-0"}`}
       >
         <h2 className="text-6xl font-black text-font-main mb-10 tracking-tighter leading-tight balance">
           {task.title}
@@ -95,7 +90,11 @@ export const SelectedCard = ({ tasks, availableCards }: SelectedCardProps) => {
       >
         <div className="flex flex-col items-start px-12">
           <p className="text-sm uppercase text-accent font-bold mb-6">
-            {myVote ? `Выбрано: ${myVote}` : "Выберите номинал"}
+            {!myVote
+              ? "Выберите номинал"
+              : myVote === "break   "
+                ? "Выбрано: Отдых"
+                : `Выбрано: ${myVote}`}
           </p>
 
           <div className="flex gap-3 justify-center items-end w-full overflow-x-auto no-scrollbar py-4">

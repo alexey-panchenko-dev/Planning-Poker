@@ -1,3 +1,5 @@
+import { Coffee } from "lucide-react";
+
 interface CardProps {
   value: number | string;
   isActive: boolean;
@@ -16,13 +18,13 @@ export const Card = ({ value, isActive, onClick }: CardProps) => {
       onClick={onClick}
       className={`
         relative flex items-center justify-center
-        h-30 w-20 rounded-2xl border-2
-        font-bold text-2xl transition-all duration-200
+        h-20 w-15 rounded-2xl border-2
+        font-bold text-xl transition-all duration-200
         active:scale-95 cursor-pointer
         ${isActive ? variants.active : variants.notActive}
       `}
     >
-      {value === "relax" ? "☕" : value}
+      {value === "relax" || value === "break" ? <Coffee /> : value}
 
       {isActive && (
         <div className="absolute -bottom-1 w-8 h-1 bg-accent rounded-full " />
