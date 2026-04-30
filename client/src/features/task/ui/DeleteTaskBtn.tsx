@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import { Trash2 } from "lucide-react";
 import { useTaskOperations } from "../model/tasks.hooks";
+import { Button } from "@/shared";
 
 export const DeleteTaskBtn = ({ taskId }: { taskId: string }) => {
   const { id: roomId } = useParams<{ id: string }>();
@@ -12,13 +13,12 @@ export const DeleteTaskBtn = ({ taskId }: { taskId: string }) => {
   };
 
   return (
-    <button
-      type="button"
+    <Button
       onClick={handleDelete}
       disabled={remove.isPending}
-      className="p-4 rounded-full bg-danger/40 text-font-main cursor-pointer hover:bg-danger/70 active:scale-95 transition-colors disabled:opacity-50"
-    >
-      <Trash2 size={16} />
-    </button>
+      variant="danger"
+      className="rounded-xl p-2.5"
+      value={<Trash2 size={18} />}
+    />
   );
 };

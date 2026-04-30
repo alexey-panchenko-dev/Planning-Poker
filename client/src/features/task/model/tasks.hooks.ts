@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { createTask, deleteTask, updateTask } from "../api/task.api";
 
 export const useTaskOperations = (roomId: string) => {
@@ -33,6 +33,11 @@ export const useTaskOperations = (roomId: string) => {
 
 export const useTaskForm = (initialData = { title: "", description: "" }) => {
   const [values, setValues] = useState(initialData);
+
+  useEffect(() => {
+    setValues(initialData);
+  }, [initialData.title, initialData.description]);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValues((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };

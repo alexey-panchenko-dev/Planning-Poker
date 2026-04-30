@@ -3,17 +3,17 @@ import { Task } from "@/entities/task/model/types";
 
 interface TasksListProps {
   tasks: Task[];
-  editingTaskId: string | null;
-  onEditStart: (id: string) => void;
-  onEditEnd: () => void;
 }
 
-export const TasksList = ({
-  tasks,
-  editingTaskId,
-  onEditStart,
-  onEditEnd,
-}: TasksListProps) => {
+export const TasksList = ({ tasks }: TasksListProps) => {
+  if (tasks.length == 0) {
+    return (
+      <div className="w-full py-10 text-font-muted border-[0.3px] rounded-xl border-font-muted/20 flex justify-center">
+        Создайте свою первую задачу!
+      </div>
+    );
+  }
+
   return (
     <div
       className="pr-4 
@@ -31,14 +31,7 @@ export const TasksList = ({
         transition-all"
     >
       {tasks.map((task) => (
-        <TaskCard
-          key={task.id}
-          task={task}
-          isEditing={editingTaskId === task.id}
-          onEditStart={() => onEditStart(task.id)}
-          onEditEnd={onEditEnd}
-          onClick={(id) => console.log("Selected:", id)}
-        />
+        <TaskCard key={task.id} task={task} />
       ))}
     </div>
   );
