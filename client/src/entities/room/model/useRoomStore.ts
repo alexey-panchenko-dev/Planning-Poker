@@ -1,24 +1,42 @@
 import { create } from "zustand";
 
 interface IRoomStore {
+  participants: any[];
+  activeRound: any | null;
+  tasks: any[];
+  history: any[];
+  roomMeta: any | null;
+  selfParticipantId: string | null;
   selectedTask: string | null;
-  isVotingMode: boolean;
-  setSelectedTask: (taskId: string | null) => void;
+
+  setRoomSnapshot: (snapshot: any) => void;
+  setSelectedTask: (id: string | null) => void;
   setVotingMode: (mode: boolean) => void;
+  isVotingMode: boolean;
 }
 
-export const useRoomStore = create<IRoomStore>((set, get) => ({
+export const useRoomStore = create<IRoomStore>((set) => ({
+  participants: [],
+  activeRound: null,
+  tasks: [],
+  history: [],
+  roomMeta: null,
+  selfParticipantId: null,
   selectedTask: null,
   isVotingMode: false,
 
-  setSelectedTask: (taskId) => {
-    const currentSelected = get().selectedTask;
-    const isSame = currentSelected === taskId;
+  setRoomSnapshot: (snapshot) => {
+    if (!snapshot) return;
     set({
-      selectedTask: isSame ? null : taskId,
-      isVotingMode: false,
+      participants: snapshot.participants || [],
+      activeRound: snapshot.active_round || null,
+      tasks: snapshot.tasks || [],
+      history: snapshot.history || [],
+      roomMeta: snapshot.room || null,
+      selfParticipantId: snapshot.self_participant_id || null,
+      selectedTask: snapshot.room?.current_task_id || null,
     });
   },
-
+  setSelectedTask: (id) => set({ selectedTask: id }),
   setVotingMode: (mode) => set({ isVotingMode: mode }),
 }));

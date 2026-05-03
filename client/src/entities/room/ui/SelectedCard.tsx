@@ -2,7 +2,7 @@ import { Task } from "@/entities/task/model/types";
 import { useRoomStore } from "../model/useRoomStore";
 import { useVotingStore } from "@/features/room/model/useVotingStore";
 import { Card } from "@/widgets/Room/Card";
-import { SquareDashed, AlignLeft, X, Layers } from "lucide-react";
+import { SquareDashed, X, Layers } from "lucide-react";
 
 interface SelectedCardProps {
   tasks: Task[];
@@ -10,15 +10,20 @@ interface SelectedCardProps {
 }
 
 export const SelectedCard = ({ tasks, availableCards }: SelectedCardProps) => {
+  // Достаем нужные стейты и экшены из стора комнаты
   const {
-    selectedTask: selectedTaskId,
     isVotingMode,
     setVotingMode,
+    selectedTask: selectedTaskId,
   } = useRoomStore();
+
+  // Стейт для локального выбора карточки (твоего голоса)
   const { selectedTask: myVote, selectCard } = useVotingStore();
 
+  // Ищем задачу по ID, который пришел из стора
   const task = tasks.find((t) => t.id === selectedTaskId);
 
+  // Если задача не выбрана — показываем заглушку
   if (!task) {
     return (
       <div className="border-l border-font-muted/20 flex flex-col items-center justify-center h-full p-12 text-font-main/50 transition-all duration-500">
@@ -32,6 +37,7 @@ export const SelectedCard = ({ tasks, availableCards }: SelectedCardProps) => {
 
   return (
     <div className="relative overflow-hidden card-bg border-l border-font-muted/20 h-full transition-all duration-500 flex flex-col p-12 text-center items-center">
+      {/* Шапка карточки */}
       <div className="flex justify-between items-center w-full mb-8 z-20">
         <div className="flex items-center gap-3">
           <span className="text-[10px] uppercase tracking-[0.3em] font-black text-font-muted">
@@ -64,8 +70,11 @@ export const SelectedCard = ({ tasks, availableCards }: SelectedCardProps) => {
         </button>
       </div>
 
+      {/* Основной контент (Текст задачи) */}
       <div
-        className={`flex-1 flex flex-col items-center justify-center transition-all duration-300 ${isVotingMode ? "translate-y-[-100px]" : "translate-y-0"}`}
+        className={`flex-1 flex flex-col items-center justify-center transition-all duration-300 ${
+          isVotingMode ? "-translate-y-24" : "translate-y-0"
+        }`}
       >
         <h2 className="text-6xl font-black text-font-main mb-10 tracking-tighter leading-tight balance">
           {task.title}
@@ -81,18 +90,19 @@ export const SelectedCard = ({ tasks, availableCards }: SelectedCardProps) => {
         </div>
       </div>
 
+      {/* Панель выбора карт (выезжает снизу) */}
       <div
-        className={`absolute inset-x-0 bottom-12 z-30 transition-all duration-300 cubic-bezier(0.16, 1, 0.3, 1) ${
+        className={`absolute inset-x-0 bottom-12 z-30 transition-all duration-500 cubic-bezier(0.16, 1, 0.3, 1) ${
           isVotingMode
             ? "translate-y-0 opacity-100"
-            : "translate-y-24 opacity-0 pointer-events-none"
+            : "translate-y-32 opacity-0 pointer-events-none"
         }`}
       >
         <div className="flex flex-col items-start px-12">
           <p className="text-sm uppercase text-accent font-bold mb-6">
             {!myVote
               ? "Выберите номинал"
-              : myVote === "break   "
+              : myVote === "break"
                 ? "Выбрано: Отдых"
                 : `Выбрано: ${myVote}`}
           </p>
