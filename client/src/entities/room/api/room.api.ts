@@ -15,3 +15,8 @@ export const getDeckPresets = async () => {
   const response = await apiInstance.get("/rooms/deck-presets");
   return response.data as DeckPreset[];
 };
+
+export const joinRoomByInvitation = async (token: string) => {
+  const response = await apiInstance.post(`/invitations/${token}/join`);
+  return response.data as RoomSnapshot;
+};

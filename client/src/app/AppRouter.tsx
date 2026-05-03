@@ -8,6 +8,7 @@ import { HomePage } from "@/pages/HomePage";
 import { RoomsPage } from "@/pages/RoomsPage";
 import { RoomPage } from "@/pages/RoomPage";
 import { ProfilePage } from "@/pages/ProfilePage";
+import { InvitePage } from "@/pages/InvitePage";
 
 import { GuardAuth } from "@/app/Guard/GuardAuth";
 
@@ -48,6 +49,14 @@ export const AppRouter = createBrowserRouter([
         element: (
           <GuardAuth>
             <RoomPage />
+          </GuardAuth>
+        ),
+      },
+      {
+        path: "/invite/:token",
+        element: (
+          <GuardAuth>
+            <InvitePage />
           </GuardAuth>
         ),
       },

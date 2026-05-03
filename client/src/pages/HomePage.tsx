@@ -7,6 +7,7 @@ import {
   MessageSquare,
   BarChart3,
 } from "lucide-react";
+import { JoinRoom } from "@/features/rooms/ui/JoinRoom";
 
 export const HomePage = () => {
   const steps = [
@@ -56,15 +57,7 @@ export const HomePage = () => {
           атмосфере спокойствия и фокуса
         </p>
 
-        <div className="w-full max-w-md bg-card-bg/30 p-8 rounded-[32px] border border-font-muted/10 backdrop-blur-sm">
-          <h2 className="text-2xl font-medium mb-6">Найти сессию</h2>
-          <div className="flex gap-3">
-            <div className="flex-1">
-              <Input placeholder="Введите код" variant="default2" />
-            </div>
-            <Button value="Присоединиться" />
-          </div>
-        </div>
+        <JoinRoom />
 
         <div className="absolute bottom-10 animate-bounce opacity-20">
           <div className="w-[1px] h-12 bg-gradient-to-b from-transparent to-font-main" />

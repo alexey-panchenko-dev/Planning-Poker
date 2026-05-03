@@ -25,6 +25,7 @@ export interface RoomSnapshot {
     id: string;
     name: string;
     description: string;
+    invite_link?: string;
     deck: DeckPreset;
   };
   tasks: Task[];
