@@ -40,7 +40,13 @@ export const SelectedCard = ({
   };
 
   const handleStartRound = async () => {
-    if (!roomId || !selectedTaskId) return;
+    console.log("Room ID:", roomId);
+    console.log("Task ID:", selectedTaskId);
+
+    if (!roomId || !selectedTaskId) {
+      return;
+    }
+
     try {
       await startRound(roomId, selectedTaskId);
       setVotingMode(true);
@@ -96,7 +102,7 @@ export const SelectedCard = ({
         </button>
         {isOwner && (
           <button
-            onClick={() => handleStartRound}
+            onClick={handleStartRound}
             className="px-4 py-2 rounded-xl border border-accent/20 text-accent font-bold hover:bg-accent/40 hover:border-accent/60 cursor-pointer transition-all duration-300 active:scale-95"
           >
             Начать голосование

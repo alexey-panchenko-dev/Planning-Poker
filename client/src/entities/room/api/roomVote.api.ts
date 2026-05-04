@@ -2,7 +2,10 @@ import { apiInstance } from "@/shared/api/base";
 
 //начать раунд и передать в него айди оцениваемого таска
 export const startRound = async (roomId: string, taskId: string) => {
-  return apiInstance.post(`/rooms/${roomId}/rounds/start`, taskId);
+  const response = await apiInstance.post(`/rooms/${roomId}/rounds/start`, {
+    task_id: taskId,
+  });
+  return response.data;
 };
 
 //каждый пользователь будет слать свою оценку в снапшот => votes
@@ -11,7 +14,9 @@ export const submitVote = async (
   roundId: string,
   value: string,
 ) => {
-  return apiInstance.post(`/rooms/${roomId}/rounds/${roundId}/vote`, { value });
+  return apiInstance.post(`/rooms/${roomId}/rounds/${roundId}/vote`, {
+    value: value,
+  });
 };
 
 //Статус раунда меняется на reveal, расчитывается средняя оценка задачи
