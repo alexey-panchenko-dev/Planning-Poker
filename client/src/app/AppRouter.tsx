@@ -1,7 +1,7 @@
 import { createBrowserRouter, Outlet } from "react-router";
 
-import { Header } from "@/widgets/Header";
-import { Footer } from "@/widgets/Footer";
+import { Header } from "@/widgets/layout/Header";
+import { Footer } from "@/widgets/layout/Footer";
 
 import { LoginPage } from "@/pages/LoginPage";
 import { HomePage } from "@/pages/HomePage";

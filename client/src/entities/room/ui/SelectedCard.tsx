@@ -27,13 +27,11 @@ export const SelectedCard = ({
     setVotingMode,
     selectedTask: selectedTaskId,
   } = useRoomStore();
-
   const user = useSessionStore((state) => state.user);
-
   const { selectedTask: myVote, selectCard } = useVotingStore();
-
   const task = tasks.find((t) => t.id === selectedTaskId);
 
+  //экшены голосования
   const handleClickDone = ({ val }: { val: any }) => {
     console.log("Голос отправлен", val, roundId);
     submitVote(roomId, roundId, val);
@@ -42,11 +40,9 @@ export const SelectedCard = ({
   const handleStartRound = async () => {
     console.log("Room ID:", roomId);
     console.log("Task ID:", selectedTaskId);
-
     if (!roomId || !selectedTaskId) {
       return;
     }
-
     try {
       await startRound(roomId, selectedTaskId);
       setVotingMode(true);
@@ -55,6 +51,7 @@ export const SelectedCard = ({
     }
   };
 
+  //нахожу имя создателя комнаты
   const isOwner = String(user?.id) === String(snapshot?.room.owner_id);
 
   if (!task) {
