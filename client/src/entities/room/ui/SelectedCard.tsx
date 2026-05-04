@@ -3,27 +3,54 @@ import { useRoomStore } from "../model/useRoomStore";
 import { useVotingStore } from "@/features/room/model/useVotingStore";
 import { Card } from "@/widgets/Room/Card";
 import { SquareDashed, X, Layers } from "lucide-react";
+import { submitVote, startRound } from "../api/roomVote.api";
+import { RoomSnapshot } from "../model/types";
+import { useSessionStore } from "@/entities/session/model/useSessionStore";
 
 interface SelectedCardProps {
+  roomId: any;
+  roundId: any;
   tasks: Task[];
   availableCards: string[];
+  snapshot?: RoomSnapshot;
 }
 
-export const SelectedCard = ({ tasks, availableCards }: SelectedCardProps) => {
-  // Достаем нужные стейты и экшены из стора комнаты
+export const SelectedCard = ({
+  roomId,
+  roundId,
+  tasks,
+  availableCards,
+  snapshot,
+}: SelectedCardProps) => {
   const {
     isVotingMode,
     setVotingMode,
     selectedTask: selectedTaskId,
   } = useRoomStore();
 
-  // Стейт для локального выбора карточки (твоего голоса)
+  const user = useSessionStore((state) => state.user);
+
   const { selectedTask: myVote, selectCard } = useVotingStore();
 
-  // Ищем задачу по ID, который пришел из стора
   const task = tasks.find((t) => t.id === selectedTaskId);
 
-  // Если задача не выбрана — показываем заглушку
+  const handleClickDone = ({ val }: { val: any }) => {
+    console.log("Голос отправлен", val, roundId);
+    submitVote(roomId, roundId, val);
+  };
+
+  const handleStartRound = async () => {
+    if (!roomId || !selectedTaskId) return;
+    try {
+      await startRound(roomId, selectedTaskId);
+      setVotingMode(true);
+    } catch (error) {
+      console.error("Ошибка старта раунда:", error);
+    }
+  };
+
+  const isOwner = String(user?.id) === String(snapshot?.room.owner_id);
+
   if (!task) {
     return (
       <div className="border-l border-font-muted/20 flex flex-col items-center justify-center h-full p-12 text-font-main/50 transition-all duration-500">
@@ -37,7 +64,6 @@ export const SelectedCard = ({ tasks, availableCards }: SelectedCardProps) => {
 
   return (
     <div className="relative overflow-hidden card-bg border-l border-font-muted/20 h-full transition-all duration-500 flex flex-col p-12 text-center items-center">
-      {/* Шапка карточки */}
       <div className="flex justify-between items-center w-full mb-8 z-20">
         <div className="flex items-center gap-3">
           <span className="text-[10px] uppercase tracking-[0.3em] font-black text-font-muted">
@@ -47,7 +73,7 @@ export const SelectedCard = ({ tasks, availableCards }: SelectedCardProps) => {
 
         <button
           onClick={() => setVotingMode(!isVotingMode)}
-          className={`group flex items-center gap-3 px-6 py-3 rounded-2xl border transition-all duration-500 font-bold text-[10px] uppercase tracking-[0.2em]
+          className={`group flex items-center gap-3 px-6 py-3 rounded-2xl border transition-all duration-200 font-bold text-[10px] uppercase tracking-[0.2em] cursor-pointer
             ${
               isVotingMode
                 ? "border-font-muted/20 bg-font-muted/5 text-font-muted hover:bg-font-muted/10"
@@ -68,9 +94,16 @@ export const SelectedCard = ({ tasks, availableCards }: SelectedCardProps) => {
             </>
           )}
         </button>
+        {isOwner && (
+          <button
+            onClick={() => handleStartRound}
+            className="px-4 py-2 rounded-xl border border-accent/20 text-accent font-bold hover:bg-accent/40 hover:border-accent/60 cursor-pointer transition-all duration-300 active:scale-95"
+          >
+            Начать голосование
+          </button>
+        )}
       </div>
 
-      {/* Основной контент (Текст задачи) */}
       <div
         className={`flex-1 flex flex-col items-center justify-center transition-all duration-300 ${
           isVotingMode ? "-translate-y-24" : "translate-y-0"
@@ -90,7 +123,6 @@ export const SelectedCard = ({ tasks, availableCards }: SelectedCardProps) => {
         </div>
       </div>
 
-      {/* Панель выбора карт (выезжает снизу) */}
       <div
         className={`absolute inset-x-0 bottom-12 z-30 transition-all duration-500 cubic-bezier(0.16, 1, 0.3, 1) ${
           isVotingMode
@@ -99,13 +131,24 @@ export const SelectedCard = ({ tasks, availableCards }: SelectedCardProps) => {
         }`}
       >
         <div className="flex flex-col items-start px-12">
-          <p className="text-sm uppercase text-accent font-bold mb-6">
-            {!myVote
-              ? "Выберите номинал"
-              : myVote === "break"
-                ? "Выбрано: Отдых"
-                : `Выбрано: ${myVote}`}
-          </p>
+          <div className="flex justify-between w-full items-center">
+            <p className="text-sm uppercase text-accent font-bold mb-6">
+              {!myVote
+                ? "Выберите номинал"
+                : myVote === "break"
+                  ? "Выбрано: Отдых"
+                  : `Выбрано: ${myVote}`}
+            </p>
+
+            <div className="flex gap-2">
+              <button
+                onClick={() => handleClickDone({ val: myVote })}
+                className="px-4 py-2 rounded-xl border border-accent/20 text-accent font-bold hover:bg-accent/40 hover:border-accent/60 cursor-pointer transition-all duration-300 active:scale-95"
+              >
+                Готово
+              </button>
+            </div>
+          </div>
 
           <div className="flex gap-3 justify-center items-end w-full overflow-x-auto no-scrollbar py-4">
             {availableCards.map((val) => (

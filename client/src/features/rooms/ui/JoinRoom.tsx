@@ -18,11 +18,10 @@ export const JoinRoom = () => {
 
     let token = inputValue.trim();
 
-    // Parse token if it's a full URL
     if (token.includes("/invite/")) {
       const parts = token.split("/invite/");
       if (parts.length > 1 && parts[1]) {
-        token = parts[1].split(/[/?#]/)[0]; // Extract token without extra URL params
+        token = parts[1].split(/[/?#]/)[0];
       } else {
         setError("Неверный формат ссылки");
         return;
@@ -34,7 +33,9 @@ export const JoinRoom = () => {
         navigate(`/rooms/${data.room.id}`);
       },
       onError: (err: any) => {
-        const msg = err.response?.data?.detail || "Не удалось присоединиться к комнате. Проверьте ссылку или код.";
+        const msg =
+          err.response?.data?.detail ||
+          "Не удалось присоединиться к комнате. Проверьте ссылку или код.";
         setError(msg);
       },
     });
@@ -55,12 +56,11 @@ export const JoinRoom = () => {
             />
           </div>
           <div className="mt-0">
-             <Button 
-               value={isPending ? "Подключение..." : "Присоединиться"} 
-               onClick={handleJoin} 
-               disabled={isPending}
-               className="h-[42px]"
-             />
+            <Button
+              value={isPending ? "Подключение..." : "Присоединиться"}
+              onClick={handleJoin}
+              disabled={isPending}
+            />
           </div>
         </div>
       </div>
