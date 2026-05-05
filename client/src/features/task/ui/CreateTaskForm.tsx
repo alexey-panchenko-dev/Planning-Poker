@@ -1,7 +1,13 @@
 import { Input, Button } from "@/shared";
 import { useTaskOperations, useTaskForm } from "../model/tasks.hooks";
 
-export const CreateTaskForm = ({ roomId }: { roomId: string }) => {
+export const CreateTaskForm = ({
+  roomId,
+  onSuccess,
+}: {
+  roomId: string;
+  onSuccess?: () => void;
+}) => {
   const { create } = useTaskOperations(roomId);
   const { values, handleChange, setValues } = useTaskForm();
 
@@ -14,6 +20,7 @@ export const CreateTaskForm = ({ roomId }: { roomId: string }) => {
       {
         onSuccess: () => {
           setValues({ title: "", description: "" });
+          onSuccess?.();
         },
       },
     );
@@ -22,24 +29,31 @@ export const CreateTaskForm = ({ roomId }: { roomId: string }) => {
   return (
     <form
       onSubmit={onSubmit}
-      className="flex gap-2 p-2 bg-card-bg rounded-2xl border border-white/5 shadow-2xl"
+      className="flex flex-col gap-4"
     >
-      <Input
-        name="title"
-        placeholder="Название новой задачи..."
-        value={values.title}
-        onChange={handleChange}
-      />
-      <Input
-        name="description"
-        placeholder="Опишите задачу..."
-        value={values.description}
-        onChange={handleChange}
-      />
+      <div className="flex flex-col gap-1">
+        <label className="text-[10px] uppercase tracking-widest text-font-muted font-bold ml-2">Название</label>
+        <Input
+          name="title"
+          placeholder="Название новой задачи..."
+          value={values.title}
+          onChange={handleChange}
+        />
+      </div>
+      <div className="flex flex-col gap-1">
+        <label className="text-[10px] uppercase tracking-widest text-font-muted font-bold ml-2">Описание</label>
+        <Input
+          name="description"
+          placeholder="Опишите задачу (необязательно)..."
+          value={values.description}
+          onChange={handleChange}
+        />
+      </div>
       <Button
         type="submit"
-        value={create.isPending ? "Создание..." : "Создать"}
+        value={create.isPending ? "Создание..." : "Создать задачу"}
         disabled={create.isPending}
+        className="mt-2 py-4"
       />
     </form>
   );

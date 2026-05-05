@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useParams } from "react-router-dom";
 import { useRoom } from "@/entities/room/model/useRoom";
 import { GuardQuery } from "@/app/Guard/GuardQuery";
@@ -9,10 +9,12 @@ import { useRoomStore } from "@/entities/room/model/useRoomStore";
 import { CreateTaskForm } from "@/features/task/ui/CreateTaskForm";
 import { TasksList } from "@/features/room";
 import { ShareRoomButton } from "@/features/rooms/ui/ShareRoomButton";
-import { useMemo } from "react";
+import { Modal, Button } from "@/shared";
+import { Plus } from "lucide-react";
 
 export const RoomPage = () => {
   const { id } = useParams<{ id: string }>();
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const setRoomSnapshot = useRoomStore((s) => s.setRoomSnapshot);
 
   const { data: snapshot, isLoading, error } = useRoom(id);
@@ -38,46 +40,73 @@ export const RoomPage = () => {
 
   return (
     <GuardQuery isLoading={isLoading} error={error}>
-      <div className="flex flex-col min-h-screen text-font-main bg-background">
-        <ParticipantsList />
-
-        <main className="flex-1 mt-12 px-6 md:px-16 pb-60">
-          <header className="mb-14 max-w-4xl flex items-start justify-between gap-8">
-            <div>
-              <p>Владелец комнаты: {ownerName}</p>
-              <h1 className="text-4xl font-black tracking-tighter text-font-main leading-none mb-4">
-                {snapshot?.room.name}
-              </h1>
-              {snapshot?.room.description && (
-                <p className="text-font-muted text-xl leading-relaxed max-w-2xl font-light opacity-80">
-                  {snapshot.room.description}
-                </p>
-              )}
-            </div>
+      <div className="flex h-screen overflow-hidden text-font-main bg-main-bg">
+        {/* Sidebar */}
+        <aside className="w-80 border-r border-font-muted/10 flex flex-col p-6 overflow-hidden">
+          <div className="mb-8">
+            <p className="text-[10px] uppercase tracking-widest text-font-muted font-bold mb-2">
+              Владелец: {ownerName}
+            </p>
+            <h1 className="text-2xl font-black tracking-tight text-font-main mb-2 truncate">
+              {snapshot?.room.name}
+            </h1>
+            {snapshot?.room.description && (
+              <p className="text-font-muted text-sm line-clamp-3 mb-4">
+                {snapshot.room.description}
+              </p>
+            )}
             {snapshot?.room.invite_link && (
               <ShareRoomButton inviteLink={snapshot.room.invite_link} />
             )}
-          </header>
+          </div>
 
-          <section className="w-full flex gap-10 items-start card-bg border border-font-muted/10 rounded-2xl p-1">
-            <div className="w-full max-w-2xl min-h-[650px] rounded-2xl p-10 backdrop-blur-md">
-              <CreateTaskForm roomId={id!} />
-              <div className="mt-12">
-                <TasksList tasks={snapshot?.tasks || []} />
+          <Button
+            onClick={() => setIsModalOpen(true)}
+            className="w-full mb-8 py-3"
+            value={
+              <div className="flex items-center gap-2 uppercase text-[10px] tracking-widest font-black">
+                <Plus size={16} /> Создать задачу
               </div>
-            </div>
+            }
+          />
 
-            <div className="flex-1 self-stretch min-h-[650px]">
-              <SelectedCard
-                roomId={id}
-                roundId={snapshot?.active_round?.id}
-                snapshot={snapshot}
-                tasks={snapshot?.tasks || []}
-                availableCards={snapshot?.room.deck.cards || []}
-              />
+          <div className="flex-1 overflow-hidden flex flex-col">
+            <h3 className="text-[10px] uppercase tracking-widest text-font-muted font-bold mb-4">
+              Список задач
+            </h3>
+            <div className="flex-1 overflow-y-auto pr-2 no-scrollbar">
+              <TasksList tasks={snapshot?.tasks || []} />
             </div>
-          </section>
+          </div>
+        </aside>
+
+        {/* Main Content */}
+        <main className="flex-1 flex flex-col p-6 gap-6 overflow-hidden">
+          <div className="flex-1 min-h-0">
+            <SelectedCard
+              roomId={id}
+              roundId={snapshot?.active_round?.id}
+              snapshot={snapshot}
+              tasks={snapshot?.tasks || []}
+              availableCards={snapshot?.room.deck.cards || []}
+            />
+          </div>
+          
+          <div className="h-fit card-bg border border-font-muted/10 rounded-3xl p-6 overflow-x-auto">
+            <ParticipantsList />
+          </div>
         </main>
+
+        <Modal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          title="Новая задача"
+        >
+          <CreateTaskForm 
+            roomId={id!} 
+            onSuccess={() => setIsModalOpen(false)} 
+          />
+        </Modal>
       </div>
     </GuardQuery>
   );
