@@ -11,11 +11,13 @@ import { TasksList } from "@/features/room";
 import { ShareRoomButton } from "@/features/rooms/ui/ShareRoomButton";
 import { Modal, Button } from "@/shared";
 import { Plus } from "lucide-react";
+import { useSessionStore } from "@/entities/session/model/useSessionStore";
 
 export const RoomPage = () => {
   const { id } = useParams<{ id: string }>();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const setRoomSnapshot = useRoomStore((s) => s.setRoomSnapshot);
+  const user = useSessionStore((state) => state.user);
 
   const { data: snapshot, isLoading, error } = useRoom(id);
 
@@ -37,6 +39,8 @@ export const RoomPage = () => {
   }, [snapshot, setRoomSnapshot]);
 
   useRoomSocket(id!);
+
+  const isOwner = user?.name === ownerName;
 
   return (
     <GuardQuery isLoading={isLoading} error={error}>
@@ -60,15 +64,17 @@ export const RoomPage = () => {
             )}
           </div>
 
-          <Button
-            onClick={() => setIsModalOpen(true)}
-            className="w-full mb-8 py-3"
-            value={
-              <div className="flex items-center gap-2 uppercase text-[10px] tracking-widest font-black">
-                <Plus size={16} /> Создать задачу
-              </div>
-            }
-          />
+          {isOwner && (
+            <Button
+              onClick={() => setIsModalOpen(true)}
+              className="w-full mb-8 py-3"
+              value={
+                <div className="flex items-center gap-2 uppercase text-[10px] tracking-widest font-black">
+                  <Plus size={16} /> Создать задачу
+                </div>
+              }
+            />
+          )}
 
           <div className="flex-1 overflow-hidden flex flex-col">
             <h3 className="text-[10px] uppercase tracking-widest text-font-muted font-bold mb-4">
@@ -91,7 +97,7 @@ export const RoomPage = () => {
               availableCards={snapshot?.room.deck.cards || []}
             />
           </div>
-          
+
           <div className="h-fit card-bg border border-font-muted/10 rounded-3xl p-6 overflow-x-auto">
             <ParticipantsList />
           </div>
@@ -102,9 +108,9 @@ export const RoomPage = () => {
           onClose={() => setIsModalOpen(false)}
           title="Новая задача"
         >
-          <CreateTaskForm 
-            roomId={id!} 
-            onSuccess={() => setIsModalOpen(false)} 
+          <CreateTaskForm
+            roomId={id!}
+            onSuccess={() => setIsModalOpen(false)}
           />
         </Modal>
       </div>
