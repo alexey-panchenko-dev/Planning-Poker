@@ -9,7 +9,6 @@ interface ModalProps {
 }
 
 export const Modal = ({ isOpen, onClose, title, children }: ModalProps) => {
-  // Закрытие по ESC
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
@@ -40,7 +39,7 @@ export const Modal = ({ isOpen, onClose, title, children }: ModalProps) => {
             <X size={20} />
           </button>
         </div>
-        
+
         {children}
       </div>
     </div>

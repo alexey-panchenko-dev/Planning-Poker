@@ -28,6 +28,12 @@ export const resetRound = async (roomId: string, roundId: string) => {
   return apiInstance.post(`/rooms/${roomId}/rounds/${roundId}/reset`);
 };
 
-export const finalizeRound = async (roomId: string, roundId: string) => {
-  return apiInstance.post(`/rooms/${roomId}/rounds/${roundId}/finalize`);
+export const finalizeRound = async (
+  roomId: string,
+  roundId: string,
+  rezult_value: string,
+) => {
+  return apiInstance.post(`/rooms/${roomId}/rounds/${roundId}/finalize`, {
+    rezult_value: rezult_value,
+  });
 };

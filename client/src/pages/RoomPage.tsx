@@ -45,7 +45,6 @@ export const RoomPage = () => {
   return (
     <GuardQuery isLoading={isLoading} error={error}>
       <div className="flex h-screen overflow-hidden text-font-main bg-main-bg">
-        {/* Sidebar */}
         <aside className="w-80 border-r border-font-muted/10 flex flex-col p-6 overflow-hidden">
           <div className="mb-8">
             <p className="text-[10px] uppercase tracking-widest text-font-muted font-bold mb-2">
@@ -86,16 +85,18 @@ export const RoomPage = () => {
           </div>
         </aside>
 
-        {/* Main Content */}
         <main className="flex-1 flex flex-col p-6 gap-6 overflow-hidden">
           <div className="flex-1 min-h-0">
-            <SelectedCard
-              roomId={id}
-              roundId={snapshot?.active_round?.id}
-              snapshot={snapshot}
-              tasks={snapshot?.tasks || []}
-              availableCards={snapshot?.room.deck.cards || []}
-            />
+            {/* Проверяем наличие id перед рендерингом компонента */}
+            {id && (
+              <SelectedCard
+                roomId={id}
+                roundId={snapshot?.active_round?.id}
+                snapshot={snapshot}
+                tasks={snapshot?.tasks || []}
+                availableCards={snapshot?.room.deck.cards || []}
+              />
+            )}
           </div>
 
           <div className="h-fit card-bg border border-font-muted/10 rounded-3xl p-6 overflow-x-auto">
