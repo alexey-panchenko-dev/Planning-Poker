@@ -15,9 +15,9 @@ export const CreateRoomModal = ({
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [selectedDeck, setSelectedDeck] = useState("fibonacci");
-  
+
   const { mutate, isPending } = useCreateRoom();
-  
+
   const { data: decks } = useQuery({
     queryKey: ["deck-presets"],
     queryFn: getDeckPresets,
@@ -46,7 +46,7 @@ export const CreateRoomModal = ({
           <Input
             label="Название комнаты"
             value={name}
-            onChange={(e) => setName(e.target.value.toUpperCase())}
+            onChange={(e) => setName(e.target.value)}
             placeholder="например: SPRINT PLANNING #42"
           />
 
@@ -76,16 +76,22 @@ export const CreateRoomModal = ({
                   }
                 `}
               >
-                <div className={`
+                <div
+                  className={`
                   p-2 rounded-xl 
                   ${selectedDeck === deck.code ? "bg-accent text-font-main" : "bg-font-muted/10 text-font-muted"}
-                `}>
+                `}
+                >
                   <Layers size={20} />
                 </div>
-                
+
                 <div className="flex-1">
-                  <h4 className="font-bold text-font-main text-sm">{deck.name}</h4>
-                  <p className="text-[11px] text-font-muted line-clamp-1">{deck.description}</p>
+                  <h4 className="font-bold text-font-main text-sm">
+                    {deck.name}
+                  </h4>
+                  <p className="text-[11px] text-font-muted line-clamp-1">
+                    {deck.description}
+                  </p>
                 </div>
 
                 {selectedDeck === deck.code && (
@@ -95,12 +101,17 @@ export const CreateRoomModal = ({
                 )}
 
                 <div className="flex gap-1 ml-2">
-                   {deck.cards.slice(0, 3).map(card => (
-                     <span key={card} className="text-[10px] bg-font-muted/10 px-1.5 py-0.5 rounded text-font-muted font-mono">
-                       {card}
-                     </span>
-                   ))}
-                   <span className="text-[10px] text-font-muted font-mono">...</span>
+                  {deck.cards.slice(0, 3).map((card) => (
+                    <span
+                      key={card}
+                      className="text-[10px] bg-font-muted/10 px-1.5 py-0.5 rounded text-font-muted font-mono"
+                    >
+                      {card}
+                    </span>
+                  ))}
+                  <span className="text-[10px] text-font-muted font-mono">
+                    ...
+                  </span>
                 </div>
               </div>
             ))}

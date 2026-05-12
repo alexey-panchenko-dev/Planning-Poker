@@ -100,13 +100,14 @@ export const RoomCard = ({
           <div className="w-16 h-16 bg-danger/10 text-danger rounded-full flex items-center justify-center">
             <AlertTriangle size={32} />
           </div>
-          
+
           <div className="space-y-2">
             <p className="text-font-main font-medium text-lg">
               Вы уверены, что хотите удалить комнату "{name}"?
             </p>
             <p className="text-font-muted text-sm leading-relaxed">
-              Это действие необратимо. Все задачи и история голосований будут удалены навсегда.
+              Это действие необратимо. Все задачи и история голосований будут
+              удалены навсегда.
             </p>
           </div>
 
