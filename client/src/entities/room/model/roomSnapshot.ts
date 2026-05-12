@@ -1,11 +1,11 @@
 import { getRoom } from "../api/room.api";
 import { useQuery } from "@tanstack/react-query";
 
-export const roomSnapshot = (roomId: string | undefined) => {
+export const roomSnapshot = (id: string | undefined) => {
   return useQuery({
-    queryKey: ["roomSnapshot", roomId],
-    queryFn: () => getRoom(roomId!),
-    enabled: !!roomId,
+    queryKey: ["roomSnapshot", id],
+    queryFn: () => getRoom(id!),
+    enabled: !!id,
     refetchOnWindowFocus: true,
   });
 };

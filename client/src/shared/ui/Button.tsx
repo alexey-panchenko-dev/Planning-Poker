@@ -33,7 +33,6 @@ export const Button = ({
         inline-flex items-center justify-center 
         py-2 px-6 rounded-full 
         transition-all duration-200 
-        /* Добавляем enabled: перед эффектами, чтобы они не работали при дизейбле */
         enabled:active:scale-95 enabled:cursor-pointer 
         disabled:opacity-40 disabled:cursor-not-allowed disabled:grayscale-[0.5]
         ${BtnVariants[variant] || ""}
