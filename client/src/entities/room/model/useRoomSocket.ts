@@ -1,7 +1,10 @@
 import { useEffect, useRef } from "react";
 import { useRoomStore } from "../model/useRoomStore";
+import { useQueryClient } from "@tanstack/react-query";
 
 export const useRoomSocket = (roomId: string) => {
+  const queryClient = useQueryClient();
+
   const setRoomSnapshot = useRoomStore((s) => s.setRoomSnapshot);
   const socketRef = useRef<WebSocket | null>(null);
 
@@ -25,11 +28,13 @@ export const useRoomSocket = (roomId: string) => {
       socket.onmessage = (event) => {
         try {
           const data = JSON.parse(event.data);
+
           if (
             data.type === "room.snapshot" ||
             data.type === "presence.changed"
           ) {
-            setRoomSnapshot(data.payload.snapshot || data.payload);
+            const newSnapshot = data.payload.snapshot || data.payload;
+            queryClient.setQueryData(["room", roomId], newSnapshot);
           }
         } catch (err) {
           console.error("Message parse error", err);
