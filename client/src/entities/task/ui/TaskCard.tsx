@@ -1,4 +1,3 @@
-import { useRoomStore } from "@/entities/room/model/useRoomStore";
 import { Task } from "../model/types";
 import { DeleteTaskBtn } from "@/features/task/ui/DeleteTaskBtn";
 import { Button } from "@/shared";
@@ -10,9 +9,6 @@ interface TaskCardProps {
 }
 
 export const TaskCard = ({ task }: TaskCardProps) => {
-  const setSelectedTask = useRoomStore((state) => state.setSelectedTask);
-  const selectedTask = useRoomStore((state) => state.selectedTask);
-
   return (
     <div
       className={`relative w-full text-left group p-5 rounded-2xl bg-card-bg transition-all duration-300`}
@@ -30,10 +26,6 @@ export const TaskCard = ({ task }: TaskCardProps) => {
       <div className="mt-4 flex items-center justify-between gap-2">
         <DeleteTaskBtn taskId={task.id} />
         <Button
-          onClick={() => {
-            setSelectedTask(task.id);
-            console.log(selectedTask);
-          }}
           className="rounded-xl p-2.5"
           value={<SquareDashed size={18} />}
         />

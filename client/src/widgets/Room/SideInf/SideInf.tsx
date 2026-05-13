@@ -1,5 +1,6 @@
 import { Participants } from "./Participants";
 import { InviteLinkModal } from "@/features/room/ui/InviteLinkModal";
+import { Tasks } from "./Tasks";
 
 interface IsideInf {
   snapshot: any;
@@ -11,9 +12,9 @@ export const SideInf = ({ snapshot }: IsideInf) => {
   );
 
   return (
-    <div className="p-5 border border-font-main/20 bg-card-bg rounded-xl space-y-3 min-w-130">
+    <div className="p-5 border border-font-main/20 bg-card-bg/40 rounded-xl space-y-3 min-w-130">
       {/* общая инфа */}
-      <h1 className="text-xl text-font-main font-medium">
+      <h1 className="text-2xl text-font-main font-bold">
         {snapshot?.room?.name}
       </h1>
       <h2 className="text-sm text-font-muted">{snapshot?.room?.description}</h2>
@@ -31,6 +32,11 @@ export const SideInf = ({ snapshot }: IsideInf) => {
       </div>
 
       <div className="h-px w-full bg-font-muted/30" />
+
+      {/* все что причастно к задачам */}
+      <div>
+        <Tasks snapshot={snapshot} />
+      </div>
     </div>
   );
 };

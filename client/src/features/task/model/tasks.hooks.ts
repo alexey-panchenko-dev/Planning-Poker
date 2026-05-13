@@ -38,7 +38,9 @@ export const useTaskForm = (initialData = { title: "", description: "" }) => {
     setValues(initialData);
   }, [initialData.title, initialData.description]);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
     setValues((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
   return { values, handleChange, setValues };
