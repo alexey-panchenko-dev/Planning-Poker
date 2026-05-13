@@ -4,7 +4,7 @@ import { X } from "lucide-react";
 interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
-  title: string;
+  title?: string;
   children: ReactNode;
 }
 
@@ -34,7 +34,7 @@ export const Modal = ({ isOpen, onClose, title, children }: ModalProps) => {
           </h2>
           <button
             onClick={onClose}
-            className="p-2 hover:bg-font-muted/10 rounded-full transition-colors text-font-muted"
+            className="p-2 hover:bg-font-muted/10 rounded-full transition-colors text-font-muted cursor-pointer"
           >
             <X size={20} />
           </button>

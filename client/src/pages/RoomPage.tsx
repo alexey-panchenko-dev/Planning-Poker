@@ -1,8 +1,8 @@
 import { useParams } from "react-router";
-import { useEffect } from "react";
 import { roomSnapshot } from "@/entities/room/model/roomSnapshot";
+import { GuardQuery } from "@/app/Guard/GuardQuery";
 
-import { SideInf } from "@/widgets/Room/SideInf";
+import { SideInf } from "@/widgets/Room/SideInf/SideInf";
 
 export const RoomPage = () => {
   const { id } = useParams<{ id: string }>();
@@ -10,10 +10,12 @@ export const RoomPage = () => {
 
   console.log(snapshot);
   return (
-    <div className="h-full w-full flex justify-center items-center">
-      <div className="h-screen pt-15 max-w-[1200px]">
-        <SideInf snapshot={snapshot} />
+    <GuardQuery isLoading={isLoading}>
+      <div className="h-full w-full flex justify-center items-center">
+        <div className="h-screen pt-15 max-w-[1200px]">
+          <SideInf snapshot={snapshot} />
+        </div>
       </div>
-    </div>
+    </GuardQuery>
   );
 };
