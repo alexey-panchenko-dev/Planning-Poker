@@ -6,7 +6,7 @@ export const useTaskOperations = (roomId: string) => {
   const queryClient = useQueryClient();
 
   const invalidate = () =>
-    queryClient.invalidateQueries({ queryKey: ["room", roomId] });
+    queryClient.invalidateQueries({ queryKey: ["roomSnapshot", roomId] });
 
   const createMutation = useMutation({
     mutationFn: (data: any) => createTask(data, roomId),

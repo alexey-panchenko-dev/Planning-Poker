@@ -6,9 +6,10 @@ import { SquareDashed } from "lucide-react";
 interface TaskCardProps {
   task: Task;
   isSelected?: boolean;
+  isOwner: boolean;
 }
 
-export const TaskCard = ({ task }: TaskCardProps) => {
+export const TaskCard = ({ task, isOwner }: TaskCardProps) => {
   return (
     <div
       className={`relative w-full text-left group p-5 rounded-2xl bg-card-bg transition-all duration-300`}
@@ -24,7 +25,8 @@ export const TaskCard = ({ task }: TaskCardProps) => {
       </p>
 
       <div className="mt-4 flex items-center justify-between gap-2">
-        <DeleteTaskBtn taskId={task.id} />
+        {isOwner && <DeleteTaskBtn taskId={task.id} />}
+
         <Button
           className="rounded-xl p-2.5"
           value={<SquareDashed size={18} />}

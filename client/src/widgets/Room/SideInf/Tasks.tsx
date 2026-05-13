@@ -4,19 +4,26 @@ import { TasksList } from "@/features/room";
 import { Modal, Button } from "@/shared";
 import { useState } from "react";
 
-export const Tasks = ({ snapshot }: any) => {
+interface ITasks {
+  snapshot: any;
+  isOwner: boolean;
+}
+
+export const Tasks = ({ snapshot, isOwner }: ITasks) => {
   const [isModal, setIsModal] = useState(false);
 
   return (
     <div>
       <div className="space-y-3">
-        <Button
-          onClick={() => setIsModal(true)}
-          variant="accent"
-          value="Создать задачу"
-        />
+        {isOwner && (
+          <Button
+            onClick={() => setIsModal(true)}
+            variant="accent"
+            value="Создать задачу"
+          />
+        )}
 
-        <TasksList tasks={snapshot.tasks} />
+        <TasksList isOwner={isOwner} tasks={snapshot.tasks} />
       </div>
 
       <Modal
