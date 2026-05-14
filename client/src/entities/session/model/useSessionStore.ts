@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { login, getMe, register } from "@/features/auth/model/auth";
+import { login, getMe, register } from "@/features/auth/model/auth.api";
 import { type UserI } from "./types";
 
 interface sessionStore {
