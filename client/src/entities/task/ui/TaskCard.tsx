@@ -2,6 +2,7 @@ import { Task } from "../model/types";
 import { DeleteTaskBtn } from "@/features/task/ui/DeleteTaskBtn";
 import { Button } from "@/shared";
 import { SquareDashed } from "lucide-react";
+import { useSelectedTaskStore } from "@/widgets/Room/SelectedTask/model/useSelectedTaskStore";
 
 interface TaskCardProps {
   task: Task;
@@ -10,6 +11,10 @@ interface TaskCardProps {
 }
 
 export const TaskCard = ({ task, isOwner }: TaskCardProps) => {
+  const setSelectedTaskId = useSelectedTaskStore(
+    (state) => state.setSelectedTaskId,
+  );
+
   return (
     <div
       className={`relative w-full text-left group p-5 rounded-2xl bg-card-bg transition-all duration-300`}
@@ -28,6 +33,7 @@ export const TaskCard = ({ task, isOwner }: TaskCardProps) => {
         {isOwner && <DeleteTaskBtn taskId={task.id} />}
 
         <Button
+          onClick={() => setSelectedTaskId(task.id)}
           className="rounded-xl p-2.5"
           value={<SquareDashed size={18} />}
         />

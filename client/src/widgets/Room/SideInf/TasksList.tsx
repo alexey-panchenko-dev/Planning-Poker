@@ -17,19 +17,11 @@ export const TasksList = ({ tasks, isOwner }: TasksListProps) => {
 
   return (
     <div
-      className="pr-4 
-        max-h-[400px] 
-        overflow-y-auto 
-        flex flex-col gap-3
-        /* Кастомизация скроллбара под твой Accent */
-        [&::-webkit-scrollbar]:w-1.5
-        [&::-webkit-scrollbar-track]:bg-transparent
-        [&::-webkit-scrollbar-thumb]:bg-accent/40
-        [&::-webkit-scrollbar-thumb]:rounded-full
-        hover:[&::-webkit-scrollbar-thumb]:bg-accent
-        [scrollbar-width:thin]
-        [scrollbar-color:theme(colors.accent/40%)_transparent]
-        transition-all"
+      className="
+      w-full max-h-[400px] 
+      overflow-y-auto 
+      flex flex-col gap-3
+      transition-all"
     >
       {tasks.map((task) => (
         <TaskCard key={task.id} task={task} isOwner={isOwner} />

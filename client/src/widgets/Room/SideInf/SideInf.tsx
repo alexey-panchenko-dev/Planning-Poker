@@ -1,5 +1,3 @@
-import { Participants } from "./Participants";
-import { InviteLinkModal } from "@/features/room/ui/InviteLinkModal";
 import { Tasks } from "./Tasks";
 import { useSessionStore } from "@/entities/session/model/useSessionStore";
 
@@ -17,7 +15,7 @@ export const SideInf = ({ snapshot }: IsideInf) => {
   const isOwner = user?.id == owner.user_id;
 
   return (
-    <div className="p-5 border border-font-main/20 bg-card-bg/40 rounded-xl space-y-3 min-w-130">
+    <div className="p-5 border border-font-main/20 bg-card-bg/20 rounded-xl space-y-3 w-100 h-fit">
       {/* общая инфа */}
       <h1 className="text-2xl text-font-main font-bold">
         {snapshot?.room?.name}
@@ -27,14 +25,6 @@ export const SideInf = ({ snapshot }: IsideInf) => {
         <span className="text-font-muted">Владелец комнаты : </span>
         {owner?.name || "Не определен ("}
       </h3>
-
-      <div className="h-px w-full bg-font-muted/30" />
-
-      {/* участники */}
-      <div>
-        <Participants snapshot={snapshot} />
-        <InviteLinkModal snapshot={snapshot} />
-      </div>
 
       <div className="h-px w-full bg-font-muted/30" />
 

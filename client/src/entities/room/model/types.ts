@@ -1,18 +1,27 @@
-import { Task } from "@/entities/task/model/types";
+export interface IRoomSnapshot {
+  room: IRoom;
+  self_participant_id: string;
+  participants: IParticipant[];
+  tasks: ITask[];
+  active_round: IActiveRound | null;
+  history: IHistoryItem[];
+}
 
-export interface RoomProps {
+export interface IRoom {
   id: string;
   name: string;
   slug: string;
   description: string;
+  status: string;
+  owner_id: string;
+  current_task_id: string | null;
   invite_link: string;
-  participants_count: number;
-  active_task_title: string;
-  last_activity_at: string;
   created_at: string;
+  updated_at: string;
+  deck: IDeck;
 }
 
-export interface DeckPreset {
+export interface IDeck {
   id: string;
   name: string;
   code: string;
@@ -20,13 +29,13 @@ export interface DeckPreset {
   cards: string[];
 }
 
-export interface Participant {
+export interface IParticipant {
   id: string;
   user_id: string;
   name: string;
   email: string;
   avatar_color: string;
-  role: string;
+  role: "owner" | "member" | "observer";
   seat_index: number;
   joined_at: string;
   last_seen_at: string;
@@ -34,11 +43,23 @@ export interface Participant {
   has_voted: boolean;
 }
 
-export interface ActiveRound {
+export interface ITask {
+  id: string;
+  title: string;
+  description: string;
+  position: number;
+  status: "backlog" | "in_progress" | "estimated";
+  estimate_value: string | null;
+  estimated_at: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface IActiveRound {
   id: string;
   task_id: string;
   round_index: number;
-  status: string;
+  status: "voting" | "revealed" | "closed";
   started_at: string;
   revealed_at: string | null;
   closed_at: string | null;
@@ -50,15 +71,17 @@ export interface ActiveRound {
   consensus: boolean;
   distribution: Record<string, number>;
   self_vote_value: string | null;
-  votes: Array<{
-    participant_id: string;
-    user_id: string;
-    value: string;
-    has_voted: boolean;
-  }>;
+  votes: IVote[];
 }
 
-export interface RoomHistoryItem {
+export interface IVote {
+  participant_id: string;
+  user_id: string;
+  value: string;
+  has_voted: boolean;
+}
+
+export interface IHistoryItem {
   id: string;
   round_id: string;
   task_id: string;
@@ -69,25 +92,4 @@ export interface RoomHistoryItem {
   votes_count: number;
   distribution: Record<string, number>;
   created_at: string;
-}
-
-export interface RoomSnapshot {
-  room: {
-    id: string;
-    name: string;
-    slug: string;
-    description: string;
-    status: string;
-    owner_id: string;
-    current_task_id: string | null;
-    invite_link?: string;
-    created_at: string;
-    updated_at: string;
-    deck: DeckPreset;
-  };
-  self_participant_id: string;
-  participants: Participant[];
-  tasks: Task[];
-  active_round: ActiveRound | null;
-  history: RoomHistoryItem[];
 }

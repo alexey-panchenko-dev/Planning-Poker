@@ -1,1 +1,1 @@
-export { TasksList } from "./ui/TasksList";
+export { TasksList } from "../../widgets/Room/SideInf/TasksList";

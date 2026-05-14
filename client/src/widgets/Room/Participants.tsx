@@ -1,3 +1,5 @@
+import { InviteLinkModal } from "@/features/room/ui/InviteLinkModal";
+
 interface PCardI {
   id: string;
   name: string;
@@ -7,7 +9,7 @@ interface PCardI {
 export const PCard = ({ id, name, is_online }: PCardI) => {
   return (
     <div
-      className="px-5 py-3 bg-main-bg/20 border border-font-muted/20 rounded-xl flex gap-2 items-center"
+      className="px-5 py-3 bg-main-bg/20 border border-font-muted/20 rounded-full flex gap-2 items-center transition-transform duration-300 hover:-translate-y-1 hover:bg-card-bg/50 hover:border-font-muted/60"
       key={id}
     >
       <div
@@ -33,9 +35,9 @@ export const Participants = ({ snapshot }: IParticipants) => {
   );
 
   return (
-    <div>
+    <div className="flex-1 w-full p-5 border border-font-main/20 bg-card-bg/20 rounded-xl flex flex-col gap-2 h-full justify-center">
       <h1 className="text-sm text-font-muted">Участники</h1>
-      <div className="grid grid-cols-2 gap-1 my-4">
+      <div className="grid grid-cols-2 gap-5 my-2">
         {participantsOnline.map((participant: PCardI) => (
           <PCard
             key={participant.id}
@@ -53,6 +55,7 @@ export const Participants = ({ snapshot }: IParticipants) => {
           />
         ))}
       </div>
+      <InviteLinkModal snapshot={snapshot} />
     </div>
   );
 };
