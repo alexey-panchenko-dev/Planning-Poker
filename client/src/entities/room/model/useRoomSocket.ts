@@ -8,7 +8,6 @@ export const useRoomSocket = (roomId: string) => {
 
   useEffect(() => {
     if (!roomId) return;
-
     const token = localStorage.getItem("accessToken");
     if (!token) return;
 
@@ -39,9 +38,11 @@ export const useRoomSocket = (roomId: string) => {
             data.type === "room.snapshot" ||
             data.type === "presence.changed"
           ) {
-            const newSnapshot = data.payload.snapshot || data.payload;
+            const newSnapshot = data.payload?.snapshot ?? data.payload;
 
-            queryClient.setQueryData(["roomSnapshot", roomId], newSnapshot);
+            if (newSnapshot) {
+              queryClient.setQueryData(["roomSnapshot", roomId], newSnapshot);
+            }
           }
         } catch (err) {
           console.error("❌ Message parse error", err);
@@ -50,7 +51,6 @@ export const useRoomSocket = (roomId: string) => {
 
       socket.onclose = (e) => {
         console.log("🔌 Connection closed:", e.code);
-
         if (e.code !== 1000) {
           reconnectTimerRef.current = setTimeout(() => {
             console.log("🔄 Attempting to reconnect...");

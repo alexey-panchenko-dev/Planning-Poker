@@ -1,6 +1,8 @@
 import { IRoomSnapshot } from "@/entities/room/model/types";
 import { useSelectedTaskStore } from "../model/useSelectedTaskStore";
 import { Actions } from "@/features/selectedTask/ui/Actions";
+import { VotingDeсk } from "../../VoitingDesk/VotingDeсk";
+import { useSessionStore } from "@/entities/session/model/useSessionStore";
 
 export const SelectedTask = ({
   snapshot,
@@ -9,14 +11,23 @@ export const SelectedTask = ({
   snapshot: IRoomSnapshot;
   id: string | undefined;
 }) => {
+  const user = useSessionStore((state) => state.user);
+  const isOwner = !!user && snapshot.room.owner_id === user.id;
+
   const selectedTaskId = useSelectedTaskStore((state) => state.selectedTaskId);
+
   const currentTask = snapshot?.tasks?.find(
     (t: any) => t.id === selectedTaskId,
   );
+  const activeRound = snapshot?.active_round;
+
+  const isThisTaskRound =
+    !!activeRound && activeRound.task_id === selectedTaskId;
+  const isVoting = isThisTaskRound && activeRound.status === "voting";
 
   if (!currentTask) {
     return (
-      <div className="flex-1 h-200 w-full p-5 border border-font-main/20 bg-card-bg rounded-xl flex flex-col gap-4 justify-center">
+      <div className="h- w-full p-5 border border-font-main/20 bg-card-bg rounded-xl flex flex-col gap-4 justify-center">
         <span className="text-font-muted text-center">
           Выберите задачу для просмотра деталей
         </span>
@@ -51,7 +62,16 @@ export const SelectedTask = ({
           </div>
         )}
       </div>
-      <Actions id={id} />
+
+      {isOwner && (
+        <div className="border-t border-b border-font-main/20 py-2">
+          <Actions id={id} snapshot={snapshot} />
+        </div>
+      )}
+
+      {isVoting && activeRound && (
+        <VotingDeсk snapshot={snapshot} roomId={id} roundId={activeRound.id} />
+      )}
     </div>
   );
 };

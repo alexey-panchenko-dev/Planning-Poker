@@ -14,7 +14,7 @@ export const RoomPage = () => {
   return (
     <GuardQuery isLoading={isLoading}>
       <div className="h-full w-full flex justify-center items-center">
-        <div className="h-screen pt-15 w-[1200px] flex gap-5">
+        <div className="h-screen pt-15 w-[1400px] flex gap-5">
           <SideInf snapshot={snapshot} />
           <div
             className="flex flex-col flex-1 min-h-0 gap-5"
