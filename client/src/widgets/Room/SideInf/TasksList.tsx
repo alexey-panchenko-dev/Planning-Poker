@@ -19,7 +19,7 @@ export const TasksList = ({ tasks, isOwner }: TasksListProps) => {
     <div
       className="
       w-full max-h-[400px] 
-      overflow-y-auto 
+      
       flex flex-col gap-3
       transition-all"
     >
