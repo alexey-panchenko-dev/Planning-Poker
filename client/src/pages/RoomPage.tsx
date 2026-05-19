@@ -10,7 +10,6 @@ export const RoomPage = () => {
   const { id } = useParams<{ id: string }>();
   const { data: snapshot, isLoading, isError } = roomSnapshot(id);
 
-  console.log(snapshot);
   return (
     <GuardQuery isLoading={isLoading}>
       <div className="h-full w-full flex justify-center items-center">

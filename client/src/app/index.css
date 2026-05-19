@@ -11,7 +11,7 @@
 }
 
 :root {
-  --accent: #bfad09;
+  --accent: #1f60ee;
   --danger: #b9103a;
   --ghost: #7c919d;
   --main-bg: #171716;
@@ -21,8 +21,8 @@
 }
 
 .light {
-  --main-bg: #f4fffb;
-  --card-bg: #e1f3ee;
+  --main-bg: #ddeaf1;
+  --card-bg: #f4fffb;
   --font-main: #272b2f;
   --font-muted: #718590;
   --ghost: #94a3b8;

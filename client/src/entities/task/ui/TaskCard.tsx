@@ -29,15 +29,25 @@ export const TaskCard = ({ task, isOwner }: TaskCardProps) => {
         {task.description}
       </p>
 
-      <div className="mt-4 flex items-center justify-between gap-2">
-        {isOwner && <DeleteTaskBtn taskId={task.id} />}
+      {isOwner ? (
+        <div className="mt-4 grid grid-cols-2 flex items-center justify-between gap-2">
+          <DeleteTaskBtn taskId={task.id} />
 
-        <Button
-          onClick={() => setSelectedTaskId(task.id)}
-          className="rounded-xl p-2.5"
-          value={<SquareDashed size={18} />}
-        />
-      </div>
+          <Button
+            onClick={() => setSelectedTaskId(task.id)}
+            className="rounded-xl p-2.5"
+            value={<SquareDashed size={18} />}
+          />
+        </div>
+      ) : (
+        <div className="mt-4 flex items-center justify-between gap-2">
+          <Button
+            onClick={() => setSelectedTaskId(task.id)}
+            className="rounded-xl p-2.5 w-full"
+            value={<SquareDashed size={18} />}
+          />
+        </div>
+      )}
     </div>
   );
 };

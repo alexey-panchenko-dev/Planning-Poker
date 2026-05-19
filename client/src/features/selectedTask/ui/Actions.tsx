@@ -10,13 +10,12 @@ export const Actions = ({
   id: string | undefined;
   snapshot: IRoomSnapshot;
 }) => {
-  const selectedTaskId = useSelectedTaskStore((state) => state.selectedTaskId);
+  const selectedTask = useSelectedTaskStore((state) => state.selectedTask);
   const actions = useRoomActions(id);
 
   const activeRound = snapshot?.active_round;
 
-  const isThisTaskRound =
-    !!activeRound && activeRound.task_id === selectedTaskId;
+  const isThisTaskRound = !!activeRound && activeRound.task_id === selectedTask;
   const isVoting = isThisTaskRound && activeRound.status === "voting";
   const isRevealed = isThisTaskRound && activeRound.status === "revealed";
   const canReveal = isVoting && activeRound.can_reveal;
@@ -26,8 +25,8 @@ export const Actions = ({
       <div className="flex gap-2">
         <Button
           value="Начать раунд"
-          disabled={!id || !selectedTaskId}
-          onClick={() => selectedTaskId && actions.start(selectedTaskId)}
+          disabled={!id || !selectedTask}
+          onClick={() => selectedTask && actions.start(selectedTask)}
         />
       </div>
     );
@@ -44,12 +43,18 @@ export const Actions = ({
           }
           variant="accentLiner"
           disabled={!canReveal}
-          onClick={() => actions.reveal(activeRound.id)}
+          onClick={() => {
+            actions.reveal(activeRound.id);
+            console.log("snapshot: ", snapshot);
+          }}
         />
         <Button
           value="Сбросить"
           variant="ghost"
-          onClick={() => actions.reset(activeRound.id)}
+          onClick={() => {
+            actions.reset(activeRound.id);
+            console.log("snapshot: ", snapshot);
+          }}
         />
       </div>
     );
@@ -61,9 +66,13 @@ export const Actions = ({
         <Button
           value={`Принять оценку${activeRound.suggested_result ? ` (${activeRound.suggested_result})` : ""}`}
           variant="accent"
-          onClick={() =>
-            actions.finalize(activeRound.id, activeRound.suggested_result ?? "")
-          }
+          onClick={() => {
+            actions.finalize(
+              activeRound.id,
+              activeRound.suggested_result ?? "",
+            );
+            console.log("snapshot: ", snapshot);
+          }}
         />
         <Button
           value="Переголосовать"

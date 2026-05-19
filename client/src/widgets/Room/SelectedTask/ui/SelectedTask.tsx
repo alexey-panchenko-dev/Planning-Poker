@@ -3,6 +3,7 @@ import { useSelectedTaskStore } from "../model/useSelectedTaskStore";
 import { Actions } from "@/features/selectedTask/ui/Actions";
 import { VotingDeсk } from "../../VoitingDesk/VotingDeсk";
 import { useSessionStore } from "@/entities/session/model/useSessionStore";
+import { RevealRoundVotes } from "./RevealRoundVotes";
 
 export const SelectedTask = ({
   snapshot,
@@ -14,7 +15,10 @@ export const SelectedTask = ({
   const user = useSessionStore((state) => state.user);
   const isOwner = !!user && snapshot.room.owner_id === user.id;
 
-  const selectedTaskId = useSelectedTaskStore((state) => state.selectedTaskId);
+  const selectedTask = useSelectedTaskStore((state) => state.selectedTask);
+
+  const selectedTaskId =
+    selectedTask == null ? snapshot.active_round?.task_id : selectedTask;
 
   const currentTask = snapshot?.tasks?.find(
     (t: any) => t.id === selectedTaskId,
@@ -24,6 +28,8 @@ export const SelectedTask = ({
   const isThisTaskRound =
     !!activeRound && activeRound.task_id === selectedTaskId;
   const isVoting = isThisTaskRound && activeRound.status === "voting";
+
+  const isRevealed = isThisTaskRound && activeRound.status === "revealed";
 
   if (!currentTask) {
     return (
@@ -68,6 +74,8 @@ export const SelectedTask = ({
           <Actions id={id} snapshot={snapshot} />
         </div>
       )}
+
+      {isRevealed && activeRound && <RevealRoundVotes snapshot={snapshot} />}
 
       {isVoting && activeRound && (
         <VotingDeсk snapshot={snapshot} roomId={id} roundId={activeRound.id} />
