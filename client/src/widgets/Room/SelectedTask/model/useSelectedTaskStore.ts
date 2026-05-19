@@ -3,6 +3,7 @@ import { create } from "zustand";
 interface StoreI {
   selectedTask: string | null;
   setSelectedTaskId: (id: string | null) => void;
+  initSelectedTaskId: (id: string | null) => void;
 
   isRoundStart: boolean;
 }
@@ -14,6 +15,10 @@ export const useSelectedTaskStore = create<StoreI>((set) => ({
     set((state) => ({
       selectedTask: id === state.selectedTask ? null : id,
     }));
+  },
+
+  initSelectedTaskId: (id) => {
+    set({ selectedTask: id });
   },
 
   isRoundStart: false,

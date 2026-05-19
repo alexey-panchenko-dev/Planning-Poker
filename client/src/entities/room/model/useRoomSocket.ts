@@ -38,11 +38,13 @@ export const useRoomSocket = (roomId: string) => {
             data.type === "room.snapshot" ||
             data.type === "presence.changed"
           ) {
-            const newSnapshot = data.payload?.snapshot ?? data.payload;
+            console.log(
+              `🔄 Получено WS-событие [${data.type}]. Инвалидируем кэш...`,
+            );
 
-            if (newSnapshot) {
-              queryClient.setQueryData(["roomSnapshot", roomId], newSnapshot);
-            }
+            queryClient.invalidateQueries({
+              queryKey: ["roomSnapshot", roomId],
+            });
           }
         } catch (err) {
           console.error("❌ Message parse error", err);

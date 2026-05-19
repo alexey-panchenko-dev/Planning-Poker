@@ -3,6 +3,7 @@ import { VoitingCard } from "./VoitingCard";
 import { useRoomActions } from "@/entities/room/api/roomVote.api";
 import { Button } from "@/shared";
 import { IRoomSnapshot } from "@/entities/room/model/types";
+import { Coffee } from "lucide-react";
 
 export const VotingDeсk = ({
   snapshot,
@@ -50,7 +51,7 @@ export const VotingDeсk = ({
           {cardValues.map((val: string) => (
             <VoitingCard
               key={val}
-              val={val}
+              val={val === "break" ? <Coffee /> : val}
               isActive={val === activeValue}
               isDisabled={hasVoted}
               onClick={hasVoted ? undefined : setValue}

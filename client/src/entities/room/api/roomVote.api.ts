@@ -36,7 +36,7 @@ export const useRoomActions = (roomId: string | undefined) => {
     invalidate();
   };
 
-  const finalize = async (roundId: string, result_value: string) => {
+  const finalize = async (roundId: string, result_value: string | number) => {
     if (!roomId) return;
     await apiInstance.post(`/rooms/${roomId}/rounds/${roundId}/finalize`, {
       rezult_value: result_value,
@@ -45,37 +45,4 @@ export const useRoomActions = (roomId: string | undefined) => {
   };
 
   return { start, vote, reveal, reset, finalize };
-};
-
-export const startRound = async (roomId: string, taskId: string) => {
-  const response = await apiInstance.post(`/rooms/${roomId}/rounds/start`, {
-    task_id: taskId,
-  });
-  return response.data;
-};
-
-export const submitVote = async (
-  roomId: string | undefined,
-  roundId: string,
-  value: string,
-) => {
-  return apiInstance.post(`/rooms/${roomId}/rounds/${roundId}/vote`, { value });
-};
-
-export const revealRound = async (roomId: string, roundId: string) => {
-  return apiInstance.post(`/rooms/${roomId}/rounds/${roundId}/reveal`);
-};
-
-export const resetRound = async (roomId: string, roundId: string) => {
-  return apiInstance.post(`/rooms/${roomId}/rounds/${roundId}/reset`);
-};
-
-export const finalizeRound = async (
-  roomId: string,
-  roundId: string,
-  rezult_value: string,
-) => {
-  return apiInstance.post(`/rooms/${roomId}/rounds/${roundId}/finalize`, {
-    rezult_value: rezult_value,
-  });
 };

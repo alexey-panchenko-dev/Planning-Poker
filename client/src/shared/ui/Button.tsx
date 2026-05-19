@@ -11,12 +11,12 @@ interface ButtonI {
 
 const BtnVariants: Record<string, string> = {
   accent:
-    "bg-accent/70 enabled:hover:bg-accent text-font-main font-semibold shadow-lg shadow-accent/10",
+    "bg-accent/70 enabled:hover:bg-accent text-font-main font-semibold shadow-lg shadow-accent/10 border border-accent",
   danger: "bg-danger/70 enabled:hover:bg-danger text-font-main font-semibold",
   ghost:
     "bg-card-bg enabled:hover:bg-ghost/20 text-font-muted enabled:hover:text-font-main border border-font-muted/10",
   accentLiner:
-    "text-accent border border-accent enabled:hover:bg-accent/10 enabled:hover:border-accent shadow-sm",
+    "text-accent border border-accent enabled:hover:bg-accent/10 enabled:hover:border-accent",
 };
 
 export const Button = ({

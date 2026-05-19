@@ -23,7 +23,7 @@ const VoteItem = ({ name, value }: { name: string; value: string }) => {
 };
 
 export const RevealRoundVotes = ({ snapshot }: IRevRoundVotesProps) => {
-  const [showVotes, setShowVotes] = useState(false);
+  const [showVotes, setShowVotes] = useState(true);
 
   const activeRound = snapshot?.active_round;
   const participants = snapshot?.participants || [];
@@ -49,7 +49,7 @@ export const RevealRoundVotes = ({ snapshot }: IRevRoundVotesProps) => {
     <div className="mt-4 flex flex-col gap-3">
       <Button
         value={showVotes ? "Скрыть карты" : "Показать голоса участников"}
-        variant="ghost"
+        variant="accentLiner"
         onClick={() => setShowVotes(!showVotes)}
       />
 

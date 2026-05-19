@@ -2,8 +2,10 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useJoinRoom } from "../model/useJoinRoom";
 import { Input, Button } from "@/shared";
+import { useQueryClient } from "@tanstack/react-query";
 
 export const JoinRoom = () => {
+  const queryClient = useQueryClient();
   const [inputValue, setInputValue] = useState("");
   const [error, setError] = useState<string | null>(null);
   const { mutate: joinRoom, isPending } = useJoinRoom();
@@ -30,6 +32,7 @@ export const JoinRoom = () => {
 
     joinRoom(token, {
       onSuccess: (data) => {
+        queryClient.invalidateQueries({ queryKey: ["roomSnapshot"] });
         navigate(`/rooms/${data.room.id}`);
       },
       onError: (err: any) => {
@@ -45,7 +48,7 @@ export const JoinRoom = () => {
     <div className="w-full max-w-md bg-card-bg/30 p-8 rounded-[32px] border border-font-muted/10 backdrop-blur-sm">
       <h2 className="text-2xl font-medium mb-6">Найти сессию</h2>
       <div className="flex flex-col gap-3">
-        <div className="flex gap-3">
+        <form onSubmit={handleJoin} className="flex gap-3">
           <div className="flex-1">
             <Input
               placeholder="Введите код или ссылку"
@@ -62,7 +65,7 @@ export const JoinRoom = () => {
               disabled={isPending}
             />
           </div>
-        </div>
+        </form>
       </div>
     </div>
   );

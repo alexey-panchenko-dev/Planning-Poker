@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { type RoomProps } from "../model/types";
+import { IRoom } from "../model/types";
 import { Button, Modal } from "@/shared";
 import { Link } from "react-router-dom";
 import { Users, ArrowRight, Trash2, AlertTriangle } from "lucide-react";
@@ -11,7 +11,7 @@ export const RoomCard = ({
   description,
   active_task_title,
   participants_count,
-}: RoomProps) => {
+}: IRoom) => {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const { mutate: deleteRoom, isPending } = useDeleteRoom();
 
@@ -54,16 +54,7 @@ export const RoomCard = ({
           </p>
         </div>
 
-        <div className="flex items-center justify-between pt-4 border-t border-font-muted/5">
-          <div className="flex flex-col">
-            <span className="text-[10px] text-font-muted uppercase font-semibold">
-              ID Сессии
-            </span>
-            <span className="text-xs text-font-main font-mono opacity-50">
-              #{id.toString().slice(0, 8)}
-            </span>
-          </div>
-
+        <div className="flex items-center justify-end pt-4 border-t border-font-muted/5">
           <div className="flex gap-2">
             <Button
               onClick={(e) => {

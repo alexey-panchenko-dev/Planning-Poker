@@ -11,7 +11,3 @@ export const deleteTask = async (roomId: string, taskId: string) => {
 export const updateTask = async (roomId: string, taskId: string, data: any) => {
   return await apiInstance.patch(`/rooms/${roomId}/tasks/${taskId}`, data);
 };
-
-export const selectTask = async (roomId: string, taskId: string, data: any) => {
-  return await apiInstance.patch(`/rooms/${roomId}/tasks/${taskId}`, data);
-};
