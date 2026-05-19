@@ -1,4 +1,4 @@
-import { InviteLinkModal } from "@/features/room/ui/InviteLinkModal";
+import { CopyField } from "@/features/room/ui/CopyField";
 
 interface PCardI {
   id: string;
@@ -55,7 +55,7 @@ export const Participants = ({ snapshot }: IParticipants) => {
           />
         ))}
       </div>
-      <InviteLinkModal snapshot={snapshot} />
+      <CopyField snapshot={snapshot} />
     </div>
   );
 };

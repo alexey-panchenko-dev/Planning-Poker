@@ -18,8 +18,9 @@ export const Tasks = ({ snapshot, isOwner }: ITasks) => {
         {isOwner && (
           <Button
             onClick={() => setIsModal(true)}
-            variant="accent"
+            variant="accentLiner"
             value="Создать задачу"
+            className="w-full"
           />
         )}
 
