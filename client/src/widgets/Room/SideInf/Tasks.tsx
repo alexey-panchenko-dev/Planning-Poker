@@ -24,7 +24,11 @@ export const Tasks = ({ snapshot, isOwner }: ITasks) => {
           />
         )}
 
-        <TasksList isOwner={isOwner} tasks={snapshot.tasks} />
+        <TasksList
+          isOwner={isOwner}
+          tasks={snapshot.tasks}
+          snapshot={snapshot}
+        />
       </div>
 
       <Modal

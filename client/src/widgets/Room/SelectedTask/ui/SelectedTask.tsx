@@ -111,7 +111,6 @@ export const SelectedTask = memo(
 
         <div className="flex flex-col gap-3 flex-1 min-h-0 bg-font-muted/5 p-4 rounded-xl border border-font-muted/5">
           <h4 className="text-xs text-font-muted uppercase tracking-widest font-bold flex items-center gap-2">
-            <span className="w-1.5 h-1.5 bg-accent rounded-full"></span>
             Описание
           </h4>
           <p className="text-font-main/90 leading-relaxed overflow-y-auto flex-1 text-sm scrollbar-thin scrollbar-thumb-accent/20">

@@ -8,11 +8,11 @@ import { memo } from "react";
 
 interface TaskCardProps {
   task: Task;
-  isSelected?: boolean;
   isOwner: boolean;
+  snapshot: any;
 }
 
-const TaskCard = memo(({ task, isOwner }: TaskCardProps) => {
+const TaskCard = memo(({ task, isOwner, snapshot }: TaskCardProps) => {
   const isCurrent = useSelectedTaskStore(
     (state) => state.selectedTask === task.id,
   );
@@ -24,6 +24,8 @@ const TaskCard = memo(({ task, isOwner }: TaskCardProps) => {
   const { attributes, listeners, setNodeRef, isDragging } = useDraggable({
     id: task.id,
   });
+
+  const isDesabled = snapshot?.history.some((t: any) => t.task_id === task.id);
 
   return (
     <div
@@ -62,7 +64,7 @@ const TaskCard = memo(({ task, isOwner }: TaskCardProps) => {
       <div
         className={`mt-4 grid ${isOwner ? "grid-cols-2" : "grid-cols-1"} items-center gap-2`}
       >
-        {isOwner && <DeleteTaskBtn taskId={task.id} />}
+        {isOwner && !isDesabled && <DeleteTaskBtn taskId={task.id} />}
         <Button
           onClick={() => setSelectedTaskId(task.id)}
           className={`rounded-xl p-2.5 ${!isOwner ? "w-full" : ""}`}

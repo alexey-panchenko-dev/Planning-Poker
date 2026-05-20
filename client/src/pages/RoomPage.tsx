@@ -86,7 +86,7 @@ export const RoomPage = () => {
         onDragEnd={handleDragEnd}
         onDragCancel={() => setActiveId(null)}
       >
-        <div className="h-full w-full flex justify-center items-center">
+        <div className="h-fit w-full flex justify-center items-center">
           <div className="h-screen pt-15 w-[1400px] flex-col gap-5">
             <BackButton path="rooms" />
             <div className="flex gap-5">
@@ -103,7 +103,7 @@ export const RoomPage = () => {
         </div>
         <DragOverlay dropAnimation={DROP_ANIMATION_CONFIG}>
           {activeId && activeTask ? (
-            <div className="px-4 py-2 bg-accent/70 text-font-main rounded-lg shadow-2xl border border-font-muted/40 flex items-center gap-2 cursor-grabbing scale-105 transition-transform duration-200">
+            <div className="px-4 py-2 bg-accent/70 text-font-main rounded-lg border border-font-muted/40 flex items-center gap-2 cursor-grabbing scale-105 transition-transform duration-200">
               <div className="w-2 h-2 bg-font-main rounded-full animate-pulse" />
               <span className="font-medium text-sm truncate max-w-[200px]">
                 {activeTask.title}

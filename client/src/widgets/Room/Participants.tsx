@@ -55,6 +55,7 @@ export const Participants = ({ snapshot }: IParticipants) => {
           />
         ))}
       </div>
+      <h1 className="text-sm text-font-muted">Скопируйте ссылку приглашения</h1>
       <CopyField snapshot={snapshot} />
     </div>
   );

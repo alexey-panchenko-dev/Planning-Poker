@@ -4,9 +4,10 @@ import { Task } from "@/entities/task/model/types";
 interface TasksListProps {
   tasks: Task[];
   isOwner: boolean;
+  snapshot: any;
 }
 
-export const TasksList = ({ tasks, isOwner }: TasksListProps) => {
+export const TasksList = ({ tasks, isOwner, snapshot }: TasksListProps) => {
   if (tasks.length == 0) {
     return (
       <div className="w-full py-10 text-font-muted border-[0.3px] rounded-xl border-font-muted/20 flex justify-center">
@@ -18,13 +19,17 @@ export const TasksList = ({ tasks, isOwner }: TasksListProps) => {
   return (
     <div
       className="
-      w-full max-h-[400px] 
-      
+      w-full max-h-[400px]
       flex flex-col gap-3
       transition-all"
     >
       {tasks.map((task) => (
-        <TaskCard key={task.id} task={task} isOwner={isOwner} />
+        <TaskCard
+          key={task.id}
+          task={task}
+          isOwner={isOwner}
+          snapshot={snapshot}
+        />
       ))}
     </div>
   );
