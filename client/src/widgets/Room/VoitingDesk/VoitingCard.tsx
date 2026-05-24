@@ -14,7 +14,7 @@ export const VoitingCard = ({
       onClick={() => !isDisabled && onClick?.(val)}
       disabled={isDisabled && !isActive}
       className={`
-        w-12 h-18 rounded-xl text-base font-medium
+        w-14 h-20 rounded-xl text-lg font-medium
         transition-all duration-300 ease-out antialiased
         border
         ${

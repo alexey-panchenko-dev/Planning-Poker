@@ -23,21 +23,21 @@ export const PCard = ({ id, name, is_online }: PCardI) => {
       `}
     >
       <div className="relative shrink-0">
-        <div className="w-7 h-7 rounded-full bg-font-muted/20 flex items-center justify-center">
-          <span className="text-xs font-medium text-font-main uppercase">
+        <div className="w-8 h-8 rounded-full bg-font-muted/20 flex items-center justify-center">
+          <span className="text-sm font-medium text-font-main uppercase">
             {name?.[0] ?? "?"}
           </span>
         </div>
         <span
-          className={`absolute -bottom-0.5 -right-0.5 w-2 h-2 rounded-full border border-card-bg
+          className={`absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full border border-card-bg
             ${is_online ? "bg-accent animate-pulse" : "bg-font-muted/50"}`}
         />
       </div>
-      <span className="text-sm text-font-main truncate flex-1">{name}</span>
+      <span className="text-base text-font-main truncate flex-1">{name}</span>
       {is_online ? (
-        <Wifi size={13} className="text-accent shrink-0" />
+        <Wifi size={14} className="text-accent shrink-0" />
       ) : (
-        <WifiOff size={13} className="text-font-muted/50 shrink-0" />
+        <WifiOff size={14} className="text-font-muted/50 shrink-0" />
       )}
     </div>
   );
@@ -60,14 +60,14 @@ export const Participants = ({ snapshot }: IParticipants) => {
   return (
     <div className="flex-1 w-full p-5 border border-font-main/20 bg-card-bg/20 rounded-xl flex flex-col gap-4 h-full justify-center">
       <div className="flex items-center gap-2.5">
-        <div className="w-8 h-8 rounded-xl bg-accent/20 flex items-center justify-center shrink-0">
-          <Star size={14} className="text-accent" />
+        <div className="w-9 h-9 rounded-xl bg-accent/20 flex items-center justify-center shrink-0">
+          <Star size={16} className="text-accent" />
         </div>
         <div className="flex flex-col">
-          <span className="text-[11px] uppercase tracking-widest text-font-muted/60">
+          <span className="text-[13px] uppercase tracking-widest text-font-muted/60">
             Владелец
           </span>
-          <span className="text-sm font-medium text-font-main leading-tight">
+          <span className="text-base font-medium text-font-main leading-tight">
             {owner?.name ?? "Не определён"}
           </span>
         </div>
@@ -77,16 +77,16 @@ export const Participants = ({ snapshot }: IParticipants) => {
 
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2 text-font-muted">
-          <Users size={15} />
-          <span className="text-xs uppercase tracking-widest">Участники</span>
+          <Users size={16} />
+          <span className="text-sm uppercase tracking-widest">Участники</span>
         </div>
-        <div className="flex items-center gap-3 text-xs text-font-muted/60">
+        <div className="flex items-center gap-3 text-sm text-font-muted/60">
           <span className="flex items-center gap-1">
-            <span className="w-1.5 h-1.5 rounded-full bg-accent inline-block" />
+            <span className="w-2 h-2 rounded-full bg-accent inline-block" />
             {participantsOnline.length} онлайн
           </span>
           <span className="flex items-center gap-1">
-            <span className="w-1.5 h-1.5 rounded-full bg-font-muted/40 inline-block" />
+            <span className="w-2 h-2 rounded-full bg-font-muted/40 inline-block" />
             {participantsOffline.length} офлайн
           </span>
         </div>
@@ -106,7 +106,7 @@ export const Participants = ({ snapshot }: IParticipants) => {
           <div className="h-px w-full bg-font-muted/20" />
 
           <div className="flex flex-col gap-1.5">
-            <span className="text-[11px] uppercase tracking-widest text-font-muted/60">
+            <span className="text-[13px] uppercase tracking-widest text-font-muted/60">
               Пригласить
             </span>
             <CopyField snapshot={snapshot} />

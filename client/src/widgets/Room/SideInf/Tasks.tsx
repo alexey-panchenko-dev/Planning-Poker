@@ -15,15 +15,15 @@ export const Tasks = ({ snapshot, isOwner }: ITasks) => {
   return (
     <div className="flex flex-col gap-3">
       <div className="flex items-center justify-between">
-        <span className="text-[11px] uppercase tracking-widest text-font-muted/60">
+        <span className="text-[13px] uppercase tracking-widest text-font-muted/60">
           Задачи
         </span>
         {isOwner && (
           <button
             onClick={() => setIsModal(true)}
-            className="flex items-center gap-1.5 text-xs text-accent border border-accent/30 bg-accent/10 hover:bg-accent/20 hover:border-accent/60 px-3 py-1.5 rounded-lg transition-all duration-200"
+            className="flex items-center gap-1.5 text-sm text-accent border border-accent/30 bg-accent/10 hover:bg-accent/20 hover:border-accent/60 px-3 py-1.5 rounded-lg transition-all duration-200"
           >
-            <Plus size={13} />
+            <Plus size={14} />
             Создать задачу
           </button>
         )}

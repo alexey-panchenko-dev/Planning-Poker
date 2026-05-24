@@ -38,8 +38,8 @@ export const VotingDeсk = ({
       <div className="h-px w-full bg-font-muted/20" />
 
       {hasVoted && (
-        <div className="flex items-center gap-2 text-xs text-font-muted/60 bg-accent/5 border border-accent/20 px-3 py-1.5 rounded-lg self-start">
-          <CheckCircle size={13} className="text-accent" />
+        <div className="flex items-center gap-2 text-sm text-font-muted/60 bg-accent/5 border border-accent/20 px-3 py-1.5 rounded-lg self-start">
+          <CheckCircle size={14} className="text-accent" />
           <span>
             Ваш голос —{" "}
             <span className="text-accent font-medium">{selfVoteValue}</span>
@@ -48,11 +48,11 @@ export const VotingDeсk = ({
       )}
 
       {cardValues.length === 0 ? (
-        <p className="text-sm text-font-muted/50">Карточки не найдены</p>
+        <p className="text-base text-font-muted/50">Карточки не найдены</p>
       ) : (
         <>
           {!hasVoted && (
-            <h2 className="text-xs uppercase tracking-widest text-font-muted/60">
+            <h2 className="text-sm uppercase tracking-widest text-font-muted/60">
               Выберите оценку
             </h2>
           )}

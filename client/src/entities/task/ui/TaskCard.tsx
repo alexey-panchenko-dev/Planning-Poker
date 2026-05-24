@@ -41,21 +41,21 @@ const TaskCard = memo(({ task, isOwner, snapshot }: TaskCardProps) => {
         {...attributes}
         className="absolute top-3.5 right-3.5 p-1 cursor-grab active:cursor-grabbing text-font-muted/20 hover:text-accent transition-colors rounded-md hover:bg-accent/5"
       >
-        <GripHorizontal size={15} />
+        <GripHorizontal size={16} />
       </div>
 
       <div className="flex items-start gap-2 pr-7 mb-1.5">
-        <h4 className="text-sm font-medium text-font-main truncate flex-1">
+        <h4 className="text-base font-medium text-font-main truncate flex-1">
           {task.title}
         </h4>
         {task.estimate_value && (
-          <span className="shrink-0 text-xs border border-accent/30 px-2 py-0.5 rounded-lg bg-accent/5 text-accent font-medium">
+          <span className="shrink-0 text-sm border border-accent/30 px-2 py-0.5 rounded-lg bg-accent/5 text-accent font-medium">
             {task.estimate_value}
           </span>
         )}
       </div>
 
-      <p className="text-xs text-font-muted/60 line-clamp-2 italic leading-relaxed mb-3">
+      <p className="text-sm text-font-muted/60 line-clamp-2 italic leading-relaxed mb-3">
         {task.description || "Без описания"}
       </p>
 
