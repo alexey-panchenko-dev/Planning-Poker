@@ -1,5 +1,4 @@
 import { Search } from "lucide-react";
-import { Input } from "@/shared/ui/Input";
 
 interface RoomSearchI {
   value: string;

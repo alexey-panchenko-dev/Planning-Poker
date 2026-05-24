@@ -15,7 +15,7 @@ export const RoomList = ({ searchQuery = "" }: { searchQuery?: string }) => {
 
   if (isLoading) {
     return (
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 animate-pulse">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 animate-pulse">
         {[...Array(6)].map((_, i) => (
           <div key={i} className="h-48 bg-white/5 rounded-2xl" />
         ))}
@@ -25,7 +25,7 @@ export const RoomList = ({ searchQuery = "" }: { searchQuery?: string }) => {
 
   if (isError) {
     return (
-      <div className="text-center p-10 border border-red-500/20 rounded-2xl text-red-400 ">
+      <div className="text-center p-10 border border-red-500/20 rounded-2xl text-red-400">
         Ошибка загрузки комнат. Проверьте соединение с сервером.
       </div>
     );
@@ -42,7 +42,7 @@ export const RoomList = ({ searchQuery = "" }: { searchQuery?: string }) => {
   }
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 auto-rows-fr">
       {filteredRooms.map((room: RoomProps) => (
         <RoomCard key={room.id} {...room} />
       ))}

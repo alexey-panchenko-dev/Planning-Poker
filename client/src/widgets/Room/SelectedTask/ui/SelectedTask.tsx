@@ -76,13 +76,11 @@ export const SelectedTask = memo(
         }`}
       >
         <div className="grid grid-cols-[2fr_3fr] h-full">
-          {/* Добавили min-w-0, чтобы колонка не распиралась длинными строками */}
           <div className="flex flex-col gap-4 p-5 pr-4 min-w-0">
             <div className="flex flex-col gap-1 pr-6">
               <span className="text-[13px] uppercase tracking-widest text-accent/70">
                 Текущая задача
               </span>
-              {/* Для заголовка тоже добавляем break-words на случай длинного названия без пробелов */}
               <h1 className="text-2xl font-medium text-font-main leading-tight break-words">
                 {currentTask.title}
               </h1>
@@ -105,9 +103,6 @@ export const SelectedTask = memo(
               <span className="text-[13px] uppercase tracking-widest text-font-muted/60">
                 Описание
               </span>
-              {/* Добавили break-words (для переноса сплошного текста) 
-                и whitespace-pre-wrap (чтобы сохранять переносы строк из textarea)
-              */}
               <p className="text-base text-font-main/80 leading-relaxed overflow-y-auto flex-1 scrollbar-thin scrollbar-thumb-accent/20 break-words whitespace-pre-wrap">
                 {currentTask.description || (
                   <span className="text-font-muted/40 italic">
