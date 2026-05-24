@@ -46,7 +46,7 @@ export const HomePage = () => {
       <div className="fixed top-[-10%] left-[-10%] w-[600px] h-[600px] bg-accent opacity-20 blur-[150px] rounded-full pointer-events-none" />
       <div className="fixed top-[60%] left-[16%] w-[500px] h-[500px] bg-ghost opacity-10 blur-[150px] rounded-full pointer-events-none" />
 
-      <section className="relative z-10 flex flex-col items-center text-center max-w-3xl px-4 min-h-screen justify-center">
+      <section className="relative z-10 flex flex-col items-center text-center max-w-3xl px-4 h-[750px] justify-center">
         <h1 className="text-6xl font-bold mb-4">
           <span className="text-accent">IHP</span> - I Have a Plan
         </h1>

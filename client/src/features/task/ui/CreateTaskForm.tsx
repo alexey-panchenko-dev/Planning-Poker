@@ -1,3 +1,4 @@
+// CreateTaskForm.tsx
 import { Input, Button } from "@/shared";
 import { useTaskOperations, useTaskForm } from "../model/tasks.hooks";
 import { useState } from "react";
@@ -58,12 +59,6 @@ export const CreateTaskForm = ({
     );
   };
 
-  const textareaBase =
-    "w-full py-2 px-4 rounded-xl outline-none text-font-main focus:ring-1 focus:ring-accent/50 transition-all border bg-main-bg resize-none";
-  const textareaBorder = errors.description
-    ? "border-danger border-2"
-    : "border-white/5";
-
   return (
     <form onSubmit={onSubmit} className="flex flex-col gap-4">
       <Input
@@ -77,29 +72,35 @@ export const CreateTaskForm = ({
         error={errors.title}
       />
 
-      <div className="flex flex-col items-start w-full gap-1">
-        <label className="text-sm text-font-muted ml-1">Описание</label>
+      <div className="flex flex-col gap-1.5">
+        <div className="flex items-center justify-between">
+          <label className="text-[11px] uppercase tracking-widest text-font-muted/60 ml-1">
+            Описание
+          </label>
+          <span className="text-xs text-font-muted/40">
+            {values.description.length}/500
+          </span>
+        </div>
         <textarea
           name="description"
           placeholder="Опишите задачу (необязательно)..."
           value={values.description}
           onChange={handleFieldChange}
           rows={4}
-          className={`${textareaBase} ${textareaBorder}`}
+          className={`w-full py-3 px-4 rounded-xl outline-none text-font-main text-sm
+            focus:ring-1 focus:ring-accent/50 transition-all border bg-main-bg resize-none
+            ${errors.description ? "border-danger border-2" : "border-white/5"}`}
         />
         {errors.description && (
-          <p className="text-xs text-danger mt-1 ml-1">{errors.description}</p>
+          <p className="text-xs text-danger ml-1">{errors.description}</p>
         )}
-        <p className="text-xs text-font-muted ml-1 self-end">
-          {values.description.length}/500
-        </p>
       </div>
 
       <Button
         type="submit"
         value={create.isPending ? "Создание..." : "Создать задачу"}
         disabled={create.isPending}
-        className="mt-2 py-4"
+        className="mt-1 py-4"
       />
     </form>
   );

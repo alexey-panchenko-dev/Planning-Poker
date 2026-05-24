@@ -1,9 +1,10 @@
+// VotingDeck.tsx
 import { useState } from "react";
 import { VoitingCard } from "./VoitingCard";
 import { useRoomActions } from "@/entities/room/api/roomVote.api";
 import { Button } from "@/shared";
 import { IRoomSnapshot } from "@/entities/room/model/types";
-import { Coffee } from "lucide-react";
+import { Coffee, CheckCircle } from "lucide-react";
 
 export const VotingDeсk = ({
   snapshot,
@@ -19,10 +20,8 @@ export const VotingDeсk = ({
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const cardValues: string[] = snapshot?.room?.deck?.cards ?? [];
-
   const selfVoteValue = snapshot?.active_round?.self_vote_value;
   const hasVoted = !!selfVoteValue;
-
   const activeValue = hasVoted ? selfVoteValue : value;
 
   const handleVote = async () => {
@@ -36,22 +35,27 @@ export const VotingDeсk = ({
   };
 
   return (
-    <div className="flex flex-col items-center justify-center gap-6 py-4 px-3 w-full">
+    <div className="flex flex-col items-center gap-4 w-full">
+      <div className="h-px w-full bg-font-muted/20" />
+
       {hasVoted && (
-        <p className="text-xs text-font-muted uppercase tracking-widest">
-          Ваш голос принят —{" "}
-          <span className="text-accent font-semibold">{selfVoteValue}</span>
-        </p>
+        <div className="flex items-center gap-2 text-xs text-font-muted/60 bg-accent/5 border border-accent/20 px-3 py-1.5 rounded-lg">
+          <CheckCircle size={13} className="text-accent" />
+          <span>
+            Ваш голос —{" "}
+            <span className="text-accent font-medium">{selfVoteValue}</span>
+          </span>
+        </div>
       )}
 
       {cardValues.length === 0 ? (
-        <p className="text-font-muted text-sm">Карточки не найдены</p>
+        <p className="text-sm text-font-muted/50">Карточки не найдены</p>
       ) : (
-        <div className="flex gap-2.5 justify-center items-end h-22 flex-wrap">
+        <div className="flex gap-2 justify-center items-end flex-wrap">
           {cardValues.map((val: string) => (
             <VoitingCard
               key={val}
-              val={val === "break" ? <Coffee /> : val}
+              val={val === "break" ? <Coffee size={16} /> : val}
               isActive={val === activeValue}
               isDisabled={hasVoted}
               onClick={hasVoted ? undefined : setValue}

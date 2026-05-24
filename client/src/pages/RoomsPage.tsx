@@ -39,10 +39,11 @@ export const RoomsPage = () => {
 
         <RoomSearch value={searchQuery} onChange={setSearchQuery} />
 
-        <RoomList searchQuery={searchQuery} />
+        <div className="w-full flex justify-between">
+          <RoomList searchQuery={searchQuery} />
+          <CreateRoomModal isOpen={isOpen} onClose={() => setIsOpen(false)} />
+        </div>
       </main>
-
-      <CreateRoomModal isOpen={isOpen} onClose={() => setIsOpen(false)} />
     </div>
   );
 };

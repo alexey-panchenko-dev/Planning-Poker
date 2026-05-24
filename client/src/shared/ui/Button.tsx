@@ -14,7 +14,7 @@ const BtnVariants: Record<string, string> = {
     "bg-accent/70 enabled:hover:bg-accent text-font-main font-semibold shadow-lg shadow-accent/10 border border-accent",
   danger: "bg-danger/70 enabled:hover:bg-danger text-font-main font-semibold",
   ghost:
-    "bg-card-bg enabled:hover:bg-ghost/20 text-font-muted enabled:hover:text-font-main border border-font-muted/10",
+    "bg-ghost/20 enabled:hover:bg-ghost/50 text-font-muted enabled:hover:text-font-main border border-font-muted/10",
   accentLiner:
     "text-accent border border-accent enabled:hover:bg-accent/10 enabled:hover:border-accent",
 };
@@ -31,7 +31,7 @@ export const Button = ({
     <button
       className={`
         inline-flex items-center justify-center 
-        py-2 px-6 rounded-full 
+        py-2 px-6 rounded-xl 
         transition-all duration-200 
         enabled:active:scale-95 enabled:cursor-pointer 
         disabled:opacity-40 disabled:cursor-not-allowed disabled:grayscale-[0.5]

@@ -1,8 +1,10 @@
+// Actions.tsx
 import { Button } from "@/shared";
 import { useRoomActions } from "@/entities/room/api/roomVote.api";
 import { useSelectedTaskStore } from "@/widgets/Room/SelectedTask/model/useSelectedTaskStore";
 import { IRoomSnapshot } from "@/entities/room/model/types";
 import { FinalizeRound } from "./FinalizeRound";
+import { Play, Eye, RotateCcw, Clock } from "lucide-react";
 
 export const Actions = ({
   id,
@@ -13,9 +15,7 @@ export const Actions = ({
 }) => {
   const selectedTask = useSelectedTaskStore((state) => state.selectedTask);
   const actions = useRoomActions(id);
-
   const activeRound = snapshot?.active_round;
-
   const isThisTaskRound = !!activeRound && activeRound.task_id === selectedTask;
   const isVoting = isThisTaskRound && activeRound.status === "voting";
   const isRevealed = isThisTaskRound && activeRound.status === "revealed";
@@ -23,34 +23,50 @@ export const Actions = ({
 
   if (!isThisTaskRound) {
     return (
-      <div className="flex gap-2 w-full justify-center py-2">
-        <Button
-          value="Начать раунд"
-          className="w-full"
-          disabled={!id || !selectedTask}
-          onClick={() => selectedTask && actions.start(selectedTask)}
-          variant="accent"
-        />
-      </div>
+      <Button
+        value={
+          <span className="flex items-center justify-center gap-2">
+            <Play size={14} />
+            Начать раунд
+          </span>
+        }
+        className="w-full"
+        disabled={!id || !selectedTask}
+        onClick={() => selectedTask && actions.start(selectedTask)}
+        variant="accent"
+      />
     );
   }
 
   if (isVoting) {
     return (
-      <div className="flex flex-col sm:flex-row w-full gap-5 justify-center items-center py-2 grid grid-cols-2">
+      <div className="grid grid-cols-2 gap-2">
         <Button
           value={
-            canReveal
-              ? "Раскрыть раунд"
-              : `Ожидание голосов (${activeRound.votes_submitted}/${activeRound.total_participants})`
+            canReveal ? (
+              <span className="flex items-center justify-center gap-2">
+                <Eye size={14} />
+                Раскрыть раунд
+              </span>
+            ) : (
+              <span className="flex items-center justify-center gap-1.5">
+                <Clock size={13} />
+                {activeRound.votes_submitted}/{activeRound.total_participants}
+              </span>
+            )
           }
-          className="w-full "
+          className="w-full"
           variant="accentLiner"
           disabled={!canReveal}
           onClick={() => actions.reveal(activeRound.id)}
         />
         <Button
-          value="Сбросить раунд"
+          value={
+            <span className="flex items-center justify-center gap-2">
+              <RotateCcw size={14} />
+              Сбросить
+            </span>
+          }
           variant="ghost"
           onClick={() => actions.reset(activeRound.id)}
         />
@@ -60,12 +76,17 @@ export const Actions = ({
 
   if (isRevealed) {
     return (
-      <div className="flex flex-col items-center gap-4 w-full">
+      <div className="flex flex-col gap-2 w-full">
         <FinalizeRound snapshot={snapshot} activeRound={activeRound} id={id} />
-
         <Button
-          value="Переголосовать"
+          value={
+            <span className="flex items-center justify-center gap-2">
+              <RotateCcw size={14} />
+              Переголосовать
+            </span>
+          }
           variant="ghost"
+          className="w-full"
           onClick={() => actions.reset(activeRound.id)}
         />
       </div>

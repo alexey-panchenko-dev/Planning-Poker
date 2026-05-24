@@ -7,31 +7,27 @@ interface IsideInf {
 
 export const SideInf = ({ snapshot }: IsideInf) => {
   const user = useSessionStore((state) => state.user);
-
   const owner = snapshot?.participants?.find(
     (p: any) => p.user_id === snapshot.room.owner_id,
   );
-
-  const isOwner = user?.id == owner.user_id;
+  const isOwner = user?.id == owner?.user_id;
 
   return (
-    <div className="p-5 border border-font-main/20 bg-card-bg/20 rounded-xl space-y-3 w-100 h-fit">
-      {/* общая инфа */}
-      <h1 className="text-2xl text-font-main font-bold">
-        {snapshot?.room?.name}
-      </h1>
-      <h2 className="text-sm text-font-muted">{snapshot?.room?.description}</h2>
-      <h3 className="text-accent">
-        <span className="text-font-muted">Владелец комнаты : </span>
-        {owner?.name || "Не определен ("}
-      </h3>
-
-      <div className="h-px w-full bg-font-muted/30" />
-
-      {/* все что причастно к задачам */}
-      <div>
-        <Tasks isOwner={isOwner} snapshot={snapshot} />
+    <div className="p-5 border border-font-main/20 bg-card-bg/20 rounded-xl w-100 h-fit flex flex-col gap-4">
+      <div className="flex flex-col gap-1">
+        <h1 className="text-lg font-medium text-font-main leading-tight">
+          {snapshot?.room?.name}
+        </h1>
+        {snapshot?.room?.description && (
+          <p className="text-sm text-font-muted/70 leading-relaxed">
+            {snapshot?.room?.description}
+          </p>
+        )}
       </div>
+
+      <div className="h-px w-full bg-font-muted/20" />
+
+      <Tasks isOwner={isOwner} snapshot={snapshot} />
     </div>
   );
 };
