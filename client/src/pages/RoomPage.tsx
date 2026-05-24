@@ -103,7 +103,7 @@ export const RoomPage = () => {
         </div>
         <DragOverlay dropAnimation={DROP_ANIMATION_CONFIG}>
           {activeId && activeTask ? (
-            <div className="px-4 py-2 bg-accent/70 text-font-main rounded-lg border border-font-muted/40 flex items-center gap-2 cursor-grabbing scale-105 transition-transform duration-200">
+            <div className="px-4 py-2 bg-accent/40 text-font-main rounded-lg border border-font-muted/40 flex items-center gap-2 cursor-grabbing scale-105 transition-transform duration-200">
               <div className="w-2 h-2 bg-font-main rounded-full animate-pulse" />
               <span className="font-medium text-sm truncate max-w-[200px]">
                 {activeTask.title}

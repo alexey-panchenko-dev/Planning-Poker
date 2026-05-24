@@ -13,7 +13,7 @@ export const SideInf = ({ snapshot }: IsideInf) => {
   const isOwner = user?.id == owner?.user_id;
 
   return (
-    <div className="p-5 border border-font-main/20 bg-card-bg/20 rounded-xl w-100 h-fit flex flex-col gap-4">
+    <div className="p-5 border border-font-main/20 bg-card-bg/20 rounded-xl w-100 h-fit flex flex-col gap-4 h-[500px]">
       <div className="flex flex-col gap-1">
         <h1 className="text-lg font-medium text-font-main leading-tight">
           {snapshot?.room?.name}

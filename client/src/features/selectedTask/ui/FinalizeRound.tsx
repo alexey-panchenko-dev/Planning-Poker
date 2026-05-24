@@ -20,7 +20,6 @@ export const FinalizeRound = ({
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = e.target.value;
-
     if (/^\d*$/.test(val)) {
       if (val.length <= 2) {
         setValue(val);
@@ -39,15 +38,15 @@ export const FinalizeRound = ({
   };
 
   return (
-    <div className="flex flex-col items-center justify-center gap-6 py-4 px-3 w-full border-b border-font-muted/10">
-      <p className="text-xl text-font-muted">
+    <div className="flex flex-col items-center justify-center gap-5 py-2 px-3 w-full">
+      <p className="text-sm text-font-muted text-center leading-normal">
         Финализация раунда — выберите или введите итоговую оценку
       </p>
 
       {cardValues.length === 0 ? (
         <p className="text-font-muted text-sm">Карточки не найдены</p>
       ) : (
-        <div className="flex gap-2.5 justify-center items-end h-22 flex-wrap">
+        <div className="flex gap-2 justify-center items-end flex-wrap">
           {cardValues.map((val: string) => (
             <VoitingCard
               key={val}
@@ -59,7 +58,7 @@ export const FinalizeRound = ({
         </div>
       )}
 
-      <div className="flex items-end gap-3 w-full max-w-md bg-card-bg/40 p-4 rounded-xl border border-font-muted/10">
+      <div className="flex items-end gap-3 w-full p-4">
         <div className="flex-1">
           <Input
             label="Или введите вручную"
@@ -70,7 +69,7 @@ export const FinalizeRound = ({
         </div>
         <Button
           disabled={!value || isSubmitting}
-          value={isSubmitting ? "Сохранение..." : "Утвердить оценку"}
+          value={isSubmitting ? "..." : "Утвердить"}
           onClick={handleFinalize}
           variant="accent"
         />

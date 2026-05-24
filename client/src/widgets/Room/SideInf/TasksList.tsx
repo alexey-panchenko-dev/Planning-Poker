@@ -1,4 +1,3 @@
-// TasksList.tsx
 import { TaskCard } from "@/entities/task/ui/TaskCard";
 import { Task } from "@/entities/task/model/types";
 import { ClipboardList } from "lucide-react";
@@ -12,7 +11,7 @@ interface TasksListProps {
 export const TasksList = ({ tasks, isOwner, snapshot }: TasksListProps) => {
   if (tasks.length === 0) {
     return (
-      <div className="w-full py-8 flex flex-col items-center gap-2 border border-dashed border-font-muted/20 rounded-xl text-font-muted/50">
+      <div className="w-full py-8 flex flex-col items-center gap-2 border border-dashed border-font-muted/20 rounded-xl text-font-muted/50 h-[400px]">
         <ClipboardList size={24} />
         <span className="text-sm">
           {isOwner ? "Создайте свою первую задачу" : "Задач пока нет"}
@@ -22,7 +21,7 @@ export const TasksList = ({ tasks, isOwner, snapshot }: TasksListProps) => {
   }
 
   return (
-    <div className="w-full max-h-[400px] flex flex-col gap-2.5 overflow-y-auto transition-all">
+    <div className="w-full h-[400px] flex flex-col gap-2.5 overflow-y-auto transition-all">
       {tasks.map((task) => (
         <TaskCard
           key={task.id}

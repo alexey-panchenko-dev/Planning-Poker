@@ -1,3 +1,4 @@
+import { useSessionStore } from "@/entities/session/model/useSessionStore";
 import { CopyField } from "@/features/room/ui/CopyField";
 import { Star, Users, Wifi, WifiOff } from "lucide-react";
 
@@ -47,12 +48,14 @@ interface IParticipants {
 }
 
 export const Participants = ({ snapshot }: IParticipants) => {
+  const user = useSessionStore((state) => state.user);
   const owner = snapshot?.participants?.find(
     (p: any) => p.user_id === snapshot.room.owner_id,
   );
   const participants = snapshot?.participants || [];
   const participantsOnline = participants.filter((p: PCardI) => p.is_online);
   const participantsOffline = participants.filter((p: PCardI) => !p.is_online);
+  const isOwner = !!user && snapshot.room.owner_id === user.id;
 
   return (
     <div className="flex-1 w-full p-5 border border-font-main/20 bg-card-bg/20 rounded-xl flex flex-col gap-4 h-full justify-center">
@@ -98,14 +101,18 @@ export const Participants = ({ snapshot }: IParticipants) => {
         ))}
       </div>
 
-      <div className="h-px w-full bg-font-muted/20" />
+      {isOwner && (
+        <>
+          <div className="h-px w-full bg-font-muted/20" />
 
-      <div className="flex flex-col gap-1.5">
-        <span className="text-[11px] uppercase tracking-widest text-font-muted/60">
-          Пригласить
-        </span>
-        <CopyField snapshot={snapshot} />
-      </div>
+          <div className="flex flex-col gap-1.5">
+            <span className="text-[11px] uppercase tracking-widest text-font-muted/60">
+              Пригласить
+            </span>
+            <CopyField snapshot={snapshot} />
+          </div>
+        </>
+      )}
     </div>
   );
 };

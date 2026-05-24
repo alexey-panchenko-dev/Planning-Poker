@@ -36,16 +36,6 @@ export const RoomCard = ({
               </span>
             </div>
           </div>
-
-          {active_task_title && (
-            <div className="flex items-center gap-1.5 text-[10px] uppercase tracking-wider font-bold text-accent bg-accent/10 px-3 py-1.5 rounded-full border border-accent/20">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-accent"></span>
-              </span>
-              {active_task_title}
-            </div>
-          )}
         </div>
 
         <div className="flex-1">

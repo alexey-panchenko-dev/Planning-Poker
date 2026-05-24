@@ -1,9 +1,7 @@
-// Actions.tsx
 import { Button } from "@/shared";
 import { useRoomActions } from "@/entities/room/api/roomVote.api";
 import { useSelectedTaskStore } from "@/widgets/Room/SelectedTask/model/useSelectedTaskStore";
 import { IRoomSnapshot } from "@/entities/room/model/types";
-import { FinalizeRound } from "./FinalizeRound";
 import { Play, Eye, RotateCcw, Clock } from "lucide-react";
 
 export const Actions = ({
@@ -51,7 +49,7 @@ export const Actions = ({
             ) : (
               <span className="flex items-center justify-center gap-1.5">
                 <Clock size={13} />
-                {activeRound.votes_submitted}/{activeRound.total_participants}
+                Ждем голоса
               </span>
             )
           }
@@ -76,20 +74,17 @@ export const Actions = ({
 
   if (isRevealed) {
     return (
-      <div className="flex flex-col gap-2 w-full">
-        <FinalizeRound snapshot={snapshot} activeRound={activeRound} id={id} />
-        <Button
-          value={
-            <span className="flex items-center justify-center gap-2">
-              <RotateCcw size={14} />
-              Переголосовать
-            </span>
-          }
-          variant="ghost"
-          className="w-full"
-          onClick={() => actions.reset(activeRound.id)}
-        />
-      </div>
+      <Button
+        value={
+          <span className="flex items-center justify-center gap-2">
+            <RotateCcw size={14} />
+            Переголосовать
+          </span>
+        }
+        variant="ghost"
+        className="w-full"
+        onClick={() => actions.reset(activeRound.id)}
+      />
     );
   }
 
