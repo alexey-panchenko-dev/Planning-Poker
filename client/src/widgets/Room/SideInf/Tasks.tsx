@@ -19,13 +19,11 @@ export const Tasks = ({ snapshot, isOwner }: ITasks) => {
           Задачи
         </span>
         {isOwner && (
-          <button
+          <Button
             onClick={() => setIsModal(true)}
-            className="flex items-center gap-1.5 text-sm text-accent border border-accent/30 bg-accent/10 hover:bg-accent/20 hover:border-accent/60 px-3 py-1.5 rounded-lg transition-all duration-200"
-          >
-            <Plus size={14} />
-            Создать задачу
-          </button>
+            variant="accentLiner"
+            value="+ Создать задачу"
+          />
         )}
       </div>
 

@@ -11,8 +11,10 @@ export const JoinRoom = () => {
   const { mutate: joinRoom, isPending } = useJoinRoom();
   const navigate = useNavigate();
 
-  const handleJoin = () => {
+  const handleJoin = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     setError(null);
+
     if (!inputValue.trim()) {
       setError("Пожалуйста, введите код или ссылку");
       return;
@@ -37,36 +39,33 @@ export const JoinRoom = () => {
       },
       onError: (err: any) => {
         const msg =
-          err.response?.data?.detail ||
-          "Не удалось присоединиться к комнате. Проверьте ссылку или код.";
+          err.response?.data?.detail || "Не удалось подключиться к комнате.";
         setError(msg);
       },
     });
   };
 
   return (
-    <div className="w-full max-w-md bg-card-bg/30 p-8 rounded-[32px] border border-font-muted/10 backdrop-blur-sm">
-      <h2 className="text-2xl font-medium mb-6">Найти сессию</h2>
-      <div className="flex flex-col gap-3">
-        <form onSubmit={handleJoin} className="flex gap-3">
-          <div className="flex-1">
-            <Input
-              placeholder="Введите код или ссылку"
-              variant="default2"
-              value={inputValue}
-              onChange={(e) => setInputValue(e.target.value)}
-              error={error || undefined}
-            />
-          </div>
-          <div className="mt-0">
-            <Button
-              value={isPending ? "Подключение..." : "Присоединиться"}
-              onClick={handleJoin}
-              disabled={isPending}
-            />
-          </div>
-        </form>
+    <form onSubmit={handleJoin} className="w-full flex flex-col gap-3">
+      <div className="w-full">
+        <Input
+          placeholder="Введите код или ссылку"
+          variant="default2"
+          value={inputValue}
+          onChange={(e) => {
+            setInputValue(e.target.value);
+            if (error) setError(null);
+          }}
+          error={error || undefined}
+        />
       </div>
-    </div>
+
+      <Button
+        type="submit"
+        value={isPending ? "Подключение..." : "Присоединиться"}
+        disabled={isPending}
+        className="w-full rounded-xl py-3"
+      />
+    </form>
   );
 };

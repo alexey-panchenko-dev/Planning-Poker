@@ -1,6 +1,6 @@
 import { useSessionStore } from "@/entities/session/model/useSessionStore";
 import { CopyField } from "@/features/room/ui/CopyField";
-import { Star, Users, Wifi, WifiOff } from "lucide-react";
+import { Star, Users, Wifi, WifiOff, Hash, Link } from "lucide-react";
 
 interface PCardI {
   id: string;
@@ -57,6 +57,11 @@ export const Participants = ({ snapshot }: IParticipants) => {
   const participantsOffline = participants.filter((p: PCardI) => !p.is_online);
   const isOwner = !!user && snapshot.room.owner_id === user.id;
 
+  const inviteLink = snapshot?.room?.invite_link || "";
+  const roomCode = inviteLink.includes("/invite/")
+    ? inviteLink.split("/invite/")[1]?.split(/[/?#]/)[0]
+    : snapshot?.room?.id || "";
+
   return (
     <div className="flex-1 w-full p-5 border border-font-main/20 bg-card-bg/20 rounded-xl flex flex-col gap-4 h-full justify-center">
       <div className="flex items-center gap-2.5">
@@ -77,8 +82,10 @@ export const Participants = ({ snapshot }: IParticipants) => {
 
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2 text-font-muted">
-          <Users size={16} />
-          <span className="text-sm uppercase tracking-widest">Участники</span>
+          <Users size={16} className="text-font-muted/60" />
+          <span className="text-[13px] uppercase tracking-widest text-font-muted/60">
+            Участники
+          </span>
         </div>
         <div className="flex items-center gap-3 text-sm text-font-muted/60">
           <span className="flex items-center gap-1">
@@ -105,11 +112,20 @@ export const Participants = ({ snapshot }: IParticipants) => {
         <>
           <div className="h-px w-full bg-font-muted/20" />
 
-          <div className="flex flex-col gap-1.5">
-            <span className="text-[13px] uppercase tracking-widest text-font-muted/60">
-              Пригласить
-            </span>
-            <CopyField snapshot={snapshot} />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="flex flex-col gap-1.5">
+              <span className="text-[13px] uppercase tracking-widest text-font-muted/60">
+                Ссылка для входа
+              </span>
+              <CopyField text={inviteLink} icon={<Link size={15} />} />
+            </div>
+
+            <div className="flex flex-col gap-1.5">
+              <span className="text-[13px] uppercase tracking-widest text-font-muted/60">
+                Код комнаты
+              </span>
+              <CopyField text={roomCode} icon={<Hash size={15} />} />
+            </div>
           </div>
         </>
       )}

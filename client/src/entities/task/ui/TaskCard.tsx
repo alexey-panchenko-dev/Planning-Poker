@@ -19,9 +19,19 @@ const TaskCard = memo(({ task, isOwner, snapshot }: TaskCardProps) => {
   const setSelectedTaskId = useSelectedTaskStore(
     (state) => state.setSelectedTaskId,
   );
+
+  const isRoundActive = !!snapshot?.active_round;
+
+  const isTaskInActiveRound =
+    isRoundActive && snapshot.active_round.task_id === task.id;
+
+  const isSelectionDisabled = isRoundActive && !isTaskInActiveRound;
+
   const { attributes, listeners, setNodeRef, isDragging } = useDraggable({
     id: task.id,
+    disabled: isSelectionDisabled,
   });
+
   const isDisabled = snapshot?.history.some((t: any) => t.task_id === task.id);
 
   return (
@@ -34,15 +44,26 @@ const TaskCard = memo(({ task, isOwner, snapshot }: TaskCardProps) => {
             : isCurrent
               ? "bg-accent/5 border-accent/50"
               : "bg-card-bg border-font-muted/10 hover:border-accent/30"
-        }`}
+        }
+        
+        /* Визуально тушим карточки, которые нельзя выбрать/перетащить */
+        ${isSelectionDisabled ? "opacity-40 cursor-not-allowed select-none" : ""}
+      `}
+      title={
+        isSelectionDisabled
+          ? "Нельзя выбрать другую задачу во время активного раунда"
+          : ""
+      }
     >
-      <div
-        {...listeners}
-        {...attributes}
-        className="absolute top-3.5 right-3.5 p-1 cursor-grab active:cursor-grabbing text-font-muted/20 hover:text-accent transition-colors rounded-md hover:bg-accent/5"
-      >
-        <GripHorizontal size={16} />
-      </div>
+      {isOwner && !isSelectionDisabled && (
+        <div
+          {...listeners}
+          {...attributes}
+          className="absolute top-3.5 right-3.5 p-1 cursor-grab active:cursor-grabbing text-font-muted/20 hover:text-accent transition-colors rounded-md hover:bg-accent/5"
+        >
+          <GripHorizontal size={16} />
+        </div>
+      )}
 
       <div className="flex items-start gap-2 pr-7 mb-1.5">
         <h4 className="text-base font-medium text-font-main truncate flex-1">
@@ -60,12 +81,24 @@ const TaskCard = memo(({ task, isOwner, snapshot }: TaskCardProps) => {
       </p>
 
       <div className={`grid ${isOwner ? "grid-cols-2" : "grid-cols-1"} gap-2`}>
-        {isOwner && !isDisabled && <DeleteTaskBtn taskId={task.id} />}
+        {isOwner && !isDisabled && !isRoundActive && (
+          <DeleteTaskBtn taskId={task.id} />
+        )}
+
         <Button
           onClick={() => setSelectedTaskId(task.id)}
-          className={`rounded-xl p-2.5 ${!isOwner ? "w-full" : ""}`}
+          className={`rounded-xl p-2.5 ${!isOwner ? "w-full" : ""} ${isSelectionDisabled ? "pointer-events-none" : ""}`}
           variant={isCurrent ? "accent" : "ghost"}
-          value={<SquareDashed size={16} />}
+          value={
+            isTaskInActiveRound ? (
+              <span className="text-xs font-bold uppercase tracking-wider px-2">
+                В раунде
+              </span>
+            ) : (
+              <SquareDashed size={16} />
+            )
+          }
+          disabled={isSelectionDisabled}
         />
       </div>
     </div>

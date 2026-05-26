@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { RoomList } from "@/widgets/Rooms/RoomsList";
-import { CreateRoomModal } from "@/features/rooms/ui/CreateRoomModal";
+import { CreateRoom } from "@/features/rooms/ui/CreateRoom";
 import { RoomSearch } from "@/features/rooms/ui/RoomSearch";
 import { LayoutGrid } from "lucide-react";
+import { JoinRoom } from "@/features/rooms/ui/JoinRoom";
+import { RoomsForm } from "@/features/rooms/ui/RoomsForm";
 
 export const RoomsPage = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -27,11 +29,11 @@ export const RoomsPage = () => {
           </div>
         </div>
 
-        <div className="flex gap-6 items-center border border-font-muted/20 bg-main-bg rounded-2xl">
-          <div
-            className="flex-1 min-w-0 bg-main-bg border border-font-main/5 rounded-2xl flex flex-col"
-            style={{ height: "calc(100vh - 220px)" }}
-          >
+        <div
+          className="flex gap-6 items-stretch w-full"
+          style={{ height: "calc(100vh - 220px)" }}
+        >
+          <div className="flex-1 min-w-0 bg-main-bg border border-font-muted/20 rounded-2xl flex flex-col overflow-hidden">
             <div className="p-5 border-b border-font-main/5 shrink-0">
               <RoomSearch value={searchQuery} onChange={setSearchQuery} />
             </div>
@@ -40,17 +42,15 @@ export const RoomsPage = () => {
             </div>
           </div>
 
-          <div className="w-[420px] shrink-0 rounded-2xl overflow-hidden flex flex-col items-center justify-center">
-            <span className="text-xs font-bold text-font-muted uppercase tracking-widest">
-              Новая комната
-            </span>
-            <div className="p-5">
-              <CreateRoomModal />
+          <div className="w-[420px] shrink-0 border border-font-muted/15 bg-main-bg/40 backdrop-blur-md rounded-2xl p-6 flex flex-col justify-between overflow-hidden">
+            <div className="flex flex-col">
+              <RoomsForm />
             </div>
           </div>
         </div>
       </main>
 
+      {/* Стили скроллбара */}
       <style>{`
         .rooms-scroll {
           scrollbar-width: thin;
