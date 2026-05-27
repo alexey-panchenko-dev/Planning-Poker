@@ -39,8 +39,6 @@ export const LoginForm = () => {
 
   return (
     <div className="flex flex-col gap-4">
-      <h1 className="text-xl font-bold">Войти в аккаунт</h1>
-
       <form onSubmit={handleSubmit} className="space-y-4">
         {error && <div className="text-red-600">{error}</div>}
 
