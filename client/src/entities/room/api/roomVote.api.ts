@@ -39,7 +39,7 @@ export const useRoomActions = (roomId: string | undefined) => {
   const finalize = async (roundId: string, result_value: string | number) => {
     if (!roomId) return;
     await apiInstance.post(`/rooms/${roomId}/rounds/${roundId}/finalize`, {
-      rezult_value: result_value,
+      result_value: result_value,
     });
     invalidate();
   };

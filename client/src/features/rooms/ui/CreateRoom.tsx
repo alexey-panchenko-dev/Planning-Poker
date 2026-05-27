@@ -168,7 +168,7 @@ export const CreateRoom = () => {
 
       <Button
         type="submit"
-        value={isPending ? "Создание..." : "Создать сессию"}
+        value={isPending ? "Создание..." : "Создать комнату"}
         variant="accent"
         className="w-full rounded-xl mt-2"
       />

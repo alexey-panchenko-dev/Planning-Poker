@@ -13,17 +13,15 @@ export const FinalizeRound = ({
   activeRound: any;
 }) => {
   const actions = useRoomActions(id);
-  const [value, setValue] = useState<string>("");
+  const [value, setValue] = useState<string>(activeRound?.suggested_result || "");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const cardValues: string[] = snapshot?.room?.deck?.cards ?? [];
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const val = e.target.value;
-    if (/^\d*$/.test(val)) {
-      if (val.length <= 2) {
-        setValue(val);
-      }
+    const val = e.target.value.toUpperCase();
+    if (val.length <= 3) {
+      setValue(val);
     }
   };
 
@@ -51,8 +49,8 @@ export const FinalizeRound = ({
             <VoitingCard
               key={val}
               val={val}
-              isActive={val === value}
-              onClick={setValue}
+              isActive={val.toUpperCase() === value.toUpperCase()}
+              onClick={(v) => setValue(v.toUpperCase())}
             />
           ))}
         </div>
