@@ -134,9 +134,7 @@ export const CreateRoom = () => {
                     <h4 className="font-bold text-font-main text-sm truncate">
                       {deck.name}
                     </h4>
-                    <p className="text-[11px] text-font-muted line-clamp-1 mb-1">
-                      {deck.description}
-                    </p>
+
                     <div className="flex gap-1 flex-wrap">
                       {deck.cards.slice(0, 5).map((card: any) => (
                         <span

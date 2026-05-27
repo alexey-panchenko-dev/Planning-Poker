@@ -41,6 +41,16 @@ export const Actions = ({
       <div className="grid grid-cols-2 gap-2">
         <Button
           value={
+            <span className="flex items-center justify-center gap-2">
+              <RotateCcw size={14} />
+              Сбросить
+            </span>
+          }
+          variant="ghost"
+          onClick={() => actions.reset(activeRound.id)}
+        />
+        <Button
+          value={
             canReveal ? (
               <span className="flex items-center justify-center gap-2">
                 <Eye size={14} />
@@ -57,16 +67,6 @@ export const Actions = ({
           variant="accentLiner"
           disabled={!canReveal}
           onClick={() => actions.reveal(activeRound.id)}
-        />
-        <Button
-          value={
-            <span className="flex items-center justify-center gap-2">
-              <RotateCcw size={14} />
-              Сбросить
-            </span>
-          }
-          variant="ghost"
-          onClick={() => actions.reset(activeRound.id)}
         />
       </div>
     );

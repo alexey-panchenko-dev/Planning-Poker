@@ -34,7 +34,7 @@ export const SelectedTask = memo(
       return (
         <div
           ref={setNodeRef}
-          className={`flex-1 w-full min-h-[200px] p-8 border rounded-xl flex flex-col items-center justify-center gap-4 select-none cursor-default transition-all duration-300 will-change-transform ${
+          className={`flex-1 w-full min-h-[300px] p-8 border rounded-xl flex flex-col items-center justify-center gap-4 select-none cursor-default transition-all duration-300 will-change-transform ${
             isOver
               ? "border-accent bg-accent/10 scale-[1.02] ring-2 ring-accent/20"
               : "border-font-main/10 bg-card-bg/20"
@@ -69,7 +69,7 @@ export const SelectedTask = memo(
     return (
       <div
         ref={setNodeRef}
-        className={`relative flex-1 w-full border bg-card-bg/20 rounded-xl h-full transition-all duration-300 will-change-transform overflow-hidden ${
+        className={`relative flex-1 w-full border bg-card-bg rounded-xl h-full transition-all duration-300 will-change-transform overflow-hidden ${
           isOver
             ? "border-accent bg-accent/5 ring-2 ring-accent/10"
             : "border-font-main/20"

@@ -7,7 +7,6 @@ import {
   BarChart3,
   KeyRound,
   PlusCircle,
-  ArrowUpRight,
 } from "lucide-react";
 import { JoinRoom } from "@/features/rooms/ui/JoinRoom";
 import { Link } from "react-router";
@@ -61,8 +60,8 @@ export const HomePage = () => {
           атмосфере спокойствия и фокуса
         </p>
 
-        <div className="absolute bottom-10 animate-bounce opacity-20">
-          <div className="w-[1px] h-12 bg-gradient-to-b from-transparent to-font-main" />
+        <div className="absolute bottom-10 animate-bounce">
+          <div className="w-[1px] h-12 bg-gradient-to-b from-transparent to-accent" />
         </div>
       </section>
 

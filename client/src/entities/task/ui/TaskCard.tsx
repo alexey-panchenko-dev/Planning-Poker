@@ -1,7 +1,7 @@
 import { Task } from "../model/types";
 import { DeleteTaskBtn } from "@/features/task/ui/DeleteTaskBtn";
 import { Button } from "@/shared";
-import { SquareDashed, GripHorizontal } from "lucide-react";
+import { SquareDashed, GripVertical } from "lucide-react";
 import { useSelectedTaskStore } from "@/widgets/Room/SelectedTask/model/useSelectedTaskStore";
 import { useDraggable } from "@dnd-kit/core";
 import { memo } from "react";
@@ -55,15 +55,13 @@ const TaskCard = memo(({ task, isOwner, snapshot }: TaskCardProps) => {
           : ""
       }
     >
-      {isOwner && !isSelectionDisabled && (
-        <div
-          {...listeners}
-          {...attributes}
-          className="absolute top-3.5 right-3.5 p-1 cursor-grab active:cursor-grabbing text-font-muted/20 hover:text-accent transition-colors rounded-md hover:bg-accent/5"
-        >
-          <GripHorizontal size={16} />
-        </div>
-      )}
+      <div
+        {...listeners}
+        {...attributes}
+        className="absolute top-3.5 right-3.5 p-1 cursor-grab active:cursor-grabbing text-font-muted/20 hover:text-accent transition-colors rounded-md hover:bg-accent/5"
+      >
+        <GripVertical size={25} />
+      </div>
 
       <div className="flex items-start gap-2 pr-7 mb-1.5">
         <h4 className="text-base font-medium text-font-main truncate flex-1">
@@ -98,7 +96,7 @@ const TaskCard = memo(({ task, isOwner, snapshot }: TaskCardProps) => {
               <SquareDashed size={16} />
             )
           }
-          disabled={isSelectionDisabled}
+          disabled={isRoundActive}
         />
       </div>
     </div>

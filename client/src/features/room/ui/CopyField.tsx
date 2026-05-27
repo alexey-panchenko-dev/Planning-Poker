@@ -26,7 +26,7 @@ export const CopyField = ({
   };
 
   return (
-    <div
+    <button
       onClick={handleCopy}
       className="
         group relative flex items-center justify-between gap-3
@@ -70,6 +70,6 @@ export const CopyField = ({
           Скопировано!
         </span>
       )}
-    </div>
+    </button>
   );
 };
