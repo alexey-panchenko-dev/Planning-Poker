@@ -14,7 +14,10 @@ export const SideInf = ({ snapshot }: IsideInf) => {
   const isOwner = user?.id == owner?.user_id;
 
   return (
-    <div className="p-6 border border-font-main/15 bg-card-bg/20 backdrop-blur-sm rounded-2xl w-[450px] h-fit flex flex-col gap-5 h-[500px] shadow-xl shadow-black/5">
+    <div
+      id="side-inf-container"
+      className="relative p-6 border border-font-main/15 bg-card-bg/20 backdrop-blur-sm rounded-2xl w-[450px] h-[600px] flex flex-col gap-5 shadow-xl shadow-black/5 overflow-hidden"
+    >
       <div className="flex flex-col gap-2">
         <h1 className="text-2xl font-bold text-font-main leading-tight tracking-tight">
           {snapshot?.room?.name}
@@ -32,4 +35,3 @@ export const SideInf = ({ snapshot }: IsideInf) => {
     </div>
   );
 };
-
