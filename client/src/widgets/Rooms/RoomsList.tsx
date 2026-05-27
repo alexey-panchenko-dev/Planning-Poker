@@ -1,11 +1,11 @@
 import { useRooms } from "@/entities/room/model/useRooms";
 import { RoomCard } from "@/entities/room/ui/RoomCard";
-import { type RoomProps } from "@/entities/room/model/types";
+import { type IRoom } from "@/entities/room/model/types";
 
 export const RoomList = ({ searchQuery = "" }: { searchQuery?: string }) => {
   const { data: rooms, isLoading, isError } = useRooms();
 
-  const filteredRooms = rooms?.filter((room: RoomProps) => {
+  const filteredRooms = rooms?.filter((room: IRoom) => {
     const query = searchQuery.toLowerCase();
     return (
       room.name.toLowerCase().includes(query) ||
@@ -43,7 +43,7 @@ export const RoomList = ({ searchQuery = "" }: { searchQuery?: string }) => {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 auto-rows-fr">
-      {filteredRooms.map((room: RoomProps) => (
+      {filteredRooms.map((room: IRoom) => (
         <RoomCard key={room.id} {...room} />
       ))}
     </div>

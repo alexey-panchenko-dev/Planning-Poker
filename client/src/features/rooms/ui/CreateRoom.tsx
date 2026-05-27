@@ -5,10 +5,16 @@ import { useQuery } from "@tanstack/react-query";
 import { getDeckPresets } from "@/entities/room/api/room.api";
 import { Layers, Check, ChevronDown } from "lucide-react";
 
+interface FormErrors {
+  name?: string;
+}
+
 export const CreateRoom = () => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [selectedDeck, setSelectedDeck] = useState("fibonacci");
+
+  const [errors, setErrors] = useState<FormErrors>({});
 
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -19,6 +25,19 @@ export const CreateRoom = () => {
     queryKey: ["deck-presets"],
     queryFn: getDeckPresets,
   });
+
+  const validateForm = (): boolean => {
+    const newErrors: FormErrors = {};
+
+    if (!name.trim()) {
+      newErrors.name = "Название комнаты обязательно для заполнения";
+    } else if (name.trim().length < 3) {
+      newErrors.name = "Название должно содержать минимум 3 символа";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
   const currentDeck = decks?.find((d: any) => d.code === selectedDeck);
 
@@ -37,13 +56,23 @@ export const CreateRoom = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!validateForm()) {
+      return;
+    }
+
     mutate(
-      { name, description, deck_preset_code: selectedDeck },
+      {
+        name: name.trim(),
+        description: description.trim(),
+        deck_preset_code: selectedDeck,
+      },
       {
         onSuccess: () => {
           setName("");
           setDescription("");
           setSelectedDeck("fibonacci");
+          setErrors({});
         },
       },
     );
@@ -55,9 +84,15 @@ export const CreateRoom = () => {
         <Input
           label="Название"
           value={name}
-          onChange={(e) => setName(e.target.value)}
+          onChange={(e) => {
+            setName(e.target.value);
+            if (errors.name)
+              setErrors((prev) => ({ ...prev, name: undefined }));
+          }}
           placeholder="Введите название комнаты..."
+          error={errors.name}
         />
+
         <Input
           label="Описание (необязательно)"
           value={description}
@@ -169,6 +204,7 @@ export const CreateRoom = () => {
         value={isPending ? "Создание..." : "Создать комнату"}
         variant="accent"
         className="w-full rounded-xl mt-2"
+        disabled={isPending}
       />
     </form>
   );

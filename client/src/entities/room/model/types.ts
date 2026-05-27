@@ -20,7 +20,6 @@ export interface IRoom {
   updated_at: string;
   deck: IDeck;
 
-  // ДОПОЛНЕНО: Опциональные поля для списков и карточек комнат на главной
   active_task_title?: string | null;
   participants_count?: number;
 }

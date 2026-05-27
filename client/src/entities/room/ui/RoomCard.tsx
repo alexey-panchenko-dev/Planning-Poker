@@ -9,9 +9,9 @@ export const RoomCard = ({
   id,
   name,
   description,
-  active_task_title,
   participants_count,
 }: IRoom) => {
+  const [error, setError] = useState("");
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const { mutate: deleteRoom, isPending } = useDeleteRoom();
 
@@ -19,6 +19,10 @@ export const RoomCard = ({
     e.preventDefault();
     deleteRoom(id, {
       onSuccess: () => setIsDeleteModalOpen(false),
+      onError: (error: any) =>
+        setError(
+          error?.response?.data?.message || error.message || "Ошибка удаления",
+        ),
     });
   };
 
@@ -108,6 +112,11 @@ export const RoomCard = ({
                 className="flex-1 rounded-2xl"
               />
             </div>
+            {error && (
+              <p className="text-xs text-danger mt-1 ml-1">
+                Удалить комнату может только создатель
+              </p>
+            )}
           </div>
         </form>
       </Modal>
