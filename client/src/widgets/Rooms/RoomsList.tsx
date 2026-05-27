@@ -1,6 +1,7 @@
 import { useRooms } from "@/entities/room/model/useRooms";
 import { RoomCard } from "@/entities/room/ui/RoomCard";
 import { type IRoom } from "@/entities/room/model/types";
+import { NoRecords } from "@/shared/ui/characters/NoRecords";
 
 export const RoomList = ({ searchQuery = "" }: { searchQuery?: string }) => {
   const { data: rooms, isLoading, isError } = useRooms();
@@ -34,9 +35,11 @@ export const RoomList = ({ searchQuery = "" }: { searchQuery?: string }) => {
   if (!filteredRooms?.length) {
     return (
       <div className="text-center p-20 text-font-muted border border-dashed border-white/5 rounded-[32px] bg-white/[0.01]">
-        {searchQuery
-          ? `По запросу "${searchQuery}" ничего не найдено`
-          : "Список пуст."}
+        {searchQuery ? (
+          `По запросу "${searchQuery}" ничего не найдено`
+        ) : (
+          <NoRecords size={50} />
+        )}
       </div>
     );
   }

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { JoinRoom } from "./JoinRoom";
 import { CreateRoom } from "./CreateRoom";
 import { Button } from "@/shared";
+import { CharacterCreate } from "@/shared/ui/characters/CharacterCreate";
 
 type TabType = "join" | "create";
 
@@ -9,7 +10,7 @@ export const RoomsForm = () => {
   const [activeTab, setActiveTab] = useState<TabType>("create");
 
   return (
-    <div className="w-full">
+    <div className="w-full space-y-8">
       <div className="flex rounded-xl mb-6 gap-1">
         <Button
           type="button"
@@ -31,6 +32,8 @@ export const RoomsForm = () => {
       <div className="transition-all duration-300 dynamic-form-container">
         {activeTab === "join" ? <JoinRoom /> : <CreateRoom />}
       </div>
+
+      <CharacterCreate size={40} />
     </div>
   );
 };
