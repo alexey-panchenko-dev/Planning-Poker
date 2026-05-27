@@ -11,6 +11,7 @@ import {
 import { JoinRoom } from "@/features/rooms/ui/JoinRoom";
 import { Link } from "react-router";
 import { Button } from "@/shared";
+import { ChooseCardCharacter } from "@/shared/ui/characters/ChooseCardCharacter";
 
 export const HomePage = () => {
   const steps = [
