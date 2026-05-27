@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { VoitingCard } from "../../VoitingDesk/VoitingCard";
 import { FinalizeRound } from "@/features/selectedTask/ui/FinalizeRound";
+import { Button } from "@/shared";
 
 interface IRevRoundVotesProps {
   snapshot: any;
@@ -48,33 +49,23 @@ export const RevealRoundVotes = ({
 
   return (
     <div className="flex flex-col gap-3 flex-1 min-h-0">
-      {/* Вкладки — только овнер видит Финализацию */}
       {isOwner && (
-        <div className="flex gap-1 bg-inner-bg/50 p-1 rounded-xl border border-white/5">
-          <button
+        <div className="flex gap-1 bg-inner-bg/50 p-1 rounded-xl">
+          <Button
             onClick={() => setTab("votes")}
-            className={`flex-1 text-sm py-1.5 rounded-lg transition-all font-medium ${
-              tab === "votes"
-                ? "bg-accent/20 text-accent"
-                : "text-font-muted/60 hover:text-font-muted"
-            }`}
-          >
-            Голоса
-          </button>
-          <button
+            variant={tab === "votes" ? "accent" : "ghost"}
+            value="Голоса"
+            className="w-full"
+          />
+          <Button
             onClick={() => setTab("finalize")}
-            className={`flex-1 text-sm py-1.5 rounded-lg transition-all font-medium ${
-              tab === "finalize"
-                ? "bg-accent/20 text-accent"
-                : "text-font-muted/60 hover:text-font-muted"
-            }`}
-          >
-            Финализация
-          </button>
+            variant={tab === "finalize" ? "accent" : "ghost"}
+            value="Финализация"
+            className="w-full"
+          />
         </div>
       )}
 
-      {/* Голоса — всем, всегда */}
       {(tab === "votes" || !isOwner) && (
         <div className="flex flex-col gap-3">
           <div className="flex flex-wrap gap-3">
@@ -100,7 +91,6 @@ export const RevealRoundVotes = ({
         </div>
       )}
 
-      {/* Финализация — только овнер */}
       {isOwner && tab === "finalize" && (
         <FinalizeRound snapshot={snapshot} activeRound={activeRound} id={id} />
       )}

@@ -18,6 +18,7 @@ import {
   defaultDropAnimationSideEffects,
 } from "@dnd-kit/core";
 import { BackButton } from "@/shared/ui/BackButton";
+import { ITask } from "@/entities/room/model/types";
 
 const DROP_ANIMATION_CONFIG = {
   sideEffects: defaultDropAnimationSideEffects({
@@ -74,7 +75,7 @@ export const RoomPage = () => {
   );
 
   const activeTask = useMemo(
-    () => snapshot?.tasks?.find((t: any) => t.id === activeId),
+    () => snapshot?.tasks?.find((t: ITask) => t.id === activeId),
     [snapshot, activeId],
   );
 
@@ -86,26 +87,28 @@ export const RoomPage = () => {
         onDragEnd={handleDragEnd}
         onDragCancel={() => setActiveId(null)}
       >
-        <div className="h-fit w-full flex justify-center items-center">
-          <div className="h-screen pt-15 w-[1400px] flex-col gap-5">
-            <BackButton path="rooms" />
-            <div className="flex gap-5">
+        <div className="min-h-screen w-full flex justify-center bg-main-bg overflow-x-hidden">
+          <div className="w-full max-w-[1440px] px-8 pt-20 pb-10 flex flex-col gap-8">
+            <div className="flex items-center">
+              <BackButton path="rooms" />
+            </div>
+            
+            <div className="flex gap-8 items-start">
               <SideInf snapshot={snapshot} />
-              <div
-                className="flex flex-col flex-1 min-h-0 gap-5"
-                style={{ height: "fit-content", alignSelf: "flex-start" }}
-              >
-                <SelectedTask snapshot={snapshot} id={id} />
-                <Participants snapshot={snapshot} />
+              
+              <div className="flex flex-col flex-1 min-h-0 gap-8">
+                <SelectedTask snapshot={snapshot!} id={id} />
+                <Participants snapshot={snapshot!} />
               </div>
             </div>
           </div>
         </div>
+        
         <DragOverlay dropAnimation={DROP_ANIMATION_CONFIG}>
           {activeId && activeTask ? (
-            <div className="px-4 py-2 bg-accent/40 text-font-main rounded-lg border border-font-muted/40 flex items-center gap-2 cursor-grabbing scale-105 transition-transform duration-200">
-              <div className="w-2 h-2 bg-font-main rounded-full animate-pulse" />
-              <span className="font-medium text-sm truncate max-w-[200px]">
+            <div className="px-5 py-3 bg-accent/90 text-white rounded-2xl border border-white/20 flex items-center gap-3 cursor-grabbing shadow-2xl scale-110 backdrop-blur-md">
+              <div className="w-2.5 h-2.5 bg-white rounded-full animate-pulse shadow-[0_0_8px_white]" />
+              <span className="font-bold text-sm tracking-tight truncate max-w-[240px]">
                 {activeTask.title}
               </span>
             </div>
@@ -115,3 +118,4 @@ export const RoomPage = () => {
     </GuardQuery>
   );
 };
+

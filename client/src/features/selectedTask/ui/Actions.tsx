@@ -38,33 +38,34 @@ export const Actions = ({
 
   if (isVoting) {
     return (
-      <div className="grid grid-cols-2 gap-2">
+      <div className="grid grid-cols-2 gap-3">
         <Button
           value={
-            <span className="flex items-center justify-center gap-2">
+            <span className="flex items-center justify-center gap-2 font-semibold tracking-tight">
               <RotateCcw size={14} />
               Сбросить
             </span>
           }
           variant="ghost"
+          className="w-full border border-font-muted/10 hover:border-font-muted/20"
           onClick={() => actions.reset(activeRound.id)}
         />
         <Button
           value={
             canReveal ? (
-              <span className="flex items-center justify-center gap-2">
-                <Eye size={14} />
-                Раскрыть раунд
+              <span className="flex items-center justify-center gap-2 font-semibold tracking-tight">
+                <Eye size={16} />
+                Раскрыть
               </span>
             ) : (
-              <span className="flex items-center justify-center gap-1.5">
-                <Clock size={13} />
-                Ждем голоса
+              <span className="flex items-center justify-center gap-2 font-semibold tracking-tight">
+                <Clock size={14} />
+                Ждем...
               </span>
             )
           }
-          className="w-full"
-          variant="accentLiner"
+          className="w-full shadow-lg shadow-accent/20"
+          variant="accent"
           disabled={!canReveal}
           onClick={() => actions.reveal(activeRound.id)}
         />

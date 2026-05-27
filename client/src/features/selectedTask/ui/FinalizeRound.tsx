@@ -13,7 +13,9 @@ export const FinalizeRound = ({
   activeRound: any;
 }) => {
   const actions = useRoomActions(id);
-  const [value, setValue] = useState<string>(activeRound?.suggested_result || "");
+  const [value, setValue] = useState<string>(
+    activeRound?.suggested_result || "",
+  );
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const cardValues: string[] = snapshot?.room?.deck?.cards ?? [];

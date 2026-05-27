@@ -34,29 +34,29 @@ export const VotingDeсk = ({
   };
 
   return (
-    <div className="flex flex-col gap-4 w-full">
-      <div className="h-px w-full bg-font-muted/20" />
+    <div className="flex flex-col gap-5 w-full">
+      <div className="h-px w-full bg-gradient-to-r from-font-muted/20 via-font-muted/10 to-transparent" />
 
       {hasVoted && (
-        <div className="flex items-center gap-2 text-sm text-font-muted/60 bg-accent/5 border border-accent/20 px-3 py-1.5 rounded-lg self-start">
+        <div className="flex items-center gap-2.5 text-xs font-semibold text-accent bg-accent/10 border border-accent/20 px-4 py-2 rounded-full self-start shadow-sm shadow-accent/5">
           <CheckCircle size={14} className="text-accent" />
           <span>
-            Ваш голос —{" "}
-            <span className="text-accent font-medium">{selfVoteValue}</span>
+            Ваш голос:{" "}
+            <span className="text-font-main ml-0.5">{selfVoteValue}</span>
           </span>
         </div>
       )}
 
       {cardValues.length === 0 ? (
-        <p className="text-base text-font-muted/50">Карточки не найдены</p>
+        <p className="text-sm text-font-muted/40 italic">Карточки не найдены</p>
       ) : (
-        <>
+        <div className="flex flex-col gap-4">
           {!hasVoted && (
-            <h2 className="text-sm uppercase tracking-widest text-font-muted/60">
+            <h2 className="text-[11px] font-bold uppercase tracking-widest text-font-muted/50 ml-1">
               Выберите оценку
             </h2>
           )}
-          <div className="flex gap-2 justify-start items-end flex-wrap">
+          <div className="flex gap-2.5 justify-start items-center flex-wrap">
             {cardValues.map((val: string) => (
               <VoitingCard
                 key={val}
@@ -67,16 +67,19 @@ export const VotingDeсk = ({
               />
             ))}
           </div>
-        </>
+        </div>
       )}
 
       {!hasVoted && (
-        <Button
-          disabled={!value || isSubmitting}
-          value={isSubmitting ? "Отправка..." : "Проголосовать"}
-          onClick={handleVote}
-          variant="accent"
-        />
+        <div className="mt-2">
+          <Button
+            disabled={!value || isSubmitting}
+            value={isSubmitting ? "Отправка..." : "Проголосовать"}
+            onClick={handleVote}
+            variant="accent"
+            className="w-full"
+          />
+        </div>
       )}
     </div>
   );

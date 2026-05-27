@@ -1,4 +1,4 @@
-import { IRoomSnapshot } from "@/entities/room/model/types";
+import { IRoomSnapshot, ITask } from "@/entities/room/model/types";
 import { useSelectedTaskStore } from "../model/useSelectedTaskStore";
 import { Actions } from "@/features/selectedTask/ui/Actions";
 import { VotingDeсk } from "../../VoitingDesk/VotingDeсk";
@@ -21,7 +21,7 @@ export const SelectedTask = memo(
       selectedTask == null ? snapshot.active_round?.task_id : selectedTask;
 
     const currentTask = snapshot?.tasks?.find(
-      (t: any) => t.id === selectedTaskId,
+      (t: ITask) => t.id === selectedTaskId,
     );
 
     const activeRound = snapshot?.active_round;
@@ -34,32 +34,30 @@ export const SelectedTask = memo(
       return (
         <div
           ref={setNodeRef}
-          className={`flex-1 w-full min-h-[300px] p-8 border rounded-xl flex flex-col items-center justify-center gap-4 select-none cursor-default transition-all duration-300 will-change-transform ${
+          className={`flex-1 w-full min-h-[300px] p-8 border rounded-2xl flex flex-col items-center justify-center gap-5 select-none cursor-default transition-all duration-300 will-change-transform backdrop-blur-sm ${
             isOver
-              ? "border-accent bg-accent/10 scale-[1.02] ring-2 ring-accent/20"
+              ? "border-accent bg-accent/10 scale-[1.01] ring-2 ring-accent/20"
               : "border-font-main/10 bg-card-bg/20"
           }`}
         >
           <div
-            className={`p-4 rounded-xl transition-colors duration-300 ${isOver ? "bg-accent/20" : "bg-font-muted/5"}`}
+            className={`p-5 rounded-2xl transition-all duration-300 ${isOver ? "bg-accent/20 rotate-6" : "bg-font-muted/5"}`}
           >
             <SquareDashed
-              size={48}
+              size={52}
               className={`transition-all duration-500 ${
-                isOver
-                  ? "text-accent scale-110 rotate-12"
-                  : "text-font-muted/20"
+                isOver ? "text-accent scale-110" : "text-font-muted/20"
               }`}
             />
           </div>
-          <div className="flex flex-col items-center gap-1 text-center">
+          <div className="flex flex-col items-center gap-2 text-center">
             <span
-              className={`text-base font-medium transition-colors ${isOver ? "text-accent" : "text-font-muted/60"}`}
+              className={`text-lg font-semibold transition-colors ${isOver ? "text-accent" : "text-font-muted/60"}`}
             >
               Задача не выбрана
             </span>
-            <p className="text-sm text-font-muted/40 max-w-[200px] leading-relaxed">
-              Перетащите сюда задачу для начала обсуждения
+            <p className="text-sm text-font-muted/40 max-w-[240px] leading-relaxed">
+              Перетащите сюда задачу из списка слева для начала обсуждения
             </p>
           </div>
         </div>
@@ -69,52 +67,61 @@ export const SelectedTask = memo(
     return (
       <div
         ref={setNodeRef}
-        className={`relative flex-1 w-full border bg-card-bg rounded-xl h-full transition-all duration-300 will-change-transform overflow-hidden ${
+        className={`relative flex-1 w-full border bg-card-bg/40 backdrop-blur-md rounded-2xl transition-all duration-300 will-change-transform ${
           isOver
             ? "border-accent bg-accent/5 ring-2 ring-accent/10"
-            : "border-font-main/20"
+            : "border-font-main/15 shadow-xl shadow-black/5"
         }`}
       >
-        <div className="grid grid-cols-[2fr_3fr] h-full">
-          <div className="flex flex-col gap-4 p-5 pr-4 min-w-0">
-            <div className="flex flex-col gap-1 pr-6">
-              <span className="text-[13px] uppercase tracking-widest text-accent/70">
+        <div className="grid grid-cols-[1.5fr_2fr] h-full min-h-[400px]">
+          <div className="flex flex-col gap-5 p-6 pr-5 min-w-0">
+            <div className="flex flex-col gap-1.5 pr-6">
+              <span className="text-[11px] font-bold uppercase tracking-widest text-accent/70 mb-0.5">
                 Текущая задача
               </span>
-              <h1 className="text-2xl font-medium text-font-main leading-tight break-words">
+              <h1 className="text-2xl font-bold text-font-main leading-tight break-words tracking-tight">
                 {currentTask.title}
               </h1>
             </div>
 
             {currentTask.estimate_value && (
-              <div className="self-start flex flex-col items-center border border-accent/30 bg-accent/5 px-4 py-2 rounded-xl min-w-16">
-                <span className="text-xs uppercase tracking-widest text-font-muted/60 mb-0.5">
+              <div className="self-start flex flex-col items-center border border-accent/20 bg-accent/10 px-5 py-2.5 rounded-2xl min-w-20 shadow-inner">
+                <span className="text-[10px] font-bold uppercase tracking-widest text-font-muted/50 mb-1">
                   Оценка
                 </span>
-                <span className="text-accent font-medium text-2xl">
+                <span className="text-accent font-bold text-3xl leading-none">
                   {currentTask.estimate_value}
                 </span>
               </div>
             )}
 
-            <div className="h-px w-full bg-font-muted/20" />
+            <div className="h-px w-full bg-gradient-to-r from-font-muted/20 via-font-muted/10 to-transparent" />
 
-            <div className="flex flex-col gap-2 flex-1 min-h-0">
-              <span className="text-[13px] uppercase tracking-widest text-font-muted/60">
+            <div className="flex flex-col gap-3 flex-1 min-h-0">
+              <span className="text-[11px] font-bold uppercase tracking-widest text-font-muted/50">
                 Описание
               </span>
-              <p className="text-base text-font-main/80 leading-relaxed overflow-y-auto flex-1 scrollbar-thin scrollbar-thumb-accent/20 break-words whitespace-pre-wrap">
-                {currentTask.description || (
-                  <span className="text-font-muted/40 italic">
-                    Описание отсутствует
-                  </span>
-                )}
-              </p>
+              <div className="overflow-y-auto flex-1 scrollbar-thin scrollbar-thumb-accent/20 pr-2">
+                <p className="text-[15px] text-font-main font-medium leading-relaxed break-words whitespace-pre-wrap">
+                  {currentTask.description || (
+                    <span className="text-font-muted/30 italic font-normal">
+                      Описание отсутствует
+                    </span>
+                  )}
+                </p>
+              </div>
             </div>
           </div>
 
-          <div className="flex flex-col gap-4 p-5 pl-4 border-l border-font-muted/10">
-            {isOwner && <Actions id={id} snapshot={snapshot} />}
+          <div className="flex flex-col gap-5 p-6 pl-5 border-l border-font-muted/10 bg-inner-bg/20">
+            {isOwner && (
+              <div className="flex flex-col gap-3">
+                <span className="text-[11px] font-bold uppercase tracking-widest text-font-muted/50">
+                  Управление раундом
+                </span>
+                <Actions id={id} snapshot={snapshot} />
+              </div>
+            )}
 
             {!isThisTaskRound && (
               <RoundHistory snapshot={snapshot} taskId={selectedTaskId} />
