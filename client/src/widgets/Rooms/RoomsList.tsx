@@ -36,7 +36,7 @@ export const RoomList = ({ searchQuery = "" }: { searchQuery?: string }) => {
       <div className="text-center p-20 text-font-muted border border-dashed border-white/5 rounded-[32px] bg-white/[0.01]">
         {searchQuery
           ? `По запросу "${searchQuery}" ничего не найдено`
-          : "Список пуст. Станьте первым, кто создаст комнату!"}
+          : "Список пуст."}
       </div>
     );
   }

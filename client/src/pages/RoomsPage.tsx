@@ -1,9 +1,7 @@
 import { useState } from "react";
 import { RoomList } from "@/widgets/Rooms/RoomsList";
-import { CreateRoom } from "@/features/rooms/ui/CreateRoom";
 import { RoomSearch } from "@/features/rooms/ui/RoomSearch";
 import { LayoutGrid } from "lucide-react";
-import { JoinRoom } from "@/features/rooms/ui/JoinRoom";
 import { RoomsForm } from "@/features/rooms/ui/RoomsForm";
 
 export const RoomsPage = () => {
@@ -29,15 +27,12 @@ export const RoomsPage = () => {
           </div>
         </div>
 
-        <div
-          className="flex gap-6 items-stretch w-full"
-          style={{ height: "calc(100vh - 220px)" }}
-        >
+        <div className="flex gap-6 items-stretch w-full max-h-[600px]">
           <div className="flex-1 min-w-0 bg-main-bg border border-font-muted/20 rounded-2xl flex flex-col overflow-hidden">
             <div className="p-5 border-b border-font-main/5 shrink-0">
               <RoomSearch value={searchQuery} onChange={setSearchQuery} />
             </div>
-            <div className="flex-1 overflow-y-auto p-5 rooms-scroll bg-card-bg/40">
+            <div className="flex-1 overflow-y-auto p-5 rooms-scroll bg-card-bg/40 min-h-[600px]">
               <RoomList searchQuery={searchQuery} />
             </div>
           </div>
@@ -50,7 +45,6 @@ export const RoomsPage = () => {
         </div>
       </main>
 
-      {/* Стили скроллбара */}
       <style>{`
         .rooms-scroll {
           scrollbar-width: thin;

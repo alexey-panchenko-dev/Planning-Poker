@@ -50,7 +50,6 @@ export const JoinRoom = () => {
       <div className="w-full">
         <Input
           placeholder="Введите код или ссылку"
-          variant="default2"
           value={inputValue}
           onChange={(e) => {
             setInputValue(e.target.value);
@@ -64,7 +63,6 @@ export const JoinRoom = () => {
         type="submit"
         value={isPending ? "Подключение..." : "Присоединиться"}
         disabled={isPending}
-        className="w-full rounded-xl py-3"
       />
     </form>
   );

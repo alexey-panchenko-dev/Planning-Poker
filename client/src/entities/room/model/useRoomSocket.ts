@@ -23,7 +23,7 @@ export const useRoomSocket = (roomId: string) => {
       socketRef.current = socket;
 
       socket.onopen = () => {
-        console.log("✅ WebSocket Connected");
+        console.log("WebSocket Connected");
         if (reconnectTimerRef.current) {
           clearTimeout(reconnectTimerRef.current);
           reconnectTimerRef.current = null;
@@ -39,7 +39,7 @@ export const useRoomSocket = (roomId: string) => {
             data.type === "presence.changed"
           ) {
             console.log(
-              `🔄 Получено WS-событие [${data.type}]. Инвалидируем кэш...`,
+              `Получено WS-событие [${data.type}]. Инвалидируем кэш...`,
             );
 
             queryClient.invalidateQueries({
@@ -47,22 +47,22 @@ export const useRoomSocket = (roomId: string) => {
             });
           }
         } catch (err) {
-          console.error("❌ Message parse error", err);
+          console.error("Message parse error", err);
         }
       };
 
       socket.onclose = (e) => {
-        console.log("🔌 Connection closed:", e.code);
+        console.log("Connection closed:", e.code);
         if (e.code !== 1000) {
           reconnectTimerRef.current = setTimeout(() => {
-            console.log("🔄 Attempting to reconnect...");
+            console.log("Attempting to reconnect...");
             connect();
           }, 3000);
         }
       };
 
       socket.onerror = (err) => {
-        console.error("⚠️ WS Error:", err);
+        console.error("WS Error:", err);
         socket.close();
       };
     };

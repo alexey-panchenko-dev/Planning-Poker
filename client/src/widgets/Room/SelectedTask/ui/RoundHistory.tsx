@@ -57,7 +57,7 @@ export const RoundHistory = ({
         )}
       </div>
 
-      <div className="relative overflow-hidden bg-inner-bg/40 p-3 rounded-xl border border-font-main/5 flex items-center justify-between h-11 min-h-11">
+      <div className="relative overflow-hidden bg-card-bg/40 p-3 rounded-xl border border-font-main/5 flex items-center justify-between h-11 min-h-11">
         <span className="text-font-muted/80 text-base font-medium">
           Раунд {currentIndex + 1}
         </span>

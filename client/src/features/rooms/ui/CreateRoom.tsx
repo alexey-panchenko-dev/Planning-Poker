@@ -10,7 +10,6 @@ export const CreateRoom = () => {
   const [description, setDescription] = useState("");
   const [selectedDeck, setSelectedDeck] = useState("fibonacci");
 
-  // Состояние для открытия/закрытия выпадающего списка колод
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -21,10 +20,8 @@ export const CreateRoom = () => {
     queryFn: getDeckPresets,
   });
 
-  // Поиск выбранной колоды для отображения в шапке селектора
   const currentDeck = decks?.find((d: any) => d.code === selectedDeck);
 
-  // Закрытие селектора при клике вне его области
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -56,16 +53,16 @@ export const CreateRoom = () => {
     <form onSubmit={handleSubmit} className="flex flex-col gap-5 w-full">
       <div className="space-y-4">
         <Input
-          label="Название комнаты"
+          label="Название"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          placeholder="например: SPRINT PLANNING #42"
+          placeholder="Введите название комнаты..."
         />
         <Input
           label="Описание (необязательно)"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
-          placeholder="О чем будем договариваться?"
+          placeholder="Введите описание комнаты..."
         />
       </div>
 

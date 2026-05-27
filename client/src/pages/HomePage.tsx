@@ -5,8 +5,13 @@ import {
   MousePointerClick,
   MessageSquare,
   BarChart3,
+  KeyRound,
+  PlusCircle,
+  ArrowUpRight,
 } from "lucide-react";
 import { JoinRoom } from "@/features/rooms/ui/JoinRoom";
+import { Link } from "react-router";
+import { Button } from "@/shared";
 
 export const HomePage = () => {
   const steps = [
@@ -56,8 +61,6 @@ export const HomePage = () => {
           атмосфере спокойствия и фокуса
         </p>
 
-        <JoinRoom />
-
         <div className="absolute bottom-10 animate-bounce opacity-20">
           <div className="w-[1px] h-12 bg-gradient-to-b from-transparent to-font-main" />
         </div>
@@ -86,6 +89,61 @@ export const HomePage = () => {
               </p>
             </div>
           ))}
+        </div>
+      </section>
+
+      <section className="relative z-10 w-full max-w-[1200px] px-6 py-12 my-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 items-stretch">
+          <div className="relative group overflow-hidden rounded-2xl bg-card-bg/10 border border-font-muted/10 backdrop-blur-sm p-8 md:p-10 shadow-2xl transition-all duration-300 hover:border-accent/20 flex flex-col justify-between gap-8">
+            <div className="absolute -z-10 -bottom-24 -right-24 w-48 h-48 bg-accent opacity-5 group-hover:opacity-10 blur-[60px] rounded-full transition-opacity duration-500" />
+
+            <div className="flex flex-col items-start text-left">
+              <div className="mb-4 p-3 rounded-xl bg-accent/10 text-accent shadow-inner">
+                <KeyRound size={22} />
+              </div>
+
+              <h2 className="text-2xl md:text-3xl font-bold mb-3 tracking-tight text-font-main">
+                Есть приглашение?
+              </h2>
+
+              <p className="text-font-muted text-base leading-relaxed max-w-md">
+                Вставьте код комнаты или персональную ссылку ниже, чтобы
+                мгновенно подключиться к сессии планирования вашей команды.
+              </p>
+            </div>
+
+            <div className="w-full mt-auto">
+              <div className="">
+                <JoinRoom />
+              </div>
+            </div>
+          </div>
+
+          <div className="relative group overflow-hidden rounded-2xl bg-card-bg/10 border border-font-muted/10 backdrop-blur-sm p-8 md:p-10 shadow-2xl transition-all duration-300 hover:border-accent/20 flex flex-col justify-between gap-8">
+            <div className="absolute -z-10 -bottom-24 -right-24 w-48 h-48 bg-accent opacity-5 group-hover:opacity-10 blur-[60px] rounded-full transition-opacity duration-500" />
+
+            <div className="flex flex-col items-start text-left">
+              <div className="mb-4 p-3 rounded-xl bg-accent/10 text-accent shadow-inner ring-1 ring-accent/20">
+                <PlusCircle size={22} />
+              </div>
+
+              <h2 className="text-2xl md:text-3xl font-bold mb-3 tracking-tight text-font-main">
+                Нет ссылки? Создайте свою
+              </h2>
+
+              <p className="text-font-muted text-base leading-relaxed max-w-md">
+                Перейдите в панель управления комнатами. Там вы сможете
+                управлять своими активными сессиями или запустить совершенно
+                новое планирование.
+              </p>
+            </div>
+
+            <div className="w-full mt-auto">
+              <Link to="/rooms">
+                <Button value="Перейти к списку комнат" className="w-full" />
+              </Link>
+            </div>
+          </div>
         </div>
       </section>
 

@@ -15,7 +15,8 @@ export const RoomCard = ({
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const { mutate: deleteRoom, isPending } = useDeleteRoom();
 
-  const handleDelete = () => {
+  const handleDelete = (e: any) => {
+    e.preventDefault();
     deleteRoom(id, {
       onSuccess: () => setIsDeleteModalOpen(false),
     });
@@ -77,36 +78,38 @@ export const RoomCard = ({
         onClose={() => setIsDeleteModalOpen(false)}
         title="Удаление комнаты"
       >
-        <div className="flex flex-col items-center text-center gap-4">
-          <div className="w-16 h-16 bg-danger/10 text-danger rounded-full flex items-center justify-center">
-            <AlertTriangle size={32} />
-          </div>
+        <form onSubmit={handleDelete}>
+          <div className="flex flex-col items-center text-center gap-4">
+            <div className="w-16 h-16 bg-danger/10 text-danger rounded-full flex items-center justify-center">
+              <AlertTriangle size={32} />
+            </div>
 
-          <div className="space-y-2">
-            <p className="text-font-main font-medium text-lg">
-              Вы уверены, что хотите удалить комнату "{name}"?
-            </p>
-            <p className="text-font-muted text-sm leading-relaxed">
-              Это действие необратимо. Все задачи и история голосований будут
-              удалены навсегда.
-            </p>
-          </div>
+            <div className="space-y-2">
+              <p className="text-font-main font-medium text-lg">
+                Вы уверены, что хотите удалить комнату "{name}"?
+              </p>
+              <p className="text-font-muted text-sm leading-relaxed">
+                Это действие необратимо. Все задачи и история голосований будут
+                удалены навсегда.
+              </p>
+            </div>
 
-          <div className="flex gap-3 w-full mt-4">
-            <Button
-              value="Отмена"
-              variant="ghost"
-              onClick={() => setIsDeleteModalOpen(false)}
-              className="flex-1 rounded-2xl"
-            />
-            <Button
-              value={isPending ? "Удаление..." : "Удалить"}
-              variant="danger"
-              onClick={handleDelete}
-              className="flex-1 rounded-2xl"
-            />
+            <div className="flex gap-3 w-full mt-4">
+              <Button
+                value="Отмена"
+                variant="ghost"
+                onClick={() => setIsDeleteModalOpen(false)}
+                className="flex-1 rounded-2xl"
+              />
+              <Button
+                value={isPending ? "Удаление..." : "Удалить"}
+                variant="danger"
+                type="submit"
+                className="flex-1 rounded-2xl"
+              />
+            </div>
           </div>
-        </div>
+        </form>
       </Modal>
     </>
   );

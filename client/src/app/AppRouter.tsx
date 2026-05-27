@@ -7,7 +7,6 @@ import { LoginPage } from "@/pages/LoginPage";
 import { HomePage } from "@/pages/HomePage";
 import { RoomsPage } from "@/pages/RoomsPage";
 import { RoomPage } from "@/pages/RoomPage";
-import { ProfilePage } from "@/pages/ProfilePage";
 import { InvitePage } from "@/pages/InvitePage";
 
 import { GuardAuth } from "@/app/Guard/GuardAuth";
@@ -28,14 +27,6 @@ export const AppRouter = createBrowserRouter([
     children: [
       { path: "/", element: <HomePage /> },
       { path: "/auth", element: <LoginPage /> },
-      {
-        path: "/profile",
-        element: (
-          <GuardAuth>
-            <ProfilePage />
-          </GuardAuth>
-        ),
-      },
       {
         path: "/rooms",
         element: (

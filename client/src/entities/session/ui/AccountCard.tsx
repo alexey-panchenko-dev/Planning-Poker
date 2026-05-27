@@ -66,21 +66,12 @@ export const AccountCard = () => {
               Мои комнаты
             </Link>
 
-            <Link
-              to="/profile"
-              onClick={() => setIsOpen(false)}
-              className="flex items-center gap-3 px-4 py-2 text-sm text-font-main hover:bg-accent/10 hover:text-accent transition-colors"
-            >
-              <User size={14} />
-              Профиль
-            </Link>
-
             <button
               onClick={() => {
                 setIsOpen(false);
                 logout();
               }}
-              className="w-full flex items-center gap-3 px-4 py-2 text-sm text-danger hover:bg-danger/10 transition-colors"
+              className="w-full flex items-center gap-3 px-4 py-2 text-sm text-danger hover:bg-danger/15 transition-colors cursor-pointer"
             >
               <LogOut size={14} />
               Выйти
