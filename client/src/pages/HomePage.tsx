@@ -12,6 +12,7 @@ import { JoinRoom } from "@/features/rooms/ui/JoinRoom";
 import { Link } from "react-router";
 import { Button } from "@/shared";
 import { ChooseCardCharacter } from "@/shared/ui/characters/ChooseCardCharacter";
+import { CharacterCreate } from "@/shared/ui/characters/CharacterCreate";
 
 export const HomePage = () => {
   const steps = [
@@ -66,6 +67,18 @@ export const HomePage = () => {
         </div>
       </section>
 
+      <div className="w-full max-w-[1150px] px-6 my-12">
+        <div className="w-full h-auto overflow-hidden rounded-2xl relative">
+          <div className="absolute -z-10 inset-0 bg-accent opacity-5 blur-xl group-hover:opacity-10 transition-opacity duration-500" />
+
+          <img
+            src="/Banner1.png"
+            alt="IHP Banner"
+            className="w-full h-auto object-contain object-center transition-transform duration-700 group-hover:scale-[1.01]"
+          />
+        </div>
+      </div>
+
       <section className="relative z-10 w-full max-w-6xl px-6 py-24">
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold mb-4">Как это работает?</h2>
@@ -93,6 +106,9 @@ export const HomePage = () => {
       </section>
 
       <section className="relative z-10 w-full max-w-[1200px] px-6 py-12 my-16">
+        <div className="w-full mb-10">
+          <CharacterCreate size={60} />
+        </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 items-stretch">
           <div className="relative group overflow-hidden rounded-2xl bg-card-bg/10 border border-font-muted/10 backdrop-blur-sm p-8 md:p-10 shadow-2xl transition-all duration-300 hover:border-accent/20 flex flex-col justify-between gap-8">
             <div className="absolute -z-10 -bottom-24 -right-24 w-48 h-48 bg-accent opacity-5 group-hover:opacity-10 blur-[60px] rounded-full transition-opacity duration-500" />

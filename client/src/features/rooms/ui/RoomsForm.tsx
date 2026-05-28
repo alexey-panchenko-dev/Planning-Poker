@@ -32,8 +32,6 @@ export const RoomsForm = () => {
       <div className="transition-all duration-300 dynamic-form-container">
         {activeTab === "join" ? <JoinRoom /> : <CreateRoom />}
       </div>
-
-      <CharacterCreate size={40} />
     </div>
   );
 };
