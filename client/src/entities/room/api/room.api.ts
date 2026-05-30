@@ -2,7 +2,6 @@ import { apiInstance } from "@/shared/api/base";
 
 export const getRooms = async () => {
   const response = await apiInstance.get("/rooms");
-  console.log(response.data);
   return response.data;
 };
 

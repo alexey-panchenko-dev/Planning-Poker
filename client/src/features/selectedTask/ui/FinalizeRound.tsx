@@ -20,13 +20,6 @@ export const FinalizeRound = ({
 
   const cardValues: string[] = snapshot?.room?.deck?.cards ?? [];
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const val = e.target.value.toUpperCase();
-    if (val.length <= 3) {
-      setValue(val);
-    }
-  };
-
   const handleFinalize = async () => {
     if (!value || isSubmitting || !activeRound?.id) return;
     setIsSubmitting(true);
@@ -59,13 +52,9 @@ export const FinalizeRound = ({
       )}
 
       <div className="flex items-end gap-3 w-full p-4">
-        <div className="flex-1">
-          <Input
-            label="Или введите вручную"
-            value={value}
-            onChange={(e) => handleChange(e)}
-            placeholder="Например: 5, 13, ?"
-          />
+        <div className="flex w-full items-end justify-start gap-2">
+          <h2 className="text-[16px] text-font-muted">Вы выбрали: </h2>
+          <div className="text-accent font-semibold text-[16px]">{value}</div>
         </div>
         <Button
           disabled={!value || isSubmitting}

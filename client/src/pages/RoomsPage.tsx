@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { RoomList } from "@/widgets/Rooms/RoomsList";
 import { RoomSearch } from "@/features/rooms/ui/RoomSearch";
 import { LayoutGrid, HelpCircle } from "lucide-react";
@@ -12,8 +12,7 @@ export const RoomsPage = () => {
 
   const handleTourEvent = (data: any) => {
     const { status } = data;
-    if (([STATUS.FINISHED, STATUS.SKIPPED] as string[]).includes(status)) {
-      localStorage.setItem("hasSeenRoomsTour", "true");
+    if ((STATUS.FINISHED as string).includes(status)) {
       setRunTour(false);
     }
   };
@@ -86,10 +85,8 @@ export const RoomsPage = () => {
         onEvent={handleTourEvent}
         locale={{
           back: "Назад",
-          close: "Закрыть",
           last: "Завершить",
           next: "Далее",
-          skip: "Пропустить",
         }}
         options={{
           primaryColor: "#1f60ee",
