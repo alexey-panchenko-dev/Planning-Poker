@@ -35,7 +35,7 @@ const DROP_ANIMATION_CONFIG = {
 
 export const RoomPage = () => {
   const { id } = useParams<{ id: string }>();
-  const { data: snapshot, isLoading } = roomSnapshot(id);
+  const { data: snapshot, isLoading, error } = roomSnapshot(id);
   useRoomSocket(id ?? "");
   const initSelectedTaskId = useSelectedTaskStore(
     (state) => state.initSelectedTaskId,
@@ -138,7 +138,7 @@ export const RoomPage = () => {
   };
 
   return (
-    <GuardQuery isLoading={isLoading}>
+    <GuardQuery isLoading={isLoading} error={error}>
       <DndContext
         sensors={sensors}
         onDragStart={handleDragStart}
