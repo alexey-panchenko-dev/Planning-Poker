@@ -1,7 +1,7 @@
 import { Task } from "../model/types";
 import { DeleteTaskBtn } from "@/features/task/ui/DeleteTaskBtn";
 import { Button } from "@/shared";
-import { SquareDashed, GripVertical } from "lucide-react";
+import { SquareDashed, GripVertical, Pencil } from "lucide-react";
 import { useSelectedTaskStore } from "@/widgets/Room/SelectedTask/model/useSelectedTaskStore";
 import { useDraggable } from "@dnd-kit/core";
 import { memo } from "react";
@@ -10,9 +10,10 @@ interface TaskCardProps {
   task: Task;
   isOwner: boolean;
   snapshot: any;
+  onEdit?: (task: Task) => void;
 }
 
-const TaskCard = memo(({ task, isOwner, snapshot }: TaskCardProps) => {
+const TaskCard = memo(({ task, isOwner, snapshot, onEdit }: TaskCardProps) => {
   const isCurrent = useSelectedTaskStore(
     (state) => state.selectedTask === task.id,
   );
@@ -78,11 +79,7 @@ const TaskCard = memo(({ task, isOwner, snapshot }: TaskCardProps) => {
         {task.description || "Без описания"}
       </p>
 
-      <div className={`grid ${isOwner ? "grid-cols-2" : "grid-cols-1"} gap-2`}>
-        {isOwner && !isDisabled && !isRoundActive && (
-          <DeleteTaskBtn taskId={task.id} />
-        )}
-
+      <div className={`grid ${isOwner ? "grid-cols-3" : "grid-cols-1"} gap-2`}>
         <Button
           onClick={() => setSelectedTaskId(task.id)}
           className={`rounded-xl p-2.5 ${!isOwner ? "w-full" : ""} ${isSelectionDisabled ? "pointer-events-none" : ""}`}
@@ -98,6 +95,17 @@ const TaskCard = memo(({ task, isOwner, snapshot }: TaskCardProps) => {
           }
           disabled={isRoundActive}
         />
+        {isOwner && !isDisabled && !isRoundActive && (
+          <>
+            <Button
+              onClick={() => onEdit?.(task)}
+              className="rounded-xl p-2.5 border-success/30 hover:border-success/50 hover:bg-success/5 text-success"
+              variant="ghost"
+              value={<Pencil size={18} />}
+            />
+            <DeleteTaskBtn taskId={task.id} />
+          </>
+        )}
       </div>
     </div>
   );

@@ -1,7 +1,7 @@
-// CreateTaskForm.tsx
 import { Input, Button } from "@/shared";
 import { useTaskOperations, useTaskForm } from "../model/tasks.hooks";
 import { useState } from "react";
+import { Task } from "@/entities/task/model/types";
 
 interface FormErrors {
   title?: string;
@@ -11,12 +11,17 @@ interface FormErrors {
 export const CreateTaskForm = ({
   roomId,
   onSuccess,
+  task,
 }: {
   roomId: string;
   onSuccess?: () => void;
+  task?: Task;
 }) => {
-  const { create } = useTaskOperations(roomId);
-  const { values, handleChange, setValues } = useTaskForm();
+  const { create, update } = useTaskOperations(roomId);
+  const initialData = task
+    ? { title: task.title, description: task.description }
+    : undefined;
+  const { values, handleChange, setValues } = useTaskForm(initialData);
   const [errors, setErrors] = useState<FormErrors>({});
 
   const validate = (): boolean => {
@@ -47,17 +52,36 @@ export const CreateTaskForm = ({
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!validate()) return;
-    create.mutate(
-      { ...values, position: 0 },
-      {
-        onSuccess: () => {
-          setValues({ title: "", description: "" });
-          setErrors({});
-          onSuccess?.();
+
+    if (task) {
+      console.log("Updating task:", task.id, values);
+      update.mutate(
+        { taskId: task.id, data: values },
+        {
+          onSuccess: () => {
+            onSuccess?.();
+          },
+          onError: (err) => {
+            console.error("Update error:", err);
+          },
         },
-      },
-    );
+      );
+    } else {
+      console.log("Creating task:", values);
+      create.mutate(
+        { ...values, position: 0 },
+        {
+          onSuccess: () => {
+            setValues({ title: "", description: "" });
+            setErrors({});
+            onSuccess?.();
+          },
+        },
+      );
+    }
   };
+
+  const isPending = create.isPending || update.isPending;
 
   return (
     <form onSubmit={onSubmit} className="flex flex-col gap-4">
@@ -98,8 +122,16 @@ export const CreateTaskForm = ({
 
       <Button
         type="submit"
-        value={create.isPending ? "Создание..." : "Создать задачу"}
-        disabled={create.isPending}
+        value={
+          isPending
+            ? task
+              ? "Сохранение..."
+              : "Создание..."
+            : task
+              ? "Сохранить изменения"
+              : "Создать задачу"
+        }
+        disabled={isPending}
         className="mt-1 py-4"
       />
     </form>

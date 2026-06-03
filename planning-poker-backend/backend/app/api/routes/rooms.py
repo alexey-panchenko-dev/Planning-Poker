@@ -112,7 +112,7 @@ async def update_task(
     current_user: User = Depends(get_current_user),
 ) -> TaskResponse:
     task = RoomService(db).update_task(room_id, task_id, payload, current_user)
-    await room_connection_manager.broadcast_snapshot(room_id, "task.updated", {"reason": "task_updated"})
+    await room_connection_manager.broadcast_snapshot(room_id, "room.snapshot", {"reason": "task_updated"})
     return TaskResponse.model_validate(task)
 
 

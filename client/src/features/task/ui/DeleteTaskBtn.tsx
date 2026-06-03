@@ -16,7 +16,7 @@ export const DeleteTaskBtn = ({ taskId }: { taskId: string }) => {
     <Button
       onClick={handleDelete}
       disabled={remove.isPending}
-      variant="danger"
+      variant="ghost"
       className="rounded-xl p-2.5"
       value={<Trash2 size={18} />}
     />

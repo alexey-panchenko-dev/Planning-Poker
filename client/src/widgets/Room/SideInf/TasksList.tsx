@@ -6,9 +6,15 @@ interface TasksListProps {
   tasks: Task[];
   isOwner: boolean;
   snapshot: any;
+  onEdit?: (task: Task) => void;
 }
 
-export const TasksList = ({ tasks, isOwner, snapshot }: TasksListProps) => {
+export const TasksList = ({
+  tasks,
+  isOwner,
+  snapshot,
+  onEdit,
+}: TasksListProps) => {
   if (tasks.length === 0) {
     return (
       <div className="w-full py-8 flex flex-col items-center justify-center gap-2 border border-dashed border-font-muted/20 rounded-xl text-font-muted/50 h-[400px]">
@@ -40,6 +46,7 @@ export const TasksList = ({ tasks, isOwner, snapshot }: TasksListProps) => {
           task={task}
           isOwner={isOwner}
           snapshot={snapshot}
+          onEdit={onEdit}
         />
       ))}
     </div>

@@ -4,6 +4,7 @@ import { Button } from "@/shared";
 import { useState } from "react";
 import { createPortal } from "react-dom";
 import { X } from "lucide-react";
+import { Task } from "@/entities/task/model/types";
 
 interface ITasks {
   snapshot: any;
@@ -12,6 +13,17 @@ interface ITasks {
 
 export const Tasks = ({ snapshot, isOwner }: ITasks) => {
   const [isModal, setIsModal] = useState(false);
+  const [editingTask, setEditingTask] = useState<Task | null>(null);
+
+  const handleEdit = (task: Task) => {
+    setEditingTask(task);
+    setIsModal(true);
+  };
+
+  const handleClose = () => {
+    setIsModal(false);
+    setEditingTask(null);
+  };
 
   return (
     <div className="flex flex-col gap-4 flex-1 min-h-0">
@@ -33,6 +45,7 @@ export const Tasks = ({ snapshot, isOwner }: ITasks) => {
           isOwner={isOwner}
           tasks={snapshot.tasks}
           snapshot={snapshot}
+          onEdit={handleEdit}
         />
       </div>
 
@@ -41,10 +54,10 @@ export const Tasks = ({ snapshot, isOwner }: ITasks) => {
           <div className="absolute inset-0 bg-main-bg z-50 p-6 flex flex-col animate-in fade-in slide-in-from-bottom-4 duration-300">
             <div className="flex justify-between items-center mb-6">
               <h2 className="text-xl font-bold text-font-main tracking-tight">
-                Создать задачу
+                {editingTask ? "Изменить задачу" : "Создать задачу"}
               </h2>
               <button
-                onClick={() => setIsModal(false)}
+                onClick={handleClose}
                 className="p-2 hover:bg-font-muted/10 rounded-full transition-colors text-font-muted cursor-pointer"
               >
                 <X size={20} />
@@ -54,7 +67,8 @@ export const Tasks = ({ snapshot, isOwner }: ITasks) => {
             <div className="flex-1 overflow-y-auto pr-1 scrollbar-thin scrollbar-thumb-accent/20">
               <CreateTaskForm
                 roomId={snapshot.room.id}
-                onSuccess={() => setIsModal(false)}
+                task={editingTask || undefined}
+                onSuccess={handleClose}
               />
             </div>
           </div>,

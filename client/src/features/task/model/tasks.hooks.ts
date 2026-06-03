@@ -31,12 +31,14 @@ export const useTaskOperations = (roomId: string) => {
   };
 };
 
-export const useTaskForm = (initialData = { title: "", description: "" }) => {
-  const [values, setValues] = useState(initialData);
+export const useTaskForm = (initialData?: { title: string; description: string }) => {
+  const [values, setValues] = useState(initialData || { title: "", description: "" });
 
   useEffect(() => {
-    setValues(initialData);
-  }, [initialData.title, initialData.description]);
+    if (initialData) {
+      setValues(initialData);
+    }
+  }, [initialData?.title, initialData?.description]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
